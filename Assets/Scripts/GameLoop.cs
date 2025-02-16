@@ -11,6 +11,9 @@ public class GameLoop : MonoBehaviour
     const float DEFAULT_WATER_MULTIPLIER = 1.0f;
     const float DEFAULT_ENERGY_MULTIPLIER = 1.0f;
 
+    const float BIRTHRATE = 0.01f;                        // increase in population based on births
+    const float DEATHRATE = 0.009f;                         // decrease in population based on deaths
+
     // Time-related
     public float tickrate;     // speed of ticks/second, with a tick being a month in game
     public float timeScale;
@@ -20,6 +23,8 @@ public class GameLoop : MonoBehaviour
 
     // gameplay-related
     public int population;
+
+
     public float approval;  // value between 0 and 1
 
     // RESOURCES
@@ -38,8 +43,12 @@ public class GameLoop : MonoBehaviour
     private float energyDemandMult;
     public float energyProduction;
 
-    // Financial
-
+    // FINANCIAL
+    // all monetary values are in millions of dollars
+    public float treasury;          // money stored
+    public float taxRate;
+    public float totalDebt;
+    public float debtInterestRate;      // rate by how much TotalDebt increases each tick
 
     // Start is called when the game starts playing (i.e., as soon as MainScene is loaded)
     void Start()
@@ -83,11 +92,19 @@ public class GameLoop : MonoBehaviour
         months++;
         // get food, water and energy production from respective handlers
 
+        //  only thing that affects food is population
+        foodDemand = population * foodDemandMult;
         // calculate demand
 
         // update revenue and debt
 
+        // if there isn't enough water or food, people die off and/or emmigrate
+
+        // if there isn't enough energy, people emmigrate
+
         // update approval
+
+        // higher approval rate increases immigration
 
     }
 
