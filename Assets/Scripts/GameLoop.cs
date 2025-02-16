@@ -3,32 +3,96 @@ using UnityEngine;
 
 public class GameLoop : MonoBehaviour
 {
+    // CONSTANT VALUES
     const float DEFAULT_TICK_RATE = 0.1429f;        // 1 tick per 7 seconds
-    //const float SLOW_TICK_RATE = 0.0714f;
-    //const float FAST_TICK_RATE = 0.2857f;
+    const int STARTING_POPULATION = 10000;
+
+    const float DEFAULT_FOOD_MULTIPLIER = 1.0f;
+    const float DEFAULT_WATER_MULTIPLIER = 1.0f;
+    const float DEFAULT_ENERGY_MULTIPLIER = 1.0f;
+
+    // Time-related
     public float tickrate;     // speed of ticks/second, with a tick being a month in game
+    public float timeScale;
+    private float prevTickTime;
+
+    public int months;
+
+    // gameplay-related
+    public int population;
+    public float approval;  // value between 0 and 1
+
+    // RESOURCES
+    // food
+    public float foodDemand;
+    private float foodDemandMult;
+    public float foodProduction;
+
+    // water
+    public float waterDemand;
+    private float waterDemandMult;
+    public float waterProduction;
+
+    // energy
+    public float energyDemand;
+    private float energyDemandMult;
+    public float energyProduction;
+
+    // Financial
 
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // Start is called when the game starts playing (i.e., as soon as MainScene is loaded)
     void Start()
     {
+        // time initialization
         tickrate = DEFAULT_TICK_RATE;
+        prevTickTime = Time.time;
+        timeScale = 1.0f;
+        months = 0;
+        // game initialization
+        population = STARTING_POPULATION;
+        foodDemandMult = DEFAULT_FOOD_MULTIPLIER;
+        waterDemandMult = DEFAULT_WATER_MULTIPLIER;
+        energyDemandMult = DEFAULT_ENERGY_MULTIPLIER;
+
+        // initialize handlers
 
     }
 
     void Update()
     {
-        // goal: make ticks occur once every (1/tickrate) * time.timeScale seconds seconds
-        // 
+        // goal: make ticks occur once every (1/tickrate) / time.timeScale seconds seconds
+        // if timescale = 0.5, result should be 2/tickrate seconds between ticks
+        // if timescale = 2, result should be 0.5/tickrate seconds between ticks
+        Time.timeScale = Mathf.Clamp(timeScale, 0f, 2f);
+        if (Time.time > prevTickTime + (1 / tickrate / Time.timeScale))
+        {
+            Tick();
+            prevTickTime = Time.time;
+        }
+
     }
 
 
 
     // execute a single tick in the game
     // a tick represents one game month
-    private void tick()
+    private void Tick()
     {
         Debug.Log("Executing a tick at " + Time.time);
+        months++;
+        // get food, water and energy production from respective handlers
+
+        // calculate demand
+
+        // update revenue and debt
+
+        // update approval
+
+    }
+
+    private void EndGame()
+    {
+        // go to start scene
     }
 }
