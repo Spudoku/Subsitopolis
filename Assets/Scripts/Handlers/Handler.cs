@@ -9,11 +9,10 @@ public abstract class Handler
 
 
     // how much funding is needed for optimal production
+    // higher values do not improve production
     protected float maxFunding;     // maximum funding based on demand
 
-    // how much the ratio of production / demand affects production of this resource. Between 0 and 1.
-    // 0 does not affect it at all, 1 has an enormous effect
-
+    // how much of each resource is needed for optimal production of 1 unit of this resource
     protected float foodFactor;
     protected float waterFactor;
     protected float energyFactor;
