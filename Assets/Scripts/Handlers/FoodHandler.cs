@@ -12,7 +12,7 @@ public class FoodHandler : Handler
         foodFactor = 0;             // 0 million tons of food
         waterFactor = 3.0f;         // 1 million gallons of water
         energyFactor = 1.0f;        // 1 megawatt-hour of energy
-        maxFunding = 2f;           // 2 million dollars per ton of food
+        maxFunding = 0.001f;           // $1000 dollars per ton of food
 
 
 

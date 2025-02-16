@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -14,8 +15,12 @@ public class GameLoop : MonoBehaviour
 
     const float IMMIGRATION_MULTIPLIER = 0.0005f;
 
+    const float DEFAULT_INTEREST_RATE = 0.0042f;            // ~5% interest annually
+
     const float BIRTHRATE = 0.001f;                        // increase in population based on births
     const float DEATHRATE = 0.0009f;                         // decrease in population based on deaths
+
+    const float DEFAULT_TAX_RATE = 0.0004f;              // $400/month/citizen (on average)
 
     // Time-related
     public float tickrate;     // speed of ticks/second, with a tick being a month in game
@@ -81,6 +86,10 @@ public class GameLoop : MonoBehaviour
         treasury = STARTING_TREASURY;
 
         approval = 0.5f;
+
+        totalDebt = 0f;
+        debtInterestRate = 0f;
+
         // initialize handlers
         fh = new FoodHandler();
         fh.Initialze();
@@ -128,7 +137,7 @@ public class GameLoop : MonoBehaviour
         // calculate demand for each resource
 
         // update revenue and debt
-
+        UpdateFinances();
         // if there isn't enough water or food, people die off and/or emmigrate
 
 
@@ -145,7 +154,7 @@ public class GameLoop : MonoBehaviour
         int deaths = 0;
         population -= deaths;
         population += births;
-        Debug.Log("Month " + months + ": births = " + births + ", deaths = " + deaths + ", total population =  " + population);
+        Debug.Log("Month " + months + ": births = " + births + ", deaths = " + deaths + ", total population =  " + population + ", treasury =  " + treasury + " millions of dollars");
 
 
         // losing condition: approval falls below 20% or population is less than 2000
@@ -176,5 +185,10 @@ public class GameLoop : MonoBehaviour
         foodDemand = population * foodDemandMult;
         waterDemand = population * waterDemandMult;
         energyDemand = population * energyDemandMult;
+    }
+
+    private void UpdateFinances()
+    {
+        treasury += population * taxRate;
     }
 }
