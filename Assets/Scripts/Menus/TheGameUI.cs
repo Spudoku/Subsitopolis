@@ -30,6 +30,19 @@ public class TheGameUI : MonoBehaviour
     private Button debtDecButton;
     private Button debtIncButton;
 
+    // PRODUCTION/DEMAND LABELS
+    private Label energyProdLabel;
+    private Label energyDemLabel;
+
+    private Label waterProdLabel;
+    private Label waterDemLabel;
+
+    private Label foodProdLabel;
+    private Label foodDemLabel;
+
+
+    // FUDING LABELS
+
     void Awake()
     {
         doc = GetComponent<UIDocument>();
@@ -42,12 +55,26 @@ public class TheGameUI : MonoBehaviour
         // onclick event:
         // button.RegisterCallback<ClickEvent>();
 
+        // REGISTERING BUTTONS
+
+
+        // registering labels
+        energyProdLabel = doc.rootVisualElement.Q<Label>("energy-prod");
+        energyDemLabel = doc.rootVisualElement.Q<Label>("energy-dem");
+
         // register callbacks
         buttons = doc.rootVisualElement.Query<Button>().ToList();
         foreach (Button b in buttons)
         {
             b.RegisterCallback<ClickEvent>(OnAllButtonClick);
         }
+    }
+
+    // Update all production/demand labels
+    public void Tick()
+    {
+        energyProdLabel.text = $"{gameLoop.energyProduction}mwh";
+        energyDemLabel.text = $"{gameLoop.energyDemand}mwh";
     }
 
     void OnDsable()

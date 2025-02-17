@@ -115,6 +115,8 @@ public class GameLoop : MonoBehaviour
 
         // UI initialization
         ui = GetComponent<TheGameUI>();
+
+        Tick();
     }
 
     void Update()
@@ -173,6 +175,10 @@ public class GameLoop : MonoBehaviour
         Debug.Log("Month " + months + ": births = " + births + ", deaths = " + deaths);
 
 
+        // update UI
+        ui.Tick();
+
+
         // losing condition: approval falls below 20% or population is less than 2000
         if (approval < 0.2f || population < STARTING_POPULATION * 0.2f)
         {
@@ -223,7 +229,7 @@ public class GameLoop : MonoBehaviour
         GUI.Label(new Rect(10, 30, 300, 40), $"Treasury: ${treasury}M");
         GUI.Label(new Rect(10, 50, 300, 70), $"Population: {population}");
         GUI.Label(new Rect(10, 70, 300, 90), $"Approval Rating: {Mathf.Round(approval * 100f)}%");
-        GUI.Label(new Rect(10, 90, 300, 110), $"Total Debt: ${totalDebt}M");
+        GUI.Label(new Rect(10, 90, 300, 110), $"Total Debt: ${Mathf.Round(totalDebt * 100.0f) * 0.01f}M");
 
         GUI.Label(new Rect(10, 300, 300, 310), $"Food production: {foodProduction}");
         GUI.Label(new Rect(10, 320, 300, 330), $"Food demand: {foodDemand}");
