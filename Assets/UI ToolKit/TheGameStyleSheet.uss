@@ -1,8 +1,12 @@
+* {
+    box-sizing: border-box;
+}
+
 .container {
-    margin-top: 20px;
-    margin-right: 20px;
-    margin-bottom: 20px;
-    margin-left: 20px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
 }
 
 .button {
@@ -27,6 +31,7 @@
 }
 
 .stat-container {
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .news-tab {
@@ -34,6 +39,7 @@
     max-height: 100%;
     min-height: 100%;
     min-width: 100px;
+    background-color: rgba(0, 0, 0, 0.96);
 }
 
 .side-menu {
@@ -61,8 +67,20 @@ resourceholder {
     padding-left: 2px;
     font-size: 24px;
     -unity-text-align: upper-center;
+    color: rgb(255, 255, 255);
+    -unity-font-definition: url("project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&guid=585188cdc4600544eb408bee749e4b3a&type=3#ThaleahFat_TTF");
 }
 
 .side-menu {
     background-color: rgba(63, 60, 60, 0);
+}
+
+.resource-holder {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.stat-increment {
+}
+
+.stat-decrement {
 }
