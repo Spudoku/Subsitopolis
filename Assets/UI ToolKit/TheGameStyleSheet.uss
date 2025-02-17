@@ -11,7 +11,35 @@
 }
 
 .resource-holder {
+    width: 30%;
+    height: 100%;
+    min-width: 30%;
+    min-height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    opacity: 1;
+    visibility: visible;
 }
 
 .container {
+}
+
+.resource-holder {
+}
+
+.resource-icon {
+    min-width: 300px;
+    min-height: 300px;
+    max-width: 60%;
+    max-height: 60%;
+}
+
+.stat-container {
+}
+
+.news-tab {
+    max-width: 20%;
+    max-height: 100%;
+    min-height: 100%;
+    min-width: 100px;
 }

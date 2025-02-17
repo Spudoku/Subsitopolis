@@ -1,11 +1,15 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20ToolKit/TheGameStyleSheet.uss?fileID=7433441132597879392&amp;guid=c3fa82a365af9ea4495e7fff60f0a6a0&amp;type=3#TheGameStyleSheet" />
-    <engine:VisualElement class="container" style="flex-grow: 1;">
-        <engine:VisualElement class="resource-holder" style="flex-grow: 1; width: 30%; height: 100%; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px;">
-            <engine:Button text="-" name="Decrement" style="width: 50px; height: 50px; font-size: 40px; -unity-text-align: middle-center; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; padding-right: 10px; padding-left: 10px;" />
-            <engine:Button text="+" name="Increment" parse-escape-sequences="false" style="width: 50px; height: 50px; font-size: 40px; -unity-text-align: middle-center; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; padding-right: 10px; padding-left: 10px;" />
+    <engine:VisualElement name="root" style="flex-grow: 1; flex-direction: row; align-items: auto; background-color: rgba(140, 24, 24, 0);">
+        <engine:VisualElement name="Resource-Manager" class="container" style="flex-grow: 1; align-items: flex-end; justify-content: space-around; flex-direction: row;">
+            <engine:VisualElement name="Food" class="resource-holder" style="flex-grow: 1; width: 30%; height: 100%; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px; flex-direction: row;" />
+            <engine:VisualElement name="Icon" class="resource-icon" style="flex-grow: 1; flex-direction: column; width: 300px; height: 300px; min-width: auto; min-height: auto; max-width: none; max-height: none;" />
+            <engine:VisualElement name="stat-container" style="flex-grow: 1;">
+                <engine:Button text="-" name="Decrement" style="width: 50px; height: 50px; font-size: 40px; -unity-text-align: middle-center; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; padding-right: 10px; padding-left: 10px;" />
+                <engine:Button text="+" name="Increment" parse-escape-sequences="false" style="width: 50px; height: 50px; font-size: 40px; -unity-text-align: middle-center; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; padding-right: 10px; padding-left: 10px;" />
+            </engine:VisualElement>
         </engine:VisualElement>
+        <engine:VisualElement name="side-menu" class="container" style="flex-grow: 1;" />
+        <engine:VisualElement name="news-tab" class="container news-tab" style="flex-grow: 1; height: 50px; background-color: rgba(203, 12, 12, 0);" />
     </engine:VisualElement>
-    <engine:VisualElement class="container" style="flex-grow: 1; height: 50px;" />
-    <engine:VisualElement class="container" style="flex-grow: 1;" />
 </engine:UXML>
