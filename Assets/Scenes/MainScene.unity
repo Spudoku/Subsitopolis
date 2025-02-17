@@ -150,11 +150,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tickrate: 0
   timeScale: 0
+  months: 0
   population: 0
-  foodDemand: 0
-  waterDemand: 0
-  energyDemand: 0
+  immigrationRate: 0
   approval: 0
+  foodDemand: 0
+  foodProduction: 0
+  netFood: 0
+  waterDemand: 0
+  waterProduction: 0
+  energyDemand: 0
+  energyProduction: 0
+  treasury: 0
+  taxRate: 0
+  totalDebt: 0
+  debtInterestRate: 0
+  foodFunding: 0
+  waterFunding: 0
+  energyFunding: 0
 --- !u!4 &112811894
 Transform:
   m_ObjectHideFlags: 0
@@ -186,7 +199,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &171247628
 SpriteRenderer:
   m_ObjectHideFlags: 0

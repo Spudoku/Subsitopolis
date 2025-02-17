@@ -1,5 +1,4 @@
-using System;
-using System.Collections;
+
 using UnityEngine;
 
 public class GameLoop : MonoBehaviour
@@ -7,7 +6,9 @@ public class GameLoop : MonoBehaviour
     // CONSTANT VALUES
     const float DEFAULT_TICK_RATE = 0.25f;        // 1 tick per 4 seconds
     const int STARTING_POPULATION = 10000;
-    const float STARTING_TREASURY = 10000000f;
+    const float STARTING_TREASURY = 100f;
+
+    const float STARTING_DEBT = 5f;
 
     const float DEFAULT_FOOD_MULTIPLIER = 1.0f;
     const float DEFAULT_WATER_MULTIPLIER = 1.0f;
@@ -17,8 +18,8 @@ public class GameLoop : MonoBehaviour
 
     const float DEFAULT_INTEREST_RATE = 0.0042f;            // ~5% interest annually
 
-    const float BIRTHRATE = 0.001f;                        // increase in population based on births
-    const float DEATHRATE = 0.0009f;                         // decrease in population based on deaths
+    const float BIRTHRATE = 0.01f;                        // increase in population based on births
+    const float DEATHRATE = 0.009f;                         // decrease in population based on deaths
 
     const float DEFAULT_TAX_RATE = 0.0004f;              // $400/month/citizen (on average)
 
@@ -87,8 +88,9 @@ public class GameLoop : MonoBehaviour
 
         approval = 0.5f;
 
-        totalDebt = 0f;
-        debtInterestRate = 0f;
+        totalDebt = STARTING_DEBT;
+        debtInterestRate = DEFAULT_INTEREST_RATE;
+        taxRate = DEFAULT_TAX_RATE;
 
         // initialize handlers
         fh = new FoodHandler();
@@ -150,11 +152,11 @@ public class GameLoop : MonoBehaviour
         // higher approval rate increases immigration
 
         // change population based on births and deaths
-        int births = 0;
-        int deaths = 0;
+        int births = (int)(population * BIRTHRATE * Random.Range(0.75f, 1.25f));
+        int deaths = (int)(population * DEATHRATE * Random.Range(0.75f, 1.25f));
         population -= deaths;
         population += births;
-        Debug.Log("Month " + months + ": births = " + births + ", deaths = " + deaths + ", total population =  " + population + ", treasury =  " + treasury + " millions of dollars");
+        Debug.Log("Month " + months + ": births = " + births + ", deaths = " + deaths);
 
 
         // losing condition: approval falls below 20% or population is less than 2000
@@ -171,6 +173,8 @@ public class GameLoop : MonoBehaviour
 
 
         // go to start scene
+
+        Application.Quit();
     }
 
 
@@ -189,6 +193,29 @@ public class GameLoop : MonoBehaviour
 
     private void UpdateFinances()
     {
-        treasury += population * taxRate;
+        float taxRevenue = population * taxRate;
+
+        Debug.Log("Taxes collected: " + taxRevenue);
+        treasury += taxRevenue;
+
+        totalDebt += totalDebt * debtInterestRate;
+
+    }
+
+    void OnGUI()
+    {
+
+        GUI.Label(new Rect(10, 10, 300, 20), $"Month: {months}");
+        GUI.Label(new Rect(10, 30, 300, 40), $"Treasury: ${treasury}M");
+        GUI.Label(new Rect(10, 50, 300, 70), $"Population: {population}");
+        GUI.Label(new Rect(10, 70, 300, 90), $"Approval Rating: {Mathf.Round(approval * 100f)}%");
+        GUI.Label(new Rect(10, 90, 300, 110), $"Total Debt: ${totalDebt}M");
+
+        GUI.Label(new Rect(10, 300, 300, 310), $"Food production: {foodProduction}");
+        GUI.Label(new Rect(10, 320, 300, 330), $"Food demand: {foodDemand}");
+        GUI.Label(new Rect(10, 340, 300, 350), $"Water production: {waterProduction}");
+        GUI.Label(new Rect(10, 360, 300, 370), $"Water demand: {waterDemand}");
+        GUI.Label(new Rect(10, 380, 300, 390), $"Energy production: {energyProduction}");
+        GUI.Label(new Rect(10, 400, 300, 410), $"Energy demand: {energyDemand}");
     }
 }
