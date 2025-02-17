@@ -1,18 +1,18 @@
 using UnityEngine;
 
 
-// Food is measured in millions tons/month
+// Food is measured in tons/month
 public class FoodHandler : Handler
 {
 
 
     public override void Initialze()
     {
-        // to produce 1 million tons of food, you need:
+        // to produce 1 ton of food, you need:
         foodFactor = 0;             // 0 million tons of food
-        waterFactor = 3.0f;         // 1 million gallons of water
-        energyFactor = 1.0f;        // 1 megawatt-hour of energy
-        maxFunding = 0.001f;           // $1000 dollars per ton of food
+        waterFactor = 0.01f;         // 10000 gallons of water
+        energyFactor = 0.5f;        // 0.5 megawatt-hours of energy
+        maxFunding = 0.0001f;           // $100 dollars per ton of food
 
 
 

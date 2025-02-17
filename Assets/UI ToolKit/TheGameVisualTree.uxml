@@ -1,23 +1,23 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20ToolKit/TheGameStyleSheet.uss?fileID=7433441132597879392&amp;guid=c3fa82a365af9ea4495e7fff60f0a6a0&amp;type=3#TheGameStyleSheet" />
-    <engine:VisualElement name="root" style="flex-grow: 1; flex-direction: row; align-items: auto; background-color: rgb(96, 60, 60); border-top-width: 20px; border-right-width: 20px; border-bottom-width: 20px; border-left-width: 20px;">
+    <engine:VisualElement name="root" style="flex-grow: 1; flex-direction: row; align-items: auto; background-color: rgb(61, 60, 96); border-top-width: 20px; border-right-width: 20px; border-bottom-width: 20px; border-left-width: 20px;">
         <engine:VisualElement name="side-menu" class="container side-menu" style="flex-grow: 1; width: 10%; height: 100%; max-width: 100px; max-height: 100%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; background-color: rgb(63, 60, 60);" />
         <engine:VisualElement name="Resource-Manager" class="container" style="flex-grow: 1; align-items: flex-end; justify-content: space-around; flex-direction: column; height: 100%;">
             <engine:VisualElement name="Basic-Resources" class="container" style="flex-grow: 1; width: 100%; flex-direction: row;">
-                <engine:VisualElement name="Energy" class="resource-holder" style="flex-grow: 1; width: 30%; height: 80%; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; padding-top: 30px; padding-right: 30px; padding-bottom: 30px; padding-left: 30px; flex-direction: column; max-width: 30%;">
-                    <engine:VisualElement name="Icon" class="resource-icon" style="flex-grow: 1; flex-direction: column; width: initial; height: initial; min-width: 20%; min-height: 20%; max-width: 900px; max-height: 900px; justify-content: space-evenly; align-self: center; background-image: url(&quot;project://database/Assets/Graphics/Textures/Icons/energy.png?fileID=2800000&amp;guid=cffaef795afda4a488aecbfca378f46f&amp;type=3#energy&quot;);" />
-                    <engine:VisualElement name="stat-container" style="flex-grow: 1; flex-direction: column;">
+                <engine:VisualElement name="Energy" class="resource-holder" style="flex-grow: 1; width: 30%; height: 80%; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px; flex-direction: column; max-width: 30%;">
+                    <engine:VisualElement name="Icon" class="resource-icon" style="flex-grow: 1; flex-direction: column; width: 60%; height: 60%; min-width: 20%; min-height: 20%; max-width: 200px; max-height: 200px; justify-content: space-evenly; align-self: center; background-image: url(&quot;project://database/Assets/Graphics/Textures/Icons/energy.png?fileID=2800000&amp;guid=cffaef795afda4a488aecbfca378f46f&amp;type=3#energy&quot;);" />
+                    <engine:VisualElement name="stat-container" class="stat-container" style="flex-grow: 1; flex-direction: column;">
                         <engine:Label text="Energy" name="stat-name" class="stat-label" style="margin-top: 12px; margin-right: 12px; margin-bottom: 12px; margin-left: 12px; font-size: 36px;" />
-                        <engine:VisualElement name="Funding-section" style="flex-grow: 1; flex-direction: row; margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px;">
-                            <engine:Button text="-" name="Decrement" style="width: 50px; height: 50px; font-size: 40px; -unity-text-align: middle-center; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; padding-right: 10px; padding-left: 10px; background-color: rgb(212, 47, 47);" />
-                            <engine:Label text="$100M/month" name="funding" class="resource-label" style="width: 179px;" />
-                            <engine:Button text="+" name="Increment" parse-escape-sequences="false" style="width: 50px; height: 50px; font-size: 40px; -unity-text-align: middle-center; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; padding-right: 10px; padding-left: 10px; background-color: rgb(67, 190, 48);" />
+                        <engine:VisualElement name="Funding-section" style="flex-grow: 1; flex-direction: row; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;">
+                            <engine:Button text="-" name="energy-dec" class="stat-decrement" style="width: 50px; height: 50px; font-size: 40px; -unity-text-align: middle-center; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; padding-right: 10px; padding-left: 10px; background-color: rgb(212, 47, 47);" />
+                            <engine:Label text="$100M/month" name="funding" class="resource-label" style="width: 179px; -unity-font-definition: url(&quot;project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&quot;); color: rgb(255, 254, 254); margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px;" />
+                            <engine:Button text="+" name="energy-inc" parse-escape-sequences="false" class="stat-increment" style="width: 50px; height: 50px; font-size: 40px; -unity-text-align: middle-center; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; padding-right: 10px; padding-left: 10px; background-color: rgb(67, 190, 48);" />
                         </engine:VisualElement>
                     </engine:VisualElement>
                 </engine:VisualElement>
             </engine:VisualElement>
             <engine:VisualElement name="Finances" style="flex-grow: 1; width: 100%; height: 40px;" />
         </engine:VisualElement>
-        <engine:VisualElement name="news-tab" class="container news-tab" style="flex-grow: 1; height: 50px; background-color: rgba(203, 12, 12, 0);" />
+        <engine:VisualElement name="news-tab" class="container news-tab" style="flex-grow: 1; height: 50px; background-color: rgba(0, 0, 0, 0.73); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;" />
     </engine:VisualElement>
 </engine:UXML>

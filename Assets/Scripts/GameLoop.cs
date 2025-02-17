@@ -12,9 +12,10 @@ public class GameLoop : MonoBehaviour
 
     const float STARTING_DEBT = 5f;
 
-    const float DEFAULT_FOOD_MULTIPLIER = 1.0f;
-    const float DEFAULT_WATER_MULTIPLIER = 1.0f;
-    const float DEFAULT_ENERGY_MULTIPLIER = 1.0f;
+    const float DEFAULT_FOOD_MULTIPLIER = 0.114f;          // tons of food per person per month
+    const float DEFAULT_WATER_MULTIPLIER = 0.003f;          // millions of gallons of water per person per month
+    const float DEFAULT_ENERGY_MULTIPLIER = 0.0006f;        // megawatt-hours of energy per person per month
+
 
     const float IMMIGRATION_MULTIPLIER = 0.0005f;
 
@@ -71,6 +72,12 @@ public class GameLoop : MonoBehaviour
     public float foodFunding;
     public float waterFunding;
     public float energyFunding;
+
+
+    // these values will be enough to cover the starting population's needs
+    public float startingFoodFunding;
+    public float startingWaterFunding;
+    public float startingEnergyFunding;
 
     // UI communication
     TheGameUI ui;

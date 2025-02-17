@@ -9,10 +9,26 @@ public class TheGameUI : MonoBehaviour
     private UIDocument doc;
     private GameLoop gameLoop;
 
-    private List<Button> buttons = new List<Button>();
+    private List<Button> buttons = new();
 
     private AudioSource audioSource;
 
+
+    // INCREMENT/DECREMENT BUTTONS
+    private Button energyDecButton;
+    private Button energyIncButton;
+
+    private Button foodDecButton;
+    private Button foodIncButton;
+
+    private Button waterDecButton;
+    private Button waterIncButton;
+
+    private Button taxDecButton;
+    private Button taxIncButton;
+
+    private Button debtDecButton;
+    private Button debtIncButton;
 
     void Awake()
     {
@@ -45,13 +61,23 @@ public class TheGameUI : MonoBehaviour
         }
     }
 
-    private void OnPlayGameClick(ClickEvent ev)
-    {
-        Debug.Log("Test Button");
-    }
-
     private void OnAllButtonClick(ClickEvent evt)
     {
         audioSource.Play();
+    }
+
+
+    // Increment/decrement buttons
+
+    // "Energy Decrement Click"
+    private void OnEnergyDecClick(ClickEvent evt)
+    {
+        // decrement funding for Energy
+    }
+
+    private void OnEnergyIncClick(ClickEvent evt)
+    {
+        // increment funding for Energy
+
     }
 }
