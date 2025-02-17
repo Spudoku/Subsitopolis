@@ -1,4 +1,12 @@
 # Credits to assets I've used in this project
 
+#SOUND EFFECTS
+Button Click 1.wav by Mellau -- https://freesound.org/s/506054/ -- License: Attribution NonCommercial 4.0
+(renamed to "button_click_generic")
+
+calm city ambience 01 200316_0124.wav by klankbeeld -- https://freesound.org/s/514470/ -- License: Attribution 4.0
+(renamed to "city_ambient_1")
+
+
 # Tutorials that helped me make this
 "Get started with UI Toolkit in Unity": https://www.youtube.com/watch?v=_jtj73lu2Ko
