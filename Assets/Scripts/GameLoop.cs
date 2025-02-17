@@ -1,6 +1,8 @@
 
 using UnityEngine;
+using UnityEngine.UIElements;
 
+[RequireComponent(typeof(TheGameUI))]
 public class GameLoop : MonoBehaviour
 {
     // CONSTANT VALUES
@@ -70,7 +72,9 @@ public class GameLoop : MonoBehaviour
     public float waterFunding;
     public float energyFunding;
 
-    // Start is called when the game starts playing (i.e., as soon as MainScene is loaded)
+    // UI communication
+    TheGameUI ui;
+
     void Start()
     {
         // time initialization
@@ -101,6 +105,9 @@ public class GameLoop : MonoBehaviour
 
         wh = new WaterHandler();
         wh.Initialze();
+
+        // UI initialization
+        ui = GetComponent<TheGameUI>();
     }
 
     void Update()

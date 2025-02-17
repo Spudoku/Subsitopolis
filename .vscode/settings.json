@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Subsitopolis.sln"
+    "dotnet.defaultSolution": "Subsidopolis.sln"
 }
