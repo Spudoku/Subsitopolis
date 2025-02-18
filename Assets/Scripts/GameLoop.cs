@@ -146,17 +146,20 @@ public class GameLoop : MonoBehaviour
     // a tick represents one game month
     private void Tick()
     {
-        Debug.Log($"EnergyFinding: {energyFunding}, waterFunding: {waterFunding}, foodFunding: {foodFunding}");
+        //Debug.Log($"EnergyFinding: {energyFunding}, waterFunding: {waterFunding}, foodFunding: {foodFunding}");
         months++;
         // get food, water and energy production from respective handlers
+
+        // get demand from energy, water and food
+
+        // get production from energy, water and food
         fh.Tick();
         wh.Tick();
         eh.Tick();
+        UpdateDemand();
 
         UpdateProduction();
 
-        //  only thing that affects food is population
-        foodDemand = population * foodDemandMult;
 
 
         // calculate demand for each resource
@@ -201,10 +204,15 @@ public class GameLoop : MonoBehaviour
 
         // go to start scene
 
-        Application.Quit();
+        //Application.Quit();
     }
 
-
+    private void UpdateDemand()
+    {
+        foodDemand = population * foodDemandMult + eh.endFoodDem + wh.endFoodDem + fh.endFoodDem;
+        waterDemand = population * waterDemandMult + eh.endWaterDem + wh.endWaterDem + fh.endWaterDem;
+        energyDemand = population * energyDemandMult + eh.endEnergyDem + wh.endEnergyDem + fh.endEnergyDem;
+    }
     private void UpdateProduction()
     {
         foodProduction = fh.production;
@@ -213,10 +221,10 @@ public class GameLoop : MonoBehaviour
 
         // calculate demand
         // each citizen eats foodDemandMult tons of food each month
-        foodDemand = population * foodDemandMult + eh.endFoodDem + wh.endFoodDem + fh.endFoodDem;
-        waterDemand = population * waterDemandMult + eh.endWaterDem + wh.endWaterDem + fh.endWaterDem;
-        energyDemand = population * energyDemandMult + eh.endEnergyDem + wh.endEnergyDem + fh.endEnergyDem;
+
     }
+
+
 
     private void UpdateFinances()
     {

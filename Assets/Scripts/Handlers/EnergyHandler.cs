@@ -7,6 +7,7 @@ using UnityEngine.Rendering;
 // energy is measured in megawatt hours/month
 public class EnergyHandler : Handler
 {
+
     public override void Initialze()
     {
 
@@ -21,6 +22,24 @@ public class EnergyHandler : Handler
 
     }
 
+    public override float GetDemand()
+    {
+        // calculate demand:
+        // get maximum number of units possible given current funding
+        // update demand accordingly
+        throw new NotImplementedException();
+    }
+
+    public override float GetProduction()
+    {
+        // get production:
+        // get total production of each resource
+        // find smallest number of units
+        // produce that many units
+        throw new NotImplementedException();
+    }
+
+
     public override void Tick()
     {
 
@@ -31,7 +50,7 @@ public class EnergyHandler : Handler
         HypotheticalUnits();
 
         float finalUnits = Mathf.Min(unitsWithFood, unitsWithEnergy, unitsWithWater, units);
-        Debug.Log($"[EnergyHandler] food units: {unitsWithFood}, units with Energy: {unitsWithEnergy}, units with Water: {unitsWithWater}, funding units: {units}, finalUnits: {finalUnits}");
+        //Debug.Log($"[EnergyHandler] food units: {unitsWithFood}, units with Energy: {unitsWithEnergy}, units with Water: {unitsWithWater}, funding units: {units}, finalUnits: {finalUnits}");
 
         // spend resouces!
         endEnergyDem = finalUnits * energyFactor;
