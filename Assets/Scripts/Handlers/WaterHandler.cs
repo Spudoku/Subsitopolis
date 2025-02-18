@@ -13,32 +13,24 @@ public class WaterHandler : Handler
         energyFactor = 0.5f;        // half a megawatt hour per million gallons water
         maxFunding = 0.001f;        // $1000 per million gallons of water
     }
-    public override float GetDemand()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override float GetProduction()
-    {
-        throw new System.NotImplementedException();
-    }
 
 
 
-    public override void Tick()
-    {
-        float units = funding / maxFunding;
-        HypotheticalUnits();
 
-        float finalUnits = Mathf.Min(unitsWithFood, unitsWithEnergy, unitsWithWater, units);
-        //Debug.Log($"[WaterHandler] food units: {unitsWithFood}, units with Energy: {unitsWithEnergy}, units with Water: {unitsWithWater}, funding units: {units}, finalUnits: {finalUnits}");
+    // public override void Tick()
+    // {
+    //     float units = funding / maxFunding;
+    //     HypotheticalUnits();
 
-        // spend resouces!
-        endEnergyDem = finalUnits * energyFactor;
-        endWaterDem = finalUnits * waterFactor;
-        endFoodDem = finalUnits * foodFactor;
+    //     float finalUnits = Mathf.Min(unitsWithFood, unitsWithEnergy, unitsWithWater, units);
+    //     //Debug.Log($"[WaterHandler] food units: {unitsWithFood}, units with Energy: {unitsWithEnergy}, units with Water: {unitsWithWater}, funding units: {units}, finalUnits: {finalUnits}");
 
-        production = finalUnits;
+    //     // spend resouces!
+    //     endEnergyDem = finalUnits * energyFactor;
+    //     endWaterDem = finalUnits * waterFactor;
+    //     endFoodDem = finalUnits * foodFactor;
 
-    }
+    //     production = finalUnits;
+
+    // }
 }
