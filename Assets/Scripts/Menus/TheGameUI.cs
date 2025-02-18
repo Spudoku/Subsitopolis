@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.Controls;
 using UnityEngine.UIElements;
 [RequireComponent(typeof(GameLoop))]
 [RequireComponent(typeof(AudioSource))]
 public class TheGameUI : MonoBehaviour
 {
     const float FUNDING_DELTA_AMOUNT = 0.25f;
+    const float TAX_DELTA_AMOUNT = 0.01f;
     private UIDocument doc;
     private GameLoop gameLoop;
 
@@ -40,6 +42,9 @@ public class TheGameUI : MonoBehaviour
     private Label foodProdLabel;
     private Label foodDemLabel;
 
+    private Label taxAmtLabel;              // how much is earned through taxes
+    private Label taxRateLabel;             // rate of citizen income that is taxed
+
     // TOTAL FUNDING LABELS
     private Label energyFundingLabel;
 
@@ -73,6 +78,11 @@ public class TheGameUI : MonoBehaviour
 
         foodProdLabel.text = $"{Round.RoundToPlaces(gameLoop.foodProduction, 2)}";
         foodDemLabel.text = $"{Round.RoundToPlaces(gameLoop.foodDemand, 2)}";
+
+        taxAmtLabel.text = $"{Round.RoundToPlaces(gameLoop.taxRate * gameLoop.population * gameLoop.citizenIncome, 2)}";
+        taxRateLabel.text = $"{Round.RoundToPlaces(gameLoop.taxRate * 100f, 2)}";
+
+        // tax labels
     }
 
     void OnDsable()
@@ -89,6 +99,9 @@ public class TheGameUI : MonoBehaviour
 
         waterDecButton.UnregisterCallback<ClickEvent>(OnWaterDecClick);
         waterIncButton.UnregisterCallback<ClickEvent>(OnWaterIncClick);
+
+        taxDecButton.UnregisterCallback<ClickEvent>(OnTaxDecClick);
+        taxIncButton.UnregisterCallback<ClickEvent>(OnTaxIncClick);
 
         foreach (Button b in buttons)
         {
@@ -137,12 +150,23 @@ public class TheGameUI : MonoBehaviour
         UpdateFoodFunding(FUNDING_DELTA_AMOUNT);
     }
 
+    private void OnTaxDecClick(ClickEvent evt)
+    {
+        UpdateTaxRate(-TAX_DELTA_AMOUNT);
+    }
+
+    private void OnTaxIncClick(ClickEvent evt)
+    {
+        UpdateTaxRate(TAX_DELTA_AMOUNT);
+    }
+
     public void UpdateAllLabels()
     {
         // update labels
         UpdateEnergyFunding(0);
         UpdateWaterFunding(0);
         UpdateFoodFunding(0);
+        UpdateTaxRate(0);
 
         energyProdLabel.text = $"{Round.RoundToPlaces(gameLoop.energyProduction, 2)}";
         energyDemLabel.text = $"{Round.RoundToPlaces(gameLoop.energyDemand, 2)}";
@@ -152,6 +176,8 @@ public class TheGameUI : MonoBehaviour
 
         foodProdLabel.text = $"{Round.RoundToPlaces(gameLoop.foodProduction, 2)}";
         foodDemLabel.text = $"{Round.RoundToPlaces(gameLoop.foodDemand, 2)}";
+
+
     }
 
     private void UpdateEnergyFunding(float amount)
@@ -184,6 +210,19 @@ public class TheGameUI : MonoBehaviour
         foodFundingLabel.text = $"{Round.RoundToPlaces(gameLoop.foodFunding, 2)}";
     }
 
+    private void UpdateTaxRate(float amount)
+    {
+        gameLoop.taxRate += amount;
+        if (gameLoop.taxRate < 0f)
+        {
+            gameLoop.taxRate = 0f;
+        }
+        else if (gameLoop.taxRate > 1.0f)
+        {
+            gameLoop.taxRate = 1f;
+        }
+        taxRateLabel.text = $"{gameLoop.taxRate}%";
+    }
 
     public void InitAll()
     {
@@ -203,6 +242,11 @@ public class TheGameUI : MonoBehaviour
         foodDecButton.RegisterCallback<ClickEvent>(OnFoodDecClick);
         foodIncButton.RegisterCallback<ClickEvent>(OnFoodIncClick);
 
+        taxDecButton = doc.rootVisualElement.Q<Button>("tax-dec");
+        taxIncButton = doc.rootVisualElement.Q<Button>("tax-inc");
+        taxDecButton.RegisterCallback<ClickEvent>(OnTaxDecClick);
+        taxIncButton.RegisterCallback<ClickEvent>(OnTaxIncClick);
+
         // registering labels
         energyProdLabel = doc.rootVisualElement.Q<Label>("energy-prod");
         energyDemLabel = doc.rootVisualElement.Q<Label>("energy-dem");
@@ -215,6 +259,9 @@ public class TheGameUI : MonoBehaviour
         foodProdLabel = doc.rootVisualElement.Q<Label>("food-prod");
         foodDemLabel = doc.rootVisualElement.Q<Label>("food-dem");
         foodFundingLabel = doc.rootVisualElement.Q<Label>("food-funding");
+
+        taxRateLabel = doc.rootVisualElement.Q<Label>("tax-rate");
+        taxAmtLabel = doc.rootVisualElement.Q<Label>("tax-prod");
 
         // register callbacks
         buttons = doc.rootVisualElement.Query<Button>().ToList();
