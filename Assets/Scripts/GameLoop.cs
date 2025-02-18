@@ -26,6 +26,8 @@ public class GameLoop : MonoBehaviour
 
     const float DEFAULT_TAX_RATE = 0.0004f;              // $400/month/citizen (on average)
 
+    const float STARTING_FUNDING_AMT = 1.0f;
+
     // Time-related
     public float tickrate;     // speed of ticks/second, with a tick being a month in game
     public float timeScale;
@@ -75,9 +77,7 @@ public class GameLoop : MonoBehaviour
 
 
     // these values will be enough to cover the starting population's needs
-    public float startingFoodFunding;
-    public float startingWaterFunding;
-    public float startingEnergyFunding;
+
 
     // UI communication
     TheGameUI ui;
@@ -102,6 +102,10 @@ public class GameLoop : MonoBehaviour
         totalDebt = STARTING_DEBT;
         debtInterestRate = DEFAULT_INTEREST_RATE;
         taxRate = DEFAULT_TAX_RATE;
+
+        waterFunding = STARTING_FUNDING_AMT;
+        energyFunding = STARTING_FUNDING_AMT;
+        foodFunding = STARTING_FUNDING_AMT;
 
         // initialize handlers
         Handler.gl = this;

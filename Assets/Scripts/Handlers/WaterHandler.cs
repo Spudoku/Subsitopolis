@@ -16,9 +16,18 @@ public class WaterHandler : Handler
 
     public override void Tick()
     {
-        // calculate production based on funding
+        float units = funding / maxFunding;
+        HypotheticalUnits();
 
-        // calculate demand based on production
+        float finalUnits = Mathf.Min(unitsWithFood, unitsWithEnergy, unitsWithWater, units);
+        Debug.Log($"[WaterHandler] food units: {unitsWithFood}, units with Energy: {unitsWithEnergy}, units with Water: {unitsWithWater}, funding units: {units}, finalUnits: {finalUnits}");
+
+        // spend resouces!
+        endEnergyDem = finalUnits * energyFactor;
+        endWaterDem = finalUnits * waterFactor;
+        endFoodDem = finalUnits * foodFactor;
+
+        production = finalUnits;
 
     }
 }

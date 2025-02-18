@@ -43,7 +43,7 @@ public abstract class Handler
             }
             else
             {
-                unitsWithFood = (gl.foodProduction - gl.foodDemand) * foodFactor;
+                unitsWithFood = Mathf.Max((gl.foodProduction - gl.foodDemand) * foodFactor, 0); ;
             }
 
             if (waterFactor == 0)
@@ -52,7 +52,7 @@ public abstract class Handler
             }
             else
             {
-                unitsWithWater = (gl.waterProduction - gl.waterDemand) * waterFactor;
+                unitsWithWater = Mathf.Max((gl.waterProduction - gl.waterDemand) * waterFactor, 0);
             }
 
             if (energyFactor == 0)
@@ -61,7 +61,7 @@ public abstract class Handler
             }
             else
             {
-                unitsWithEnergy = (gl.energyProduction - gl.energyDemand) * energyFactor;
+                unitsWithEnergy = Mathf.Max((gl.energyProduction - gl.energyDemand) * energyFactor, 0);
             }
 
 
