@@ -33,6 +33,9 @@ public abstract class Handler
     public abstract void Initialze();
     public abstract void Tick();
 
+    public abstract float GetDemand();
+    public abstract float GetProduction();
+
     protected void HypotheticalUnits()
     {
         if (gl != null)
