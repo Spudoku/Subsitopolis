@@ -50,7 +50,7 @@ public class TheGameUI : MonoBehaviour
 
     // FUDING LABELS
 
-    void Awake()
+    void Start()
     {
         doc = GetComponent<UIDocument>();
         gameLoop = GetComponent<GameLoop>();
@@ -68,10 +68,28 @@ public class TheGameUI : MonoBehaviour
         energyDecButton.RegisterCallback<ClickEvent>(OnEnergyDecClick);
         energyIncButton.RegisterCallback<ClickEvent>(OnEnergyIncClick);
 
+        waterDecButton = doc.rootVisualElement.Q<Button>("water-dec");
+        waterIncButton = doc.rootVisualElement.Q<Button>("water-inc");
+        waterDecButton.RegisterCallback<ClickEvent>(OnWaterDecClick);
+        waterIncButton.RegisterCallback<ClickEvent>(OnWaterIncClick);
+
+        foodDecButton = doc.rootVisualElement.Q<Button>("food-dec");
+        foodIncButton = doc.rootVisualElement.Q<Button>("food-inc");
+        foodDecButton.RegisterCallback<ClickEvent>(OnFoodDecClick);
+        foodIncButton.RegisterCallback<ClickEvent>(OnFoodIncClick);
+
         // registering labels
         energyProdLabel = doc.rootVisualElement.Q<Label>("energy-prod");
         energyDemLabel = doc.rootVisualElement.Q<Label>("energy-dem");
         energyFundingLabel = doc.rootVisualElement.Q<Label>("energy-funding");
+
+        waterProdLabel = doc.rootVisualElement.Q<Label>("water-prod");
+        waterDemLabel = doc.rootVisualElement.Q<Label>("water-dem");
+        waterFundingLabel = doc.rootVisualElement.Q<Label>("water-funding");
+
+        foodProdLabel = doc.rootVisualElement.Q<Label>("food-prod");
+        foodDemLabel = doc.rootVisualElement.Q<Label>("food-dem");
+        foodFundingLabel = doc.rootVisualElement.Q<Label>("food-funding");
 
         // register callbacks
         buttons = doc.rootVisualElement.Query<Button>().ToList();
@@ -100,6 +118,11 @@ public class TheGameUI : MonoBehaviour
         energyDecButton.UnregisterCallback<ClickEvent>(OnEnergyDecClick);
         energyIncButton.UnregisterCallback<ClickEvent>(OnEnergyIncClick);
 
+        waterDecButton.UnregisterCallback<ClickEvent>(OnWaterDecClick);
+        waterIncButton.UnregisterCallback<ClickEvent>(OnWaterIncClick);
+
+        waterDecButton.UnregisterCallback<ClickEvent>(OnWaterDecClick);
+        waterIncButton.UnregisterCallback<ClickEvent>(OnWaterIncClick);
 
         foreach (Button b in buttons)
         {
@@ -128,6 +151,26 @@ public class TheGameUI : MonoBehaviour
         UpdateEnergyFunding(FUNDING_DELTA_AMOUNT);
     }
 
+    private void OnWaterDecClick(ClickEvent evt)
+    {
+        UpdateWaterFunding(-FUNDING_DELTA_AMOUNT);
+    }
+
+    private void OnWaterIncClick(ClickEvent evt)
+    {
+        UpdateWaterFunding(FUNDING_DELTA_AMOUNT);
+    }
+
+    private void OnFoodDecClick(ClickEvent evt)
+    {
+        UpdateFoodFunding(-FUNDING_DELTA_AMOUNT);
+    }
+
+    private void OnFoodIncClick(ClickEvent evt)
+    {
+        UpdateFoodFunding(FUNDING_DELTA_AMOUNT);
+    }
+
 
     private void UpdateEnergyFunding(float amount)
     {
@@ -139,5 +182,24 @@ public class TheGameUI : MonoBehaviour
         energyFundingLabel.text = $"{Round.RoundToPlaces(gameLoop.energyFunding, 2)}";
     }
 
+    private void UpdateWaterFunding(float amount)
+    {
+        gameLoop.waterFunding += amount;
+        if (gameLoop.waterFunding < 0f)
+        {
+            gameLoop.waterFunding = 0f;
+        }
+        waterFundingLabel.text = $"{Round.RoundToPlaces(gameLoop.waterFunding, 2)}";
+    }
+
+    private void UpdateFoodFunding(float amount)
+    {
+        gameLoop.foodFunding += amount;
+        if (gameLoop.foodFunding < 0f)
+        {
+            gameLoop.foodFunding = 0f;
+        }
+        foodFundingLabel.text = $"{Round.RoundToPlaces(gameLoop.foodFunding, 2)}";
+    }
 
 }
