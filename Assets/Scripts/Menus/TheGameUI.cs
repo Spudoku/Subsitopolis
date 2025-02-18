@@ -73,8 +73,8 @@ public class TheGameUI : MonoBehaviour
     // Update all production/demand labels
     public void Tick()
     {
-        energyProdLabel.text = $"{gameLoop.energyProduction}mwh";
-        energyDemLabel.text = $"{gameLoop.energyDemand}mwh";
+        energyProdLabel.text = $"{gameLoop.energyProduction}";
+        energyDemLabel.text = $"{Round.RoundToPlaces(gameLoop.energyDemand, 2)}";
     }
 
     void OnDsable()

@@ -218,8 +218,11 @@ public class GameLoop : MonoBehaviour
         Debug.Log("Taxes collected: " + taxRevenue);
         treasury += taxRevenue;
 
+
+
         totalDebt += totalDebt * debtInterestRate;
 
+        // subtract production expenses from treasury
     }
 
     void OnGUI()
@@ -229,7 +232,7 @@ public class GameLoop : MonoBehaviour
         GUI.Label(new Rect(10, 30, 300, 40), $"Treasury: ${treasury}M");
         GUI.Label(new Rect(10, 50, 300, 70), $"Population: {population}");
         GUI.Label(new Rect(10, 70, 300, 90), $"Approval Rating: {Mathf.Round(approval * 100f)}%");
-        GUI.Label(new Rect(10, 90, 300, 110), $"Total Debt: ${Mathf.Round(totalDebt * 100.0f) * 0.01f}M");
+        GUI.Label(new Rect(10, 90, 300, 110), $"Total Debt: ${Round.RoundToPlaces(totalDebt, 2)}M");
 
         GUI.Label(new Rect(10, 300, 300, 310), $"Food production: {foodProduction}");
         GUI.Label(new Rect(10, 320, 300, 330), $"Food demand: {foodDemand}");
@@ -237,5 +240,16 @@ public class GameLoop : MonoBehaviour
         GUI.Label(new Rect(10, 360, 300, 370), $"Water demand: {waterDemand}");
         GUI.Label(new Rect(10, 380, 300, 390), $"Energy production: {energyProduction}");
         GUI.Label(new Rect(10, 400, 300, 410), $"Energy demand: {energyDemand}");
+    }
+
+
+    // if treasury runs out, increase totalDebt by leftover 'amount'
+    private void SpendFromTreasury(float amount)
+    {
+        if (treasury < amount)
+        {
+            totalDebt += amount - treasury;
+            treasury = 0;
+        }
     }
 }
