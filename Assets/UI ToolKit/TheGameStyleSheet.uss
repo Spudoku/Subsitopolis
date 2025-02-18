@@ -99,10 +99,30 @@ resourceholder {
     font-size: 40px;
     -unity-font-definition: url("project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&guid=585188cdc4600544eb408bee749e4b3a&type=3#ThaleahFat_TTF");
     color: rgb(17, 192, 6);
+    -unity-text-align: upper-right;
 }
 
 .stat-dem {
     color: rgb(195, 41, 41);
     font-size: 40px;
+    -unity-font-definition: url("project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&guid=585188cdc4600544eb408bee749e4b3a&type=3#ThaleahFat_TTF");
+    white-space: pre-wrap;
+    -unity-text-align: lower-right;
+}
+
+.unit {
+    font-size: 16px;
+    -unity-text-align: lower-left;
+}
+
+.production {
+    color: rgb(17, 192, 6);
+    -unity-font-definition: url("project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&guid=585188cdc4600544eb408bee749e4b3a&type=3#ThaleahFat_TTF");
+    font-size: 16px;
+    -unity-text-align: upper-center;
+}
+
+.demand {
+    color: rgb(195, 41, 41);
     -unity-font-definition: url("project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&guid=585188cdc4600544eb408bee749e4b3a&type=3#ThaleahFat_TTF");
 }
