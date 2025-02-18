@@ -7,10 +7,13 @@ public class GameLoop : MonoBehaviour
 {
     // CONSTANT VALUES
     const float DEFAULT_TICK_RATE = 0.25f;        // 1 tick per 4 seconds
-    const int STARTING_POPULATION = 1000;
+    const int STARTING_POPULATION = 10000;
     const float STARTING_TREASURY = 10f;
 
     const float STARTING_DEBT = 5f;
+
+    const float DEFAULT_TAX_RATE = 0.1f;              // percent of income that goes to taxes
+    const float DEFAULT_CITZ_INCOME = 0.0042f;                 // how many millions of dollars a citizen earns per month ($4200)
 
     const float DEFAULT_FOOD_MULTIPLIER = 0.114f;          // tons of food per person per month
     const float DEFAULT_WATER_MULTIPLIER = 0.003f;          // millions of gallons of water per person per month
@@ -24,7 +27,7 @@ public class GameLoop : MonoBehaviour
     const float BIRTHRATE = 0.01f;                        // increase in population based on births
     const float DEATHRATE = 0.009f;                         // decrease in population based on deaths
 
-    const float DEFAULT_TAX_RATE = 0.0004f;              // $400/month/citizen (on average)
+
 
     const float STARTING_FUNDING_AMT = 1.0f;
 
@@ -40,6 +43,8 @@ public class GameLoop : MonoBehaviour
 
     public float immigrationRate;
     public float approval;  // value between 0 and 1
+
+    public float citizenIncome;
 
     // RESOURCES
     // food
@@ -102,6 +107,7 @@ public class GameLoop : MonoBehaviour
         totalDebt = STARTING_DEBT;
         debtInterestRate = DEFAULT_INTEREST_RATE;
         taxRate = DEFAULT_TAX_RATE;
+        citizenIncome = DEFAULT_CITZ_INCOME;
 
         waterFunding = STARTING_FUNDING_AMT;
         energyFunding = STARTING_FUNDING_AMT;
@@ -233,7 +239,7 @@ public class GameLoop : MonoBehaviour
 
     private void UpdateFinances()
     {
-        float taxRevenue = population * taxRate;
+        float taxRevenue = population * citizenIncome * taxRate;
 
         //Debug.Log("Taxes collected: " + taxRevenue);
         treasury += taxRevenue;

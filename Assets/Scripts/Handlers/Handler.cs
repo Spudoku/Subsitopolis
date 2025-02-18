@@ -53,40 +53,40 @@ public abstract class Handler
 
     }
 
-    protected void HypotheticalUnits()
-    {
-        if (gl != null)
-        {
-            if (foodFactor == 0)
-            {
-                unitsWithFood = Mathf.Infinity;
-            }
-            else
-            {
-                unitsWithFood = Mathf.Max((gl.foodProduction - gl.foodDemand) * foodFactor, 0); ;
-            }
+    // protected void HypotheticalUnits()
+    // {
+    //     if (gl != null)
+    //     {
+    //         if (foodFactor == 0)
+    //         {
+    //             unitsWithFood = Mathf.Infinity;
+    //         }
+    //         else
+    //         {
+    //             unitsWithFood = Mathf.Max((gl.foodProduction - gl.foodDemand) * foodFactor, 0); ;
+    //         }
 
-            if (waterFactor == 0)
-            {
-                unitsWithWater = Mathf.Infinity;
-            }
-            else
-            {
-                unitsWithWater = Mathf.Max((gl.waterProduction - gl.waterDemand) * waterFactor, 0);
-            }
+    //         if (waterFactor == 0)
+    //         {
+    //             unitsWithWater = Mathf.Infinity;
+    //         }
+    //         else
+    //         {
+    //             unitsWithWater = Mathf.Max((gl.waterProduction - gl.waterDemand) * waterFactor, 0);
+    //         }
 
-            if (energyFactor == 0)
-            {
-                unitsWithEnergy = Mathf.Infinity;
-            }
-            else
-            {
-                unitsWithEnergy = Mathf.Max((gl.energyProduction - gl.energyDemand) * energyFactor, 0);
-            }
+    //         if (energyFactor == 0)
+    //         {
+    //             unitsWithEnergy = Mathf.Infinity;
+    //         }
+    //         else
+    //         {
+    //             unitsWithEnergy = Mathf.Max((gl.energyProduction - gl.energyDemand) * energyFactor, 0);
+    //         }
 
 
 
-        }
+    //     }
 
-    }
+    // }
 }
