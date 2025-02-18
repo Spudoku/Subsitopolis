@@ -209,9 +209,9 @@ public class GameLoop : MonoBehaviour
 
         // calculate demand
         // each citizen eats foodDemandMult tons of food each month
-        foodDemand = population * foodDemandMult;
-        waterDemand = population * waterDemandMult;
-        energyDemand = population * energyDemandMult;
+        foodDemand = population * foodDemandMult + eh.endFoodDem + wh.endFoodDem + fh.endFoodDem;
+        waterDemand = population * waterDemandMult + eh.endWaterDem + wh.endWaterDem + fh.endWaterDem;
+        energyDemand = population * energyDemandMult + eh.endEnergyDem + wh.endEnergyDem + fh.endEnergyDem;
     }
 
     private void UpdateFinances()
