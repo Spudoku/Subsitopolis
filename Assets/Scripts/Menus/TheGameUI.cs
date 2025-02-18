@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(AudioSource))]
 public class TheGameUI : MonoBehaviour
 {
-
+    const float FUNDING_DELTA_AMOUNT = 0.25f;
     private UIDocument doc;
     private GameLoop gameLoop;
 
@@ -40,6 +40,13 @@ public class TheGameUI : MonoBehaviour
     private Label foodProdLabel;
     private Label foodDemLabel;
 
+    // TOTAL FUNDING LABELS
+    private Label energyFundingLabel;
+
+    private Label foodFundingLabel;
+
+    private Label waterFundingLabel;
+
 
     // FUDING LABELS
 
@@ -56,11 +63,15 @@ public class TheGameUI : MonoBehaviour
         // button.RegisterCallback<ClickEvent>();
 
         // REGISTERING BUTTONS
-
+        energyDecButton = doc.rootVisualElement.Q<Button>("energy-dec");
+        energyIncButton = doc.rootVisualElement.Q<Button>("energy-inc");
+        energyDecButton.RegisterCallback<ClickEvent>(OnEnergyDecClick);
+        energyIncButton.RegisterCallback<ClickEvent>(OnEnergyIncClick);
 
         // registering labels
         energyProdLabel = doc.rootVisualElement.Q<Label>("energy-prod");
         energyDemLabel = doc.rootVisualElement.Q<Label>("energy-dem");
+        energyFundingLabel = doc.rootVisualElement.Q<Label>("energy-funding");
 
         // register callbacks
         buttons = doc.rootVisualElement.Query<Button>().ToList();
@@ -68,6 +79,9 @@ public class TheGameUI : MonoBehaviour
         {
             b.RegisterCallback<ClickEvent>(OnAllButtonClick);
         }
+
+        // update labels
+        UpdateEnergyFunding(0);
     }
 
     // Update all production/demand labels
@@ -81,6 +95,11 @@ public class TheGameUI : MonoBehaviour
     {
         // unresgister
         // button.UnregisterCallback<ClickEvent>(OnPlayGameClick);
+
+        // INCREMENT/DECREMENT buttons
+        energyDecButton.UnregisterCallback<ClickEvent>(OnEnergyDecClick);
+        energyIncButton.UnregisterCallback<ClickEvent>(OnEnergyIncClick);
+
 
         foreach (Button b in buttons)
         {
@@ -100,11 +119,25 @@ public class TheGameUI : MonoBehaviour
     private void OnEnergyDecClick(ClickEvent evt)
     {
         // decrement funding for Energy
+        UpdateEnergyFunding(-FUNDING_DELTA_AMOUNT);
     }
 
     private void OnEnergyIncClick(ClickEvent evt)
     {
         // increment funding for Energy
-
+        UpdateEnergyFunding(FUNDING_DELTA_AMOUNT);
     }
+
+
+    private void UpdateEnergyFunding(float amount)
+    {
+        gameLoop.energyFunding += amount;
+        if (gameLoop.energyFunding < 0f)
+        {
+            gameLoop.energyFunding = 0f;
+        }
+        energyFundingLabel.text = $"{Round.RoundToPlaces(gameLoop.energyFunding, 2)}";
+    }
+
+
 }

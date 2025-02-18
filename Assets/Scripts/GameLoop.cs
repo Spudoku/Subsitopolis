@@ -104,8 +104,11 @@ public class GameLoop : MonoBehaviour
         taxRate = DEFAULT_TAX_RATE;
 
         // initialize handlers
+        Handler.gl = this;
+
         fh = new FoodHandler();
         fh.Initialze();
+
 
         eh = new EnergyHandler();
         eh.Initialze();
@@ -172,7 +175,7 @@ public class GameLoop : MonoBehaviour
         int deaths = (int)(population * DEATHRATE * Random.Range(0.75f, 1.25f));
         population -= deaths;
         population += births;
-        Debug.Log("Month " + months + ": births = " + births + ", deaths = " + deaths);
+        //Debug.Log("Month " + months + ": births = " + births + ", deaths = " + deaths);
 
 
         // update UI
@@ -215,14 +218,19 @@ public class GameLoop : MonoBehaviour
     {
         float taxRevenue = population * taxRate;
 
-        Debug.Log("Taxes collected: " + taxRevenue);
+        //Debug.Log("Taxes collected: " + taxRevenue);
         treasury += taxRevenue;
 
 
 
         totalDebt += totalDebt * debtInterestRate;
 
+        // update funding
+        eh.funding = energyFunding;
         // subtract production expenses from treasury
+        SpendFromTreasury(energyFunding);
+        SpendFromTreasury(waterFunding);
+        SpendFromTreasury(foodFunding);
     }
 
     void OnGUI()
@@ -246,10 +254,15 @@ public class GameLoop : MonoBehaviour
     // if treasury runs out, increase totalDebt by leftover 'amount'
     private void SpendFromTreasury(float amount)
     {
+
         if (treasury < amount)
         {
             totalDebt += amount - treasury;
             treasury = 0;
+        }
+        else
+        {
+            treasury -= amount;
         }
     }
 }
