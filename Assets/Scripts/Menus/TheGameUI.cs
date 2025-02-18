@@ -50,63 +50,29 @@ public class TheGameUI : MonoBehaviour
 
     // FUDING LABELS
 
-    void Start()
+    void Awake()
     {
         doc = GetComponent<UIDocument>();
         gameLoop = GetComponent<GameLoop>();
 
         audioSource = GetComponent<AudioSource>();
 
-        // references to buttons:
-        // Button button = doc.rootVisualElement.Q("name_of_button") as button
-        // onclick event:
-        // button.RegisterCallback<ClickEvent>();
 
-        // REGISTERING BUTTONS
-        energyDecButton = doc.rootVisualElement.Q<Button>("energy-dec");
-        energyIncButton = doc.rootVisualElement.Q<Button>("energy-inc");
-        energyDecButton.RegisterCallback<ClickEvent>(OnEnergyDecClick);
-        energyIncButton.RegisterCallback<ClickEvent>(OnEnergyIncClick);
+        InitAll();
 
-        waterDecButton = doc.rootVisualElement.Q<Button>("water-dec");
-        waterIncButton = doc.rootVisualElement.Q<Button>("water-inc");
-        waterDecButton.RegisterCallback<ClickEvent>(OnWaterDecClick);
-        waterIncButton.RegisterCallback<ClickEvent>(OnWaterIncClick);
-
-        foodDecButton = doc.rootVisualElement.Q<Button>("food-dec");
-        foodIncButton = doc.rootVisualElement.Q<Button>("food-inc");
-        foodDecButton.RegisterCallback<ClickEvent>(OnFoodDecClick);
-        foodIncButton.RegisterCallback<ClickEvent>(OnFoodIncClick);
-
-        // registering labels
-        energyProdLabel = doc.rootVisualElement.Q<Label>("energy-prod");
-        energyDemLabel = doc.rootVisualElement.Q<Label>("energy-dem");
-        energyFundingLabel = doc.rootVisualElement.Q<Label>("energy-funding");
-
-        waterProdLabel = doc.rootVisualElement.Q<Label>("water-prod");
-        waterDemLabel = doc.rootVisualElement.Q<Label>("water-dem");
-        waterFundingLabel = doc.rootVisualElement.Q<Label>("water-funding");
-
-        foodProdLabel = doc.rootVisualElement.Q<Label>("food-prod");
-        foodDemLabel = doc.rootVisualElement.Q<Label>("food-dem");
-        foodFundingLabel = doc.rootVisualElement.Q<Label>("food-funding");
-
-        // register callbacks
-        buttons = doc.rootVisualElement.Query<Button>().ToList();
-        foreach (Button b in buttons)
-        {
-            b.RegisterCallback<ClickEvent>(OnAllButtonClick);
-        }
-
-        // update labels
-        UpdateEnergyFunding(0);
     }
 
     // Update all production/demand labels
     public void Tick()
     {
-        energyProdLabel.text = $"{gameLoop.energyProduction}";
+        energyProdLabel.text = $"{Round.RoundToPlaces(gameLoop.energyProduction, 2)}";
         energyDemLabel.text = $"{Round.RoundToPlaces(gameLoop.energyDemand, 2)}";
+
+        waterProdLabel.text = $"{Round.RoundToPlaces(gameLoop.waterProduction, 2)}";
+        waterDemLabel.text = $"{Round.RoundToPlaces(gameLoop.waterDemand, 2)}";
+
+        foodProdLabel.text = $"{Round.RoundToPlaces(gameLoop.foodProduction, 2)}";
+        foodDemLabel.text = $"{Round.RoundToPlaces(gameLoop.foodDemand, 2)}";
     }
 
     void OnDsable()
@@ -202,4 +168,48 @@ public class TheGameUI : MonoBehaviour
         foodFundingLabel.text = $"{Round.RoundToPlaces(gameLoop.foodFunding, 2)}";
     }
 
+
+    public void InitAll()
+    {
+        // REGISTERING BUTTONS
+        energyDecButton = doc.rootVisualElement.Q<Button>("energy-dec");
+        energyIncButton = doc.rootVisualElement.Q<Button>("energy-inc");
+        energyDecButton.RegisterCallback<ClickEvent>(OnEnergyDecClick);
+        energyIncButton.RegisterCallback<ClickEvent>(OnEnergyIncClick);
+
+        waterDecButton = doc.rootVisualElement.Q<Button>("water-dec");
+        waterIncButton = doc.rootVisualElement.Q<Button>("water-inc");
+        waterDecButton.RegisterCallback<ClickEvent>(OnWaterDecClick);
+        waterIncButton.RegisterCallback<ClickEvent>(OnWaterIncClick);
+
+        foodDecButton = doc.rootVisualElement.Q<Button>("food-dec");
+        foodIncButton = doc.rootVisualElement.Q<Button>("food-inc");
+        foodDecButton.RegisterCallback<ClickEvent>(OnFoodDecClick);
+        foodIncButton.RegisterCallback<ClickEvent>(OnFoodIncClick);
+
+        // registering labels
+        energyProdLabel = doc.rootVisualElement.Q<Label>("energy-prod");
+        energyDemLabel = doc.rootVisualElement.Q<Label>("energy-dem");
+        energyFundingLabel = doc.rootVisualElement.Q<Label>("energy-funding");
+
+        waterProdLabel = doc.rootVisualElement.Q<Label>("water-prod");
+        waterDemLabel = doc.rootVisualElement.Q<Label>("water-dem");
+        waterFundingLabel = doc.rootVisualElement.Q<Label>("water-funding");
+
+        foodProdLabel = doc.rootVisualElement.Q<Label>("food-prod");
+        foodDemLabel = doc.rootVisualElement.Q<Label>("food-dem");
+        foodFundingLabel = doc.rootVisualElement.Q<Label>("food-funding");
+
+        // register callbacks
+        buttons = doc.rootVisualElement.Query<Button>().ToList();
+        foreach (Button b in buttons)
+        {
+            b.RegisterCallback<ClickEvent>(OnAllButtonClick);
+        }
+
+        // update labels
+        UpdateEnergyFunding(0);
+        UpdateWaterFunding(0);
+        UpdateFoodFunding(0);
+    }
 }
