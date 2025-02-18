@@ -7,8 +7,8 @@ public class GameLoop : MonoBehaviour
 {
     // CONSTANT VALUES
     const float DEFAULT_TICK_RATE = 0.25f;        // 1 tick per 4 seconds
-    const int STARTING_POPULATION = 10000;
-    const float STARTING_TREASURY = 100f;
+    const int STARTING_POPULATION = 1000;
+    const float STARTING_TREASURY = 10f;
 
     const float STARTING_DEBT = 5f;
 
@@ -122,8 +122,8 @@ public class GameLoop : MonoBehaviour
 
         // UI initialization
         ui = GetComponent<TheGameUI>();
-
-        Tick();
+        //ui.InitAll();
+        //Tick();
     }
 
     void Update()
@@ -146,7 +146,7 @@ public class GameLoop : MonoBehaviour
     // a tick represents one game month
     private void Tick()
     {
-
+        Debug.Log($"EnergyFinding: {energyFunding}, waterFunding: {waterFunding}, foodFunding: {foodFunding}");
         months++;
         // get food, water and energy production from respective handlers
         fh.Tick();
@@ -231,6 +231,8 @@ public class GameLoop : MonoBehaviour
 
         // update funding
         eh.funding = energyFunding;
+        wh.funding = waterFunding;
+        fh.funding = foodFunding;
         // subtract production expenses from treasury
         SpendFromTreasury(energyFunding);
         SpendFromTreasury(waterFunding);
