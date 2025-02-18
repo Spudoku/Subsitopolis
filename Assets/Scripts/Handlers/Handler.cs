@@ -18,12 +18,17 @@ public abstract class Handler
     protected float waterFactor;
     protected float energyFactor;
 
+    // These values update and are accessed at the end of each tick
+    public float endFoodDem;
+    public float endWaterDem;
+    public float endEnergyDem;
+
     // how many units can be produced based on food/water/energyFactor
     protected float unitsWithFood;
     protected float unitsWithWater;
     protected float unitsWithEnergy;
 
-    //protected List<float> factors = new();
+
 
     public abstract void Initialze();
     public abstract void Tick();
@@ -32,9 +37,35 @@ public abstract class Handler
     {
         if (gl != null)
         {
-            float unitsWithFood = (gl.foodProduction / gl.foodDemand) * foodFactor;
-            float unitsWithWater = (gl.waterProduction / gl.waterDemand) * waterFactor;
-            float unitsWithEnergy = (gl.energyProduction / gl.energyDemand) * energyFactor;
+            if (foodFactor == 0)
+            {
+                unitsWithFood = Mathf.Infinity;
+            }
+            else
+            {
+                unitsWithFood = (gl.foodProduction - gl.foodDemand) * foodFactor;
+            }
+
+            if (waterFactor == 0)
+            {
+                unitsWithWater = Mathf.Infinity;
+            }
+            else
+            {
+                unitsWithWater = (gl.waterProduction - gl.waterDemand) * waterFactor;
+            }
+
+            if (energyFactor == 0)
+            {
+                unitsWithEnergy = Mathf.Infinity;
+            }
+            else
+            {
+                unitsWithEnergy = (gl.energyProduction - gl.energyDemand) * energyFactor;
+            }
+
+
+
         }
 
     }

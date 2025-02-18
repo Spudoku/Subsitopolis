@@ -30,13 +30,15 @@ public class EnergyHandler : Handler
         float units = funding / maxFunding;
         HypotheticalUnits();
 
-        float finalUnits = 0;
+        float finalUnits = Mathf.Min(unitsWithFood, unitsWithEnergy, unitsWithWater, units);
         Debug.Log($"[EnergyHandler] food units: {unitsWithFood}, units with Energy: {unitsWithEnergy}, units with Water: {unitsWithWater}, funding units: {units}, finalUnits: {finalUnits}");
 
-        // step 2: determine ratio of production/demand for each resource in Factors
-        // using a hypothetical amount of (currentProduction / currentKnownDemand) * <resource>Factor + hypotheicalDemand
-        // hypotheical demand = units * <resource>Factor
+        // spend resouces!
+        endEnergyDem = finalUnits * energyFactor;
+        endWaterDem = finalUnits * waterFactor;
+        endFoodDem = finalUnits * foodFactor;
 
+        production = finalUnits;
 
 
         // example: 100 million a month should yield 200 million megawatt hours a month
