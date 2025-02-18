@@ -31,10 +31,27 @@ public abstract class Handler
 
 
     public abstract void Initialze();
-    public abstract void Tick();
+    //public abstract void Tick();
 
-    public abstract float GetDemand();
-    public abstract float GetProduction();
+    public void GetDemand()
+    {
+        // calculate demand:
+        // get maximum number of units possible given current funding
+        // update demand accordingly
+        float units = funding / maxFunding;
+        endFoodDem = foodFactor * units;
+        endWaterDem = waterFactor * units;
+        endEnergyDem = energyFactor * units;
+    }
+
+    public void GetProduction()
+    {
+        // get production:
+        // get total production of each resource
+        // find smallest number of units
+        // produce that many units
+
+    }
 
     protected void HypotheticalUnits()
     {

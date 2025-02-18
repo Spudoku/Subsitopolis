@@ -16,31 +16,22 @@ public class FoodHandler : Handler
 
     }
 
-    public override float GetDemand()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override float GetProduction()
-    {
-        throw new System.NotImplementedException();
-    }
 
 
-    public override void Tick()
-    {
-        float units = funding / maxFunding;
-        HypotheticalUnits();
+    // public override void Tick()
+    // {
+    //     float units = funding / maxFunding;
+    //     HypotheticalUnits();
 
-        float finalUnits = Mathf.Min(unitsWithFood, unitsWithEnergy, unitsWithWater, units);
-        //Debug.Log($"[FoodHandler] food units: {unitsWithFood}, units with Energy: {unitsWithEnergy}, units with Water: {unitsWithWater}, funding units: {units}, finalUnits: {finalUnits}");
+    //     float finalUnits = Mathf.Min(unitsWithFood, unitsWithEnergy, unitsWithWater, units);
+    //     //Debug.Log($"[FoodHandler] food units: {unitsWithFood}, units with Energy: {unitsWithEnergy}, units with Water: {unitsWithWater}, funding units: {units}, finalUnits: {finalUnits}");
 
-        // spend resouces!
-        endEnergyDem = finalUnits * energyFactor;
-        endWaterDem = finalUnits * waterFactor;
-        endFoodDem = finalUnits * foodFactor;
+    //     // spend resouces!
+    //     endEnergyDem = finalUnits * energyFactor;
+    //     endWaterDem = finalUnits * waterFactor;
+    //     endFoodDem = finalUnits * foodFactor;
 
-        production = finalUnits;
+    //     production = finalUnits;
 
-    }
+    // }
 }

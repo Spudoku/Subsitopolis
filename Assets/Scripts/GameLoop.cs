@@ -86,7 +86,7 @@ public class GameLoop : MonoBehaviour
     {
         // time initialization
         tickrate = DEFAULT_TICK_RATE;
-        prevTickTime = Time.time;
+
         timeScale = 1.0f;
         months = 0;
         // game initialization
@@ -122,8 +122,10 @@ public class GameLoop : MonoBehaviour
 
         // UI initialization
         ui = GetComponent<TheGameUI>();
-        //ui.InitAll();
-        //Tick();
+
+        CalcInitFunding();
+        ui.UpdateAllLabels();
+        Tick();
     }
 
     void Update()
@@ -153,9 +155,9 @@ public class GameLoop : MonoBehaviour
         // get demand from energy, water and food
 
         // get production from energy, water and food
-        fh.Tick();
-        wh.Tick();
-        eh.Tick();
+        // fh.Tick();
+        // wh.Tick();
+        // eh.Tick();
         UpdateDemand();
 
         UpdateProduction();
@@ -209,6 +211,9 @@ public class GameLoop : MonoBehaviour
 
     private void UpdateDemand()
     {
+        eh.GetDemand();
+        wh.GetDemand();
+        fh.GetDemand();
         foodDemand = population * foodDemandMult + eh.endFoodDem + wh.endFoodDem + fh.endFoodDem;
         waterDemand = population * waterDemandMult + eh.endWaterDem + wh.endWaterDem + fh.endWaterDem;
         energyDemand = population * energyDemandMult + eh.endEnergyDem + wh.endEnergyDem + fh.endEnergyDem;
@@ -278,5 +283,13 @@ public class GameLoop : MonoBehaviour
         {
             treasury -= amount;
         }
+    }
+
+    // calculates and assigns funding to each resource
+    private void CalcInitFunding()
+    {
+        foodFunding = 1.0f;
+        waterFunding = 1.0f;
+        energyFunding = 2.0f;
     }
 }

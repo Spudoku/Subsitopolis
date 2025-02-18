@@ -137,6 +137,22 @@ public class TheGameUI : MonoBehaviour
         UpdateFoodFunding(FUNDING_DELTA_AMOUNT);
     }
 
+    public void UpdateAllLabels()
+    {
+        // update labels
+        UpdateEnergyFunding(0);
+        UpdateWaterFunding(0);
+        UpdateFoodFunding(0);
+
+        energyProdLabel.text = $"{Round.RoundToPlaces(gameLoop.energyProduction, 2)}";
+        energyDemLabel.text = $"{Round.RoundToPlaces(gameLoop.energyDemand, 2)}";
+
+        waterProdLabel.text = $"{Round.RoundToPlaces(gameLoop.waterProduction, 2)}";
+        waterDemLabel.text = $"{Round.RoundToPlaces(gameLoop.waterDemand, 2)}";
+
+        foodProdLabel.text = $"{Round.RoundToPlaces(gameLoop.foodProduction, 2)}";
+        foodDemLabel.text = $"{Round.RoundToPlaces(gameLoop.foodDemand, 2)}";
+    }
 
     private void UpdateEnergyFunding(float amount)
     {

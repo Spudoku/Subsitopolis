@@ -22,44 +22,31 @@ public class EnergyHandler : Handler
 
     }
 
-    public override float GetDemand()
-    {
-        // calculate demand:
-        // get maximum number of units possible given current funding
-        // update demand accordingly
-        throw new NotImplementedException();
-    }
-
-    public override float GetProduction()
-    {
-        // get production:
-        // get total production of each resource
-        // find smallest number of units
-        // produce that many units
-        throw new NotImplementedException();
-    }
 
 
-    public override void Tick()
-    {
-
-        // produce as much as possible given factors
-        // figure out how many megawatt-hours can be produced given the resources
-        // step 1: estimate how many units can be produced by funding/maxFunding
-        float units = funding / maxFunding;
-        HypotheticalUnits();
-
-        float finalUnits = Mathf.Min(unitsWithFood, unitsWithEnergy, unitsWithWater, units);
-        //Debug.Log($"[EnergyHandler] food units: {unitsWithFood}, units with Energy: {unitsWithEnergy}, units with Water: {unitsWithWater}, funding units: {units}, finalUnits: {finalUnits}");
-
-        // spend resouces!
-        endEnergyDem = finalUnits * energyFactor;
-        endWaterDem = finalUnits * waterFactor;
-        endFoodDem = finalUnits * foodFactor;
-
-        production = finalUnits;
 
 
-        // example: 100 million a month should yield 200 million megawatt hours a month
-    }
+
+    // public override void Tick()
+    // {
+
+    //     // produce as much as possible given factors
+    //     // figure out how many megawatt-hours can be produced given the resources
+    //     // step 1: estimate how many units can be produced by funding/maxFunding
+    //     float units = funding / maxFunding;
+    //     HypotheticalUnits();
+
+    //     float finalUnits = Mathf.Min(unitsWithFood, unitsWithEnergy, unitsWithWater, units);
+    //     //Debug.Log($"[EnergyHandler] food units: {unitsWithFood}, units with Energy: {unitsWithEnergy}, units with Water: {unitsWithWater}, funding units: {units}, finalUnits: {finalUnits}");
+
+    //     // spend resouces!
+    //     endEnergyDem = finalUnits * energyFactor;
+    //     endWaterDem = finalUnits * waterFactor;
+    //     endFoodDem = finalUnits * foodFactor;
+
+    //     production = finalUnits;
+
+
+    //     // example: 100 million a month should yield 200 million megawatt hours a month
+    // }
 }
