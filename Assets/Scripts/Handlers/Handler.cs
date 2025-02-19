@@ -13,7 +13,7 @@ public abstract class Handler
 
     // how much funding is needed for optimal production
     // higher values do not improve production
-    protected float maxFunding;     // maximum funding based on demand
+    public float maxFunding;     // maximum funding based on demand
 
     // how much of each resource is needed for optimal production of 1 unit of this resource
     protected float foodFactor;
@@ -46,7 +46,7 @@ public abstract class Handler
         endFoodDem = foodFactor * unitsWithFunding;
         endWaterDem = waterFactor * unitsWithFunding;
         endEnergyDem = energyFactor * unitsWithFunding;
-        Debug.Log($"[Handler-Demand] I'm contributing {endEnergyDem}mwh, {endWaterDem} millions of gallons of water, and {endFoodDem} tons of food to overall demand!");
+        // Debug.Log($"[Handler-Demand] I'm contributing {endEnergyDem}mwh, {endWaterDem} millions of gallons of water, and {endFoodDem} tons of food to overall demand!");
     }
 
     public void GetProduction()
@@ -59,7 +59,7 @@ public abstract class Handler
         unitsWithEnergy = energyFactor == 0f ? Mathf.Infinity : gl.energyProduction * energyRatio / energyFactor;
         unitsWithWater = waterFactor == 0f ? Mathf.Infinity : gl.waterProduction * waterRatio / waterFactor;
         unitsWithFood = foodFactor == 0f ? Mathf.Infinity : gl.foodProduction * foodRatio / foodFactor;
-        Debug.Log($"[Handler-Production] units with energy: {unitsWithEnergy}, units with water: {unitsWithWater}, units with food: {unitsWithFood}, units with funding: {unitsWithFunding}");
+        //Debug.Log($"[Handler-Production] units with energy: {unitsWithEnergy}, units with water: {unitsWithWater}, units with food: {unitsWithFood}, units with funding: {unitsWithFunding}");
         production = Mathf.Min(unitsWithEnergy, unitsWithWater, unitsWithFood, unitsWithFunding);
     }
 
