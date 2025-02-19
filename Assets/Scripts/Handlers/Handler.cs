@@ -60,9 +60,17 @@ public abstract class Handler
         else
         {
             // calculate ratio of energy production to get
-            //float energyRatio = gl.energyDemand == 0f ? Mathf.Infinity : endEnergyDem / gl.energyDemand;
+            //
             //unitsWithEnergy = energyFactor == 0f ? Mathf.Infinity : gl.energyProduction * energyRatio / energyFactor;
-            unitsWithEnergy = 0f;
+            if (gl.energyDemand == 0f || energyFactor == 0f)
+            {
+                unitsWithEnergy = Mathf.Infinity;
+            }
+            else
+            {
+                unitsWithEnergy = gl.energyProduction * (endEnergyDem / gl.energyDemand) / energyFactor;
+            }
+
         }
         // units with water
         if (gl.waterProduction > gl.waterDemand)
@@ -71,7 +79,14 @@ public abstract class Handler
         }
         else
         {
-
+            if (gl.waterDemand == 0f || waterFactor == 0f)
+            {
+                unitsWithWater = Mathf.Infinity;
+            }
+            else
+            {
+                unitsWithWater = gl.waterProduction * (endWaterDem / gl.waterDemand) / waterFactor;
+            }
         }
         // units with food
         if (gl.foodProduction > gl.foodDemand)
@@ -80,7 +95,14 @@ public abstract class Handler
         }
         else
         {
-
+            if (gl.foodDemand == 0f || foodFactor == 0f)
+            {
+                unitsWithFood = Mathf.Infinity;
+            }
+            else
+            {
+                unitsWithFood = gl.foodProduction * (endFoodDem / gl.foodDemand) / foodFactor;
+            }
         }
 
         // if production is greater than demand, then just

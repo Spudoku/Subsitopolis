@@ -16,7 +16,18 @@ public class FoodHandler : Handler
 
     }
 
+    new public void GetDemand()
+    {
+        Debug.Log("[Food handler]");
+        base.GetDemand();
+        Debug.Log($"[Food-Demand] I'm contributing {endEnergyDem}mwh, {endWaterDem} millions of gallons of water, and {endFoodDem} tons of food to overall demand!");
+    }
 
+    new public void GetProduction()
+    {
+        base.GetProduction();
+        Debug.Log($"[Food-Production] units with energy: {unitsWithEnergy}, units with water: {unitsWithWater}, units with food: {unitsWithFood}, units with funding: {unitsWithFunding}, production: {production}");
+    }
 
     // public override void Tick()
     // {

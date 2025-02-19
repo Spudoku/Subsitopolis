@@ -82,6 +82,8 @@ public class GameLoop : MonoBehaviour
     public float waterFunding;
     public float energyFunding;
 
+    public float debtFunding;           // how much money goes towards paying off debt each month
+
 
     // these values will be enough to cover the starting population's needs
 
@@ -254,6 +256,7 @@ public class GameLoop : MonoBehaviour
 
         totalDebt += totalDebt * debtInterestRate;
 
+
         // update funding
         eh.funding = energyFunding;
         wh.funding = waterFunding;
@@ -262,6 +265,19 @@ public class GameLoop : MonoBehaviour
         SpendFromTreasury(energyFunding);
         SpendFromTreasury(waterFunding);
         SpendFromTreasury(foodFunding);
+
+        // pay off debt
+        if (debtFunding > totalDebt)
+        {
+            SpendFromTreasury(totalDebt);
+            totalDebt = 0;
+
+        }
+        else
+        {
+            totalDebt -= debtFunding;
+            SpendFromTreasury(debtFunding);
+        }
     }
 
     void OnGUI()
