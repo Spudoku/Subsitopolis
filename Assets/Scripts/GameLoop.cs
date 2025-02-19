@@ -10,13 +10,13 @@ public class GameLoop : MonoBehaviour
     const int STARTING_POPULATION = 10000;
     const float STARTING_TREASURY = 10f;
 
-    const float STARTING_DEBT = 5f;
+    const float STARTING_DEBT = 1f;
 
     const float DEFAULT_TAX_RATE = 0.1f;              // percent of income that goes to taxes
     const float DEFAULT_CITZ_INCOME = 0.0042f;                 // how many millions of dollars a citizen earns per month ($4200)
 
     const float DEFAULT_FOOD_MULTIPLIER = 0.114f;          // tons of food per person per month
-    const float DEFAULT_WATER_MULTIPLIER = 0.003f;          // millions of gallons of water per person per month
+    const float DEFAULT_WATER_MULTIPLIER = 0.0025f;          // millions of gallons of water per person per month
     const float DEFAULT_ENERGY_MULTIPLIER = 0.0006f;        // megawatt-hours of energy per person per month
 
 
@@ -302,4 +302,17 @@ public class GameLoop : MonoBehaviour
         waterFunding = 1.0f;
         energyFunding = 2.0f;
     }
+
+    // private float CalcTotalFundingNeeded()
+    // {
+    //     float hypoEnergyDemand = population * DEFAULT_ENERGY_MULTIPLIER;
+    //     float hypoFoodDemand = population * DEFAULT_FOOD_MULTIPLIER;
+    //     float hypoWaterDemand = population * DEFAULT_WATER_MULTIPLIER;
+
+    //     hypoEnergyDemand += hypoFoodDemand * fh.maxFunding + hypoWaterDemand * wh.maxFunding;
+    //     hypoWaterDemand += hypoFoodDemand * 
+
+
+    //     return 0f;
+    // }
 }
