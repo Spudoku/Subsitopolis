@@ -226,9 +226,13 @@ public class GameLoop : MonoBehaviour
     }
     private void UpdateProduction()
     {
-        foodProduction = fh.production;
-        waterProduction = wh.production;
+        eh.GetProduction();
+        wh.GetProduction();
+        fh.GetProduction();
+
         energyProduction = eh.production;
+        waterProduction = wh.production;
+        foodProduction = fh.production;
 
         // calculate demand
         // each citizen eats foodDemandMult tons of food each month

@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public abstract class Handler
@@ -28,6 +30,8 @@ public abstract class Handler
     protected float unitsWithWater;
     protected float unitsWithEnergy;
 
+    protected float unitsWithFunding;
+
 
 
     public abstract void Initialze();
@@ -38,19 +42,25 @@ public abstract class Handler
         // calculate demand:
         // get maximum number of units possible given current funding
         // update demand accordingly
-        float units = funding / maxFunding;
-        endFoodDem = foodFactor * units;
-        endWaterDem = waterFactor * units;
-        endEnergyDem = energyFactor * units;
+        unitsWithFunding = funding / maxFunding;
+        endFoodDem = foodFactor * unitsWithFunding;
+        endWaterDem = waterFactor * unitsWithFunding;
+        endEnergyDem = energyFactor * unitsWithFunding;
+        Debug.Log($"[Handler-Demand] I'm contributing {endEnergyDem}mwh, {endWaterDem} millions of gallons of water, and {endFoodDem} tons of food to overall demand!");
     }
 
     public void GetProduction()
     {
-        // get production:
-        // get total production of each resource
-        // find smallest number of units
-        // produce that many units
+        // find ratio of production each resource gets
+        float energyRatio = gl.energyDemand == 0f ? Mathf.Infinity : endEnergyDem / gl.energyDemand;
+        float waterRatio = gl.waterDemand == 0f ? Mathf.Infinity : endWaterDem / gl.waterDemand;
+        float foodRatio = gl.foodDemand == 0f ? Mathf.Infinity : endFoodDem / gl.foodDemand;
 
+        unitsWithEnergy = energyFactor == 0f ? Mathf.Infinity : gl.energyProduction * energyRatio / energyFactor;
+        unitsWithWater = waterFactor == 0f ? Mathf.Infinity : gl.waterProduction * waterRatio / waterFactor;
+        unitsWithFood = foodFactor == 0f ? Mathf.Infinity : gl.foodProduction * foodRatio / foodFactor;
+        Debug.Log($"[Handler-Production] units with energy: {unitsWithEnergy}, units with water: {unitsWithWater}, units with food: {unitsWithFood}, units with funding: {unitsWithFunding}");
+        production = Mathf.Min(unitsWithEnergy, unitsWithWater, unitsWithFood, unitsWithFunding);
     }
 
     // protected void HypotheticalUnits()
