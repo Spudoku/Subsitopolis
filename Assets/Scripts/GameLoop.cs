@@ -1,4 +1,5 @@
 
+
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -29,6 +30,8 @@ public class GameLoop : MonoBehaviour
 
 
 
+
+
     const float STARTING_FUNDING_AMT = 2.0f;
 
     // Time-related
@@ -43,8 +46,18 @@ public class GameLoop : MonoBehaviour
 
     public float immigrationRate;
 
+
+    // approval-related
     private float prevApproval;
     public float approval;  // value between 0 and 1
+
+    const float DEFAULT_APPROVAL_DELTA_MULT = 0.01f;
+
+    const float TAX_APP_WEIGHT = 0.55f;
+    const float DEBT_APP_WEIGHT = 0.05f;
+    const float FOOD_APP_WEIGHT = 0.125f;
+    const float WATER_APP_WEIGHT = 0.175f;
+    const float ENERGY_APP_WEIGHT = 0.1f;
 
     public float citizenIncome;
 
@@ -280,22 +293,22 @@ public class GameLoop : MonoBehaviour
         }
     }
 
-    void OnGUI()
-    {
+    // void OnGUI()
+    // {
 
-        GUI.Label(new Rect(10, 10, 300, 20), $"Month: {months}");
-        GUI.Label(new Rect(10, 30, 300, 40), $"Treasury: ${treasury}M");
-        GUI.Label(new Rect(10, 50, 300, 70), $"Population: {population}");
-        GUI.Label(new Rect(10, 70, 300, 90), $"Approval Rating: {Mathf.Round(approval * 100f)}%");
-        GUI.Label(new Rect(10, 90, 300, 110), $"Total Debt: ${Round.RoundToPlaces(totalDebt, 2)}M");
+    //     GUI.Label(new Rect(10, 10, 300, 20), $"Month: {months}");
+    //     GUI.Label(new Rect(10, 30, 300, 40), $"Treasury: ${treasury}M");
+    //     GUI.Label(new Rect(10, 50, 300, 70), $"Population: {population}");
+    //     GUI.Label(new Rect(10, 70, 300, 90), $"Approval Rating: {Mathf.Round(approval * 100f)}%");
+    //     GUI.Label(new Rect(10, 90, 300, 110), $"Total Debt: ${Round.RoundToPlaces(totalDebt, 2)}M");
 
-        GUI.Label(new Rect(10, 300, 300, 310), $"Food production: {foodProduction}");
-        GUI.Label(new Rect(10, 320, 300, 330), $"Food demand: {foodDemand}");
-        GUI.Label(new Rect(10, 340, 300, 350), $"Water production: {waterProduction}");
-        GUI.Label(new Rect(10, 360, 300, 370), $"Water demand: {waterDemand}");
-        GUI.Label(new Rect(10, 380, 300, 390), $"Energy production: {energyProduction}");
-        GUI.Label(new Rect(10, 400, 300, 410), $"Energy demand: {energyDemand}");
-    }
+    //     GUI.Label(new Rect(10, 300, 300, 310), $"Food production: {foodProduction}");
+    //     GUI.Label(new Rect(10, 320, 300, 330), $"Food demand: {foodDemand}");
+    //     GUI.Label(new Rect(10, 340, 300, 350), $"Water production: {waterProduction}");
+    //     GUI.Label(new Rect(10, 360, 300, 370), $"Water demand: {waterDemand}");
+    //     GUI.Label(new Rect(10, 380, 300, 390), $"Energy production: {energyProduction}");
+    //     GUI.Label(new Rect(10, 400, 300, 410), $"Energy demand: {energyDemand}");
+    // }
 
 
     // if treasury runs out, increase totalDebt by leftover 'amount'
@@ -332,6 +345,8 @@ public class GameLoop : MonoBehaviour
     {
         prevApproval = approval;
 
+        // float hypoApprov = 0f;
+        // approval = Mathf.Lerp(prevApproval, hypoApprov, 0.5f);
         approval = 0.5f;
     }
 }
