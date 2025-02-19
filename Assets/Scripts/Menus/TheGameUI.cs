@@ -42,8 +42,7 @@ public class TheGameUI : MonoBehaviour
     private Label foodProdLabel;
     private Label foodDemLabel;
 
-    private Label taxAmtLabel;              // how much is earned through taxes
-    private Label taxRateLabel;             // rate of citizen income that is taxed
+
 
     // TOTAL FUNDING LABELS
     private Label energyFundingLabel;
@@ -53,8 +52,12 @@ public class TheGameUI : MonoBehaviour
     private Label waterFundingLabel;
 
 
-    // FUDING LABELS
+    // Tax/Debt Labels
+    private Label taxAmtLabel;              // how much is earned through taxes
+    private Label taxRateLabel;             // rate of citizen income that is taxed
 
+    private Label debtFundingLabel;
+    private Label debtAmtLabel;
     void Awake()
     {
         doc = GetComponent<UIDocument>();
@@ -82,6 +85,8 @@ public class TheGameUI : MonoBehaviour
         taxAmtLabel.text = $"{Round.RoundToPlaces(gameLoop.taxRate * gameLoop.population * gameLoop.citizenIncome, 2)}";
         taxRateLabel.text = $"{Round.RoundToPlaces(gameLoop.taxRate * 100f, 2)}";
 
+        debtAmtLabel.text = $"{Round.RoundToPlaces(gameLoop.totalDebt, 2)}";
+        debtFundingLabel.text = $"{Round.RoundToPlaces(gameLoop.debtFunding, 2)}";
         // tax labels
     }
 
@@ -102,6 +107,9 @@ public class TheGameUI : MonoBehaviour
 
         taxDecButton.UnregisterCallback<ClickEvent>(OnTaxDecClick);
         taxIncButton.UnregisterCallback<ClickEvent>(OnTaxIncClick);
+
+        debtDecButton.UnregisterCallback<ClickEvent>(OnDebtDecClick);
+        debtIncButton.UnregisterCallback<ClickEvent>(OnDebtIncClick);
 
         foreach (Button b in buttons)
         {
@@ -159,6 +167,18 @@ public class TheGameUI : MonoBehaviour
     {
         UpdateTaxRate(TAX_DELTA_AMOUNT);
     }
+
+    private void OnDebtDecClick(ClickEvent evt)
+    {
+        UpdateDebtFunding(-FUNDING_DELTA_AMOUNT);
+    }
+
+    private void OnDebtIncClick(ClickEvent evt)
+    {
+        UpdateDebtFunding(FUNDING_DELTA_AMOUNT);
+    }
+
+
 
     public void UpdateAllLabels()
     {
@@ -221,8 +241,19 @@ public class TheGameUI : MonoBehaviour
         {
             gameLoop.taxRate = 1f;
         }
-        taxRateLabel.text = $"{gameLoop.taxRate}%";
+        taxRateLabel.text = $"{gameLoop.taxRate * 100f}%";
     }
+
+    private void UpdateDebtFunding(float amount)
+    {
+        gameLoop.debtFunding += amount;
+        if (gameLoop.debtFunding < 0f)
+        {
+            gameLoop.debtFunding = 0f;
+        }
+        debtFundingLabel.text = $"{Round.RoundToPlaces(gameLoop.debtFunding, 2)}";
+    }
+
 
     public void InitAll()
     {
@@ -247,6 +278,11 @@ public class TheGameUI : MonoBehaviour
         taxDecButton.RegisterCallback<ClickEvent>(OnTaxDecClick);
         taxIncButton.RegisterCallback<ClickEvent>(OnTaxIncClick);
 
+        debtDecButton = doc.rootVisualElement.Q<Button>("debt-dec");
+        debtIncButton = doc.rootVisualElement.Q<Button>("debt-inc");
+        debtDecButton.RegisterCallback<ClickEvent>(OnDebtDecClick);
+        debtIncButton.RegisterCallback<ClickEvent>(OnDebtIncClick);
+
         // registering labels
         energyProdLabel = doc.rootVisualElement.Q<Label>("energy-prod");
         energyDemLabel = doc.rootVisualElement.Q<Label>("energy-dem");
@@ -263,6 +299,9 @@ public class TheGameUI : MonoBehaviour
         taxRateLabel = doc.rootVisualElement.Q<Label>("tax-rate");
         taxAmtLabel = doc.rootVisualElement.Q<Label>("tax-prod");
 
+        debtAmtLabel = doc.rootVisualElement.Q<Label>("debt-amt");
+        debtFundingLabel = doc.rootVisualElement.Q<Label>("debt-funding");
+
         // register callbacks
         buttons = doc.rootVisualElement.Query<Button>().ToList();
         foreach (Button b in buttons)
@@ -274,5 +313,7 @@ public class TheGameUI : MonoBehaviour
         UpdateEnergyFunding(0);
         UpdateWaterFunding(0);
         UpdateFoodFunding(0);
+        UpdateTaxRate(0);
+        UpdateDebtFunding(0);
     }
 }

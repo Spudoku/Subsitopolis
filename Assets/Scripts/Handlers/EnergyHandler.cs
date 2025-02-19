@@ -22,7 +22,18 @@ public class EnergyHandler : Handler
 
     }
 
+    new public void GetDemand()
+    {
+        Debug.Log("[Energy handler]");
+        base.GetDemand();
+        Debug.Log($"[Energy-Demand] I'm contributing {endEnergyDem}mwh, {endWaterDem} millions of gallons of water, and {endFoodDem} tons of food to overall demand!");
+    }
 
+    new public void GetProduction()
+    {
+        base.GetProduction();
+        Debug.Log($"[Energy-Production] units with energy: {unitsWithEnergy}, units with water: {unitsWithWater}, units with food: {unitsWithFood}, units with funding: {unitsWithFunding}, production: {production}");
+    }
 
 
 
