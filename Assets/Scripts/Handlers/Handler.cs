@@ -51,14 +51,39 @@ public abstract class Handler
 
     public void GetProduction()
     {
-        // find ratio of production each resource gets
-        float energyRatio = gl.energyDemand == 0f ? Mathf.Infinity : endEnergyDem / gl.energyDemand;
-        float waterRatio = gl.waterDemand == 0f ? Mathf.Infinity : endWaterDem / gl.waterDemand;
-        float foodRatio = gl.foodDemand == 0f ? Mathf.Infinity : endFoodDem / gl.foodDemand;
+        // calculate units with food, water, energy
+        // units with energy
+        if (gl.energyProduction > gl.energyDemand)
+        {
+            unitsWithEnergy = unitsWithFunding;
+        }
+        else
+        {
+            // calculate ratio of energy production to get
+            //float energyRatio = gl.energyDemand == 0f ? Mathf.Infinity : endEnergyDem / gl.energyDemand;
+            //unitsWithEnergy = energyFactor == 0f ? Mathf.Infinity : gl.energyProduction * energyRatio / energyFactor;
+            unitsWithEnergy = 0f;
+        }
+        // units with water
+        if (gl.waterProduction > gl.waterDemand)
+        {
+            unitsWithWater = unitsWithFunding;
+        }
+        else
+        {
 
-        unitsWithEnergy = energyFactor == 0f ? Mathf.Infinity : gl.energyProduction * energyRatio / energyFactor;
-        unitsWithWater = waterFactor == 0f ? Mathf.Infinity : gl.waterProduction * waterRatio / waterFactor;
-        unitsWithFood = foodFactor == 0f ? Mathf.Infinity : gl.foodProduction * foodRatio / foodFactor;
+        }
+        // units with food
+        if (gl.foodProduction > gl.foodDemand)
+        {
+            unitsWithFood = unitsWithFunding;
+        }
+        else
+        {
+
+        }
+
+        // if production is greater than demand, then just
         //Debug.Log($"[Handler-Production] units with energy: {unitsWithEnergy}, units with water: {unitsWithWater}, units with food: {unitsWithFood}, units with funding: {unitsWithFunding}");
         production = Mathf.Min(unitsWithEnergy, unitsWithWater, unitsWithFood, unitsWithFunding);
     }

@@ -8,8 +8,8 @@ public class FoodHandler : Handler
     {
         // to produce 1 ton of food, you need:
         foodFactor = 0;             // 0 million tons of food
-        waterFactor = 0.01f;         // 10000 gallons of water
-        energyFactor = 0.005f;        // 0.5 megawatt-hours of energy
+        waterFactor = 0.0131f;         // 10000 gallons of water
+        energyFactor = 0.05f;        // 0.5 megawatt-hours of energy
         maxFunding = 0.0001f;           // $100 dollars per ton of food
 
 

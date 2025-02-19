@@ -17,7 +17,7 @@ public class EnergyHandler : Handler
         waterFactor = 0f;
         energyFactor = 0f;
 
-        maxFunding = 0.5f;           // $0.50 per kilowatt/hour; half a million dollars per month
+        maxFunding = 0.05f;
 
 
     }

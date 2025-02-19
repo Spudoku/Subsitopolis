@@ -16,11 +16,11 @@ public class GameLoop : MonoBehaviour
     const float DEFAULT_CITZ_INCOME = 0.0042f;                 // how many millions of dollars a citizen earns per month ($4200)
 
     const float DEFAULT_FOOD_MULTIPLIER = 0.114f;          // tons of food per person per month
-    const float DEFAULT_WATER_MULTIPLIER = 0.0025f;          // millions of gallons of water per person per month
+    const float DEFAULT_WATER_MULTIPLIER = 0.003f;          // millions of gallons of water per person per month
     const float DEFAULT_ENERGY_MULTIPLIER = 0.0006f;        // megawatt-hours of energy per person per month
 
 
-    const float IMMIGRATION_MULTIPLIER = 0.0005f;
+    const float DEFAULT_IMMIGRATION_RATE = 0.005f;          // population will grow by 0.5% per month due to immigration
 
     const float DEFAULT_INTEREST_RATE = 0.0042f;            // ~5% interest annually
 
@@ -29,7 +29,7 @@ public class GameLoop : MonoBehaviour
 
 
 
-    const float STARTING_FUNDING_AMT = 1.0f;
+    const float STARTING_FUNDING_AMT = 2.0f;
 
     // Time-related
     public float tickrate;     // speed of ticks/second, with a tick being a month in game
@@ -42,6 +42,8 @@ public class GameLoop : MonoBehaviour
     public int population;
 
     public float immigrationRate;
+
+    private float prevApproval;
     public float approval;  // value between 0 and 1
 
     public float citizenIncome;
@@ -181,9 +183,9 @@ public class GameLoop : MonoBehaviour
 
 
         // update approval
+        CalcApproval();
 
-
-        // higher approval rate increases immigration
+        // higher approval rate and surpluses of resources increases immigration
 
         // change population based on births and deaths
         int births = (int)(population * BIRTHRATE * Random.Range(0.75f, 1.25f));
@@ -298,21 +300,22 @@ public class GameLoop : MonoBehaviour
     // calculates and assigns funding to each resource
     private void CalcInitFunding()
     {
+        energyFunding = 5.0f;
+        waterFunding = 2.0f;
         foodFunding = 1.0f;
-        waterFunding = 1.0f;
-        energyFunding = 2.0f;
     }
 
-    // private float CalcTotalFundingNeeded()
-    // {
-    //     float hypoEnergyDemand = population * DEFAULT_ENERGY_MULTIPLIER;
-    //     float hypoFoodDemand = population * DEFAULT_FOOD_MULTIPLIER;
-    //     float hypoWaterDemand = population * DEFAULT_WATER_MULTIPLIER;
+    private void CalcNetImmigration()
+    {
 
-    //     hypoEnergyDemand += hypoFoodDemand * fh.maxFunding + hypoWaterDemand * wh.maxFunding;
-    //     hypoWaterDemand += hypoFoodDemand * 
+    }
 
 
-    //     return 0f;
-    // }
+    // calculate based on tax rate, debt/tax income ratio and resource production/demand ratio
+    private void CalcApproval()
+    {
+        prevApproval = approval;
+
+        approval = 0.5f;
+    }
 }
