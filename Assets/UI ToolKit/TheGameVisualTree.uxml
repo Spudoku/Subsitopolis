@@ -111,7 +111,11 @@
                         </engine:VisualElement>
                     </engine:VisualElement>
                 </engine:VisualElement>
-                <engine:VisualElement name="vitals-container" tooltip="?" class="resource-holder" style="flex-grow: 1; width: 30%; height: 80%; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px; flex-direction: column; max-width: 30%;" />
+                <engine:VisualElement name="vitals-container" tooltip="?" class="resource-holder" style="flex-grow: 1; width: 30%; height: 80%; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px; flex-direction: column; max-width: 30%; align-items: center;">
+                    <engine:VisualElement name="vital-cell" class="vital-cell" style="width: 95%;">
+                        <engine:VisualElement name="text-and-icon" style="flex-grow: 1;" />
+                    </engine:VisualElement>
+                </engine:VisualElement>
             </engine:VisualElement>
         </engine:VisualElement>
         <engine:VisualElement name="news-tab" tabindex="0" class="container news-tab" style="flex-grow: 1; height: 50px; background-color: rgba(0, 0, 0, 0.73); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; flex-direction: row; justify-content: center;">

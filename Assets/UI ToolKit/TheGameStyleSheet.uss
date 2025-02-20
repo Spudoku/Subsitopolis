@@ -135,3 +135,9 @@ resourceholder {
 
 .no-padding {
 }
+
+.vital-cell {
+    width: 95%;
+    background-color: rgba(0, 0, 0, 0.4);
+    height: 24%;
+}
