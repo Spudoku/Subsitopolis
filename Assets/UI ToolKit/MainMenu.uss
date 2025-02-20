@@ -1,0 +1,6 @@
+.heading {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    -unity-font-definition: url("project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&guid=585188cdc4600544eb408bee749e4b3a&type=3#ThaleahFat_TTF");
+    font-size: 128px;
+}

@@ -4,6 +4,8 @@ using UnityEngine.InputSystem.Controls;
 using UnityEngine.UIElements;
 [RequireComponent(typeof(GameLoop))]
 [RequireComponent(typeof(AudioSource))]
+
+// TODO: MouseOverEvents for stuff!
 public class TheGameUI : MonoBehaviour
 {
     const float FUNDING_DELTA_AMOUNT = 0.25f;
