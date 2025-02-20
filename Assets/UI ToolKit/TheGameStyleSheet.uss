@@ -1,5 +1,4 @@
 * {
-    
 }
 
 .container {
@@ -151,4 +150,7 @@ resourceholder {
 .vital-icon {
     width: 100px;
     flex-basis: 1;
+}
+
+.root {
 }
