@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.UIElements;
@@ -60,6 +61,9 @@ public class TheGameUI : MonoBehaviour
 
     private Label debtFundingLabel;
     private Label debtAmtLabel;
+    // icon textures
+    [SerializeField] private List<Texture2D> approvalIcons;
+
     void Awake()
     {
         doc = GetComponent<UIDocument>();

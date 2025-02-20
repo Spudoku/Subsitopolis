@@ -156,7 +156,10 @@ MonoBehaviour:
   months: 0
   population: 0
   immigrationRate: 0
+  speed: 0
+  isPaused: 0
   approval: 0
+  citizenIncome: 0
   foodDemand: 0
   foodProduction: 0
   netFood: 0
@@ -171,6 +174,7 @@ MonoBehaviour:
   foodFunding: 0
   waterFunding: 0
   energyFunding: 0
+  debtFunding: 0
 --- !u!4 &112811894
 Transform:
   m_ObjectHideFlags: 0
@@ -314,6 +318,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bef8ca0b4a2d7e4e8694697358add39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  approvalIcons:
+  - {fileID: 2800000, guid: 9c1347520ec8f7e4a8369a3084a11272, type: 3}
+  - {fileID: 2800000, guid: 3f0874d265e8ccd46907269cd34a1190, type: 3}
+  - {fileID: 2800000, guid: 631e740b366b09c46909c5c1dc789bfc, type: 3}
+  - {fileID: 2800000, guid: 6aedf5f40ae4811488216648f0650f20, type: 3}
+  - {fileID: 2800000, guid: 709b7cc1a96148d4799c91bff617a085, type: 3}
 --- !u!1 &171247627
 GameObject:
   m_ObjectHideFlags: 0
