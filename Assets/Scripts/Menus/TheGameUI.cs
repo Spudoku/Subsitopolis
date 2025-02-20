@@ -61,8 +61,15 @@ public class TheGameUI : MonoBehaviour
 
     private Label debtFundingLabel;
     private Label debtAmtLabel;
+
     // icon textures
     [SerializeField] private List<Texture2D> approvalIcons;
+
+
+    private VisualElement approvalIcon;
+    private Label approvalAmtLabel;
+
+    public List<Color32> approvalLabelColors = new List<Color32>();
 
     void Awake()
     {
@@ -260,6 +267,10 @@ public class TheGameUI : MonoBehaviour
         debtFundingLabel.text = $"{Round.RoundToPlaces(gameLoop.debtFunding, 2)}";
     }
 
+    private void UpdateApproval()
+    {
+
+    }
 
     public void InitAll()
     {
@@ -308,6 +319,10 @@ public class TheGameUI : MonoBehaviour
         debtAmtLabel = doc.rootVisualElement.Q<Label>("debt-amt");
         debtFundingLabel = doc.rootVisualElement.Q<Label>("debt-funding");
 
+        // Approval Stuff
+        approvalIcon = doc.rootVisualElement.Q<Image>("approval-icon");
+        approvalAmtLabel = doc.rootVisualElement.Q<Label>("approval-perc");
+
         // register callbacks
         buttons = doc.rootVisualElement.Query<Button>().ToList();
         foreach (Button b in buttons)
@@ -321,5 +336,6 @@ public class TheGameUI : MonoBehaviour
         UpdateFoodFunding(0);
         UpdateTaxRate(0);
         UpdateDebtFunding(0);
+        UpdateApproval();
     }
 }
