@@ -1,5 +1,6 @@
 
 
+
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -56,11 +57,13 @@ public class GameLoop : MonoBehaviour
     const float TAX_APP_FUNC = 2.15f;
 
     // if taxes are too high or water supply too small, you should be screwed!
-    const float TAX_APP_WEIGHT = 0.35f;
-    const float WATER_APP_WEIGHT = 0.35f;
-    const float FOOD_APP_WEIGHT = 0.125f;
-    const float DEBT_APP_WEIGHT = 0.05f;
-    const float ENERGY_APP_WEIGHT = 0.125f;
+
+    const float WATER_APP_WEIGHT = 0.4f;
+    const float FOOD_APP_WEIGHT = 0.30f;
+    const float DEBT_APP_WEIGHT = 0.1f;
+    const float ENERGY_APP_WEIGHT = 0.2f;
+
+    const float SURPLUS_REQUIREMENT = 1.25f;
 
     public float citizenIncome;
 
@@ -345,14 +348,19 @@ public class GameLoop : MonoBehaviour
 
     // calculate based on tax rate, debt/tax income ratio and resource production/demand ratio
     // idea: if taxes are too high, there's a maximum approval that can be reached (100% tax rate would be 0%)
+    // idea: food, water and energy production/demand ratios need to be at least 2x for optimal approval
     private void CalcApproval()
     {
         prevApproval = approval;
         float maxApproval = TAX_APP_FUNC - Mathf.Pow(TAX_APP_FUNC, taxRate);
-        float hypoApprov = 0f;
-        hypoApprov = Mathf.Clamp(hypoApprov, 0, maxApproval);
+        float hypoApprov = Mathf.Min(foodProduction / foodDemand, 1) * FOOD_APP_WEIGHT
+            + Mathf.Min(waterProduction / waterDemand, 1) * WATER_APP_WEIGHT
+            + Mathf.Min(energyProduction / energyDemand, 1) * ENERGY_APP_WEIGHT
+            + Mathf.Min(population * citizenIncome * taxRate / totalDebt, 1) * DEBT_APP_WEIGHT;
+        hypoApprov = Mathf.Min(hypoApprov, maxApproval);
 
-        // approval = Mathf.Lerp(prevApproval, hypoApprov, 0.5f);
-        approval = 0.5f;
+        approval = Mathf.Lerp(prevApproval, hypoApprov, 0.5f);
+        Debug.Log($"Approval is: {Round.RoundToPlaces(approval, 2)} from {Round.RoundToPlaces(prevApproval, 2)}");
+
     }
 }
