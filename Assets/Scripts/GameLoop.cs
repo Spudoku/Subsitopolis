@@ -53,11 +53,14 @@ public class GameLoop : MonoBehaviour
 
     const float DEFAULT_APPROVAL_DELTA_MULT = 0.01f;
 
-    const float TAX_APP_WEIGHT = 0.55f;
-    const float DEBT_APP_WEIGHT = 0.05f;
+    const float TAX_APP_FUNC = 2.15f;
+
+    // if taxes are too high or water supply too small, you should be screwed!
+    const float TAX_APP_WEIGHT = 0.35f;
+    const float WATER_APP_WEIGHT = 0.35f;
     const float FOOD_APP_WEIGHT = 0.125f;
-    const float WATER_APP_WEIGHT = 0.175f;
-    const float ENERGY_APP_WEIGHT = 0.1f;
+    const float DEBT_APP_WEIGHT = 0.05f;
+    const float ENERGY_APP_WEIGHT = 0.125f;
 
     public float citizenIncome;
 
@@ -341,11 +344,14 @@ public class GameLoop : MonoBehaviour
 
 
     // calculate based on tax rate, debt/tax income ratio and resource production/demand ratio
+    // idea: if taxes are too high, there's a maximum approval that can be reached (100% tax rate would be 0%)
     private void CalcApproval()
     {
         prevApproval = approval;
+        float maxApproval = TAX_APP_FUNC - Mathf.Pow(TAX_APP_FUNC, taxRate);
+        float hypoApprov = 0f;
+        hypoApprov = Mathf.Clamp(hypoApprov, 0, maxApproval);
 
-        // float hypoApprov = 0f;
         // approval = Mathf.Lerp(prevApproval, hypoApprov, 0.5f);
         approval = 0.5f;
     }
