@@ -324,6 +324,17 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 631e740b366b09c46909c5c1dc789bfc, type: 3}
   - {fileID: 2800000, guid: 6aedf5f40ae4811488216648f0650f20, type: 3}
   - {fileID: 2800000, guid: 709b7cc1a96148d4799c91bff617a085, type: 3}
+  approvalLabelColors:
+  - serializedVersion: 2
+    rgba: 4278564398
+  - serializedVersion: 2
+    rgba: 4280267402
+  - serializedVersion: 2
+    rgba: 4282772473
+  - serializedVersion: 2
+    rgba: 4280822015
+  - serializedVersion: 2
+    rgba: 4278519114
 --- !u!1 &171247627
 GameObject:
   m_ObjectHideFlags: 0

@@ -112,10 +112,10 @@
                     </engine:VisualElement>
                 </engine:VisualElement>
                 <engine:VisualElement name="vitals-container" tooltip="?" class="resource-holder" style="flex-grow: 1; width: 30%; height: 80%; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px; flex-direction: column; max-width: 30%; align-items: center;">
-                    <engine:VisualElement name="vital-cell" class="vital-cell" style="width: 95%; flex-direction: row; justify-content: center;">
+                    <engine:VisualElement name="vital-cell" class="vital-cell" style="width: 95%; flex-direction: row; justify-content: center; align-items: center;">
                         <engine:Label text="Approval:" name="approval-name" class="vital-text" style="font-size: 30px; -unity-text-align: middle-left;" />
-                        <engine:Label text="50%" name="approval-perc" class="vital-text" style="-unity-text-align: middle-left;" />
-                        <engine:VisualElement name="icon" class="vital-icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Graphics/Textures/Icons/Approval_1.png?fileID=2800000&amp;guid=9c1347520ec8f7e4a8369a3084a11272&amp;type=3#Approval_1&quot;); max-width: none;" />
+                        <engine:Label text="50%" name="approval-perc" class="vital-text" style="-unity-text-align: middle-left; margin-right: 16px;" />
+                        <engine:VisualElement name="approval-icon" class="vital-icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Graphics/Textures/Icons/Approval_1.png?fileID=2800000&amp;guid=9c1347520ec8f7e4a8369a3084a11272&amp;type=3#Approval_1&quot;); max-width: 60px; width: 60px; height: 60px; max-height: 60px; min-width: 60px; min-height: 60px;" />
                     </engine:VisualElement>
                 </engine:VisualElement>
             </engine:VisualElement>

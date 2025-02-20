@@ -149,6 +149,6 @@ resourceholder {
 }
 
 .vital-icon {
-    width: 30px;
+    width: 100px;
     aspect-ratio: 1;
 }

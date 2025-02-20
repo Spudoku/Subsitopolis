@@ -166,8 +166,9 @@ public class GameLoop : MonoBehaviour
         CalcInitFunding();
         ui.UpdateAllLabels();
         Tick();
-        isPaused = true;
+        isPaused = false;
         speed = GameSpeed.Normal;
+        InstantApproval();
     }
 
     void Update()
@@ -178,26 +179,19 @@ public class GameLoop : MonoBehaviour
 
         if (isPaused)
         {
-            Time.timeScale = 0;
+            timeScale = 0;
         }
         else
         {
-            switch (speed)
+            timeScale = speed switch
             {
-                case GameSpeed.Slow:
-                    Time.timeScale = 0.5f;
-                    break;
-                case GameSpeed.Fast:
-                    Time.timeScale = 2.0f;
-                    break;
+                GameSpeed.Slow => 0.5f,
+                GameSpeed.Fast => 2.0f,
                 // should also be GameSpeed.Normal
-                default:
-                    Time.timeScale = 1.0f;
-                    break;
-
-            }
+                _ => 1.0f,
+            };
         }
-        Time.timeScale = Mathf.Clamp(timeScale, 0f, 2f);
+        Time.timeScale = Mathf.Clamp(timeScale, 0.5f, 2f);
         if (Time.time > prevTickTime + (1 / tickrate / Time.timeScale))
         {
             Tick();
@@ -398,4 +392,26 @@ public class GameLoop : MonoBehaviour
         Debug.Log($"Approval is: {Round.RoundToPlaces(approval, 2)} from {Round.RoundToPlaces(prevApproval, 2)}");
 
     }
+
+    // CalcApproval but no lerping!
+    private void InstantApproval()
+
+    {
+        prevApproval = approval;
+        float maxApproval = TAX_APP_FUNC - Mathf.Pow(TAX_APP_FUNC, taxRate);
+        float hypoApprov = Mathf.Min(foodProduction / foodDemand, 1) * FOOD_APP_WEIGHT
+            + Mathf.Min(waterProduction / waterDemand, 1) * WATER_APP_WEIGHT
+            + Mathf.Min(energyProduction / energyDemand, 1) * ENERGY_APP_WEIGHT
+            + Mathf.Min(population * citizenIncome * taxRate / totalDebt, 1) * DEBT_APP_WEIGHT;
+        approval = Mathf.Min(hypoApprov, maxApproval);
+
+
+    }
+    public void TogglePause()
+    {
+        isPaused = !isPaused;
+
+    }
+
 }
+

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEditor.Search;
 using UnityEngine;
@@ -69,7 +70,7 @@ public class TheGameUI : MonoBehaviour
     private VisualElement approvalIcon;
     private Label approvalAmtLabel;
 
-    public List<Color32> approvalLabelColors = new List<Color32>();
+    public List<Color32> approvalLabelColors = new();
 
     void Awake()
     {
@@ -100,7 +101,8 @@ public class TheGameUI : MonoBehaviour
 
         debtAmtLabel.text = $"{Round.RoundToPlaces(gameLoop.totalDebt, 2)}";
         debtFundingLabel.text = $"{Round.RoundToPlaces(gameLoop.debtFunding, 2)}";
-        // tax labels
+
+        UpdateApproval();
     }
 
     void OnDsable()
@@ -269,7 +271,37 @@ public class TheGameUI : MonoBehaviour
 
     private void UpdateApproval()
     {
-
+        approvalAmtLabel.text = $"{Round.RoundToPlaces(gameLoop.approval * 100, 1)}%";
+        if (gameLoop.approval > 0.75f)
+        {
+            // happy
+            approvalAmtLabel.style.color = new StyleColor(approvalLabelColors[0]);
+            approvalIcon.style.backgroundImage = approvalIcons[0];
+        }
+        else if (gameLoop.approval > 0.5f)
+        {
+            // mid
+            approvalAmtLabel.style.color = new StyleColor(approvalLabelColors[1]);
+            approvalIcon.style.backgroundImage = approvalIcons[1];
+        }
+        else if (gameLoop.approval > 0.4f)
+        {
+            // mildly angry
+            approvalAmtLabel.style.color = new StyleColor(approvalLabelColors[2]);
+            approvalIcon.style.backgroundImage = approvalIcons[2];
+        }
+        else if (gameLoop.approval > 0.33f)
+        {
+            // pissed
+            approvalAmtLabel.style.color = new StyleColor(approvalLabelColors[3]);
+            approvalIcon.style.backgroundImage = approvalIcons[3];
+        }
+        else
+        {
+            // you're fucked
+            approvalAmtLabel.style.color = new StyleColor(approvalLabelColors[4]);
+            approvalIcon.style.backgroundImage = approvalIcons[4];
+        }
     }
 
     public void InitAll()
@@ -320,7 +352,7 @@ public class TheGameUI : MonoBehaviour
         debtFundingLabel = doc.rootVisualElement.Q<Label>("debt-funding");
 
         // Approval Stuff
-        approvalIcon = doc.rootVisualElement.Q<Image>("approval-icon");
+        approvalIcon = doc.rootVisualElement.Q<VisualElement>("approval-icon");
         approvalAmtLabel = doc.rootVisualElement.Q<Label>("approval-perc");
 
         // register callbacks
