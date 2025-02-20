@@ -47,6 +47,17 @@ public class GameLoop : MonoBehaviour
 
     public float immigrationRate;
 
+    public enum GameSpeed
+    {
+        Slow,
+        Normal,
+        Fast
+    }
+
+    public GameSpeed speed;
+    public bool isPaused;
+
+
 
     // approval-related
     private float prevApproval;
@@ -155,6 +166,8 @@ public class GameLoop : MonoBehaviour
         CalcInitFunding();
         ui.UpdateAllLabels();
         Tick();
+        isPaused = true;
+        speed = GameSpeed.Normal;
     }
 
     void Update()
@@ -162,6 +175,28 @@ public class GameLoop : MonoBehaviour
         // goal: make ticks occur once every (1/tickrate) / time.timeScale seconds seconds
         // if timescale = 0.5, result should be 2/tickrate seconds between ticks
         // if timescale = 2, result should be 0.5/tickrate seconds between ticks
+
+        if (isPaused)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            switch (speed)
+            {
+                case GameSpeed.Slow:
+                    Time.timeScale = 0.5f;
+                    break;
+                case GameSpeed.Fast:
+                    Time.timeScale = 2.0f;
+                    break;
+                // should also be GameSpeed.Normal
+                default:
+                    Time.timeScale = 1.0f;
+                    break;
+
+            }
+        }
         Time.timeScale = Mathf.Clamp(timeScale, 0f, 2f);
         if (Time.time > prevTickTime + (1 / tickrate / Time.timeScale))
         {
