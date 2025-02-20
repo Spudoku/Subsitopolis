@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.InputSystem.Controls;
@@ -346,11 +347,11 @@ public class TheGameUI : MonoBehaviour
     {
         if (gameLoop.population > 1000000)
         {
-            popAmtLabel.text = $"{Round.RoundToPlaces(gameLoop.population / 1000000, 2)}M";
+            popAmtLabel.text = $"{(gameLoop.population / 1000000.0f).ToString("0.0")}M";
         }
         else if (gameLoop.population > 1000)
         {
-            popAmtLabel.text = $"{Round.RoundToPlaces(gameLoop.population / 1000, 2)}K";
+            popAmtLabel.text = $"{(gameLoop.population / 1000.0f).ToString("0.0")}K";
         }
         else
         {
