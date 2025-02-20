@@ -66,11 +66,13 @@ public class TheGameUI : MonoBehaviour
     // icon textures
     [SerializeField] private List<Texture2D> approvalIcons;
 
-
+    // Vitals stuff
     private VisualElement approvalIcon;
     private Label approvalAmtLabel;
-
     public List<Color32> approvalLabelColors = new();
+
+    private Label popAmtLabel;
+    private Label TreasuryAmtLabel;
 
     void Awake()
     {
@@ -103,6 +105,8 @@ public class TheGameUI : MonoBehaviour
         debtFundingLabel.text = $"{Round.RoundToPlaces(gameLoop.debtFunding, 2)}";
 
         UpdateApproval();
+        UpdatePopulation();
+        UpdateTreasury();
     }
 
     void OnDsable()
@@ -303,7 +307,87 @@ public class TheGameUI : MonoBehaviour
             approvalIcon.style.backgroundImage = approvalIcons[4];
         }
     }
+    private void UpdateTreasury()
+    {
+        TreasuryAmtLabel.text = $"${Round.RoundToPlaces(gameLoop.treasury, 2)}M";
+        if (gameLoop.treasury > gameLoop.totalDebt * 5)
+        {
+            // happy
+            TreasuryAmtLabel.style.color = new StyleColor(approvalLabelColors[0]);
 
+        }
+        else if (gameLoop.treasury > gameLoop.totalDebt * 2)
+        {
+            // mid
+            TreasuryAmtLabel.style.color = new StyleColor(approvalLabelColors[1]);
+
+        }
+        else if (gameLoop.treasury > gameLoop.totalDebt)
+        {
+            // mildly angry
+            TreasuryAmtLabel.style.color = new StyleColor(approvalLabelColors[2]);
+
+        }
+        else if (gameLoop.treasury > gameLoop.totalDebt * 0.5)
+        {
+            // pissed
+            TreasuryAmtLabel.style.color = new StyleColor(approvalLabelColors[3]);
+
+        }
+        else
+        {
+            // you're fucked
+            TreasuryAmtLabel.style.color = new StyleColor(approvalLabelColors[4]);
+
+        }
+    }
+
+    private void UpdatePopulation()
+    {
+        if (gameLoop.population > 1000000)
+        {
+            popAmtLabel.text = $"{Round.RoundToPlaces(gameLoop.population / 1000000, 2)}M";
+        }
+        else if (gameLoop.population > 1000)
+        {
+            popAmtLabel.text = $"{Round.RoundToPlaces(gameLoop.population / 1000, 2)}K";
+        }
+        else
+        {
+            popAmtLabel.text = $"{Round.RoundToPlaces(gameLoop.population, 2)}";
+        }
+
+        if (gameLoop.population > GameLoop.STARTING_POPULATION * 2)
+        {
+            // happy
+            popAmtLabel.style.color = new StyleColor(approvalLabelColors[0]);
+
+        }
+        else if (gameLoop.population > GameLoop.STARTING_POPULATION)
+        {
+            // mid
+            popAmtLabel.style.color = new StyleColor(approvalLabelColors[1]);
+
+        }
+        else if (gameLoop.population > GameLoop.STARTING_POPULATION * 0.75)
+        {
+            // mildly angry
+            popAmtLabel.style.color = new StyleColor(approvalLabelColors[2]);
+
+        }
+        else if (gameLoop.population > GameLoop.STARTING_POPULATION * 0.33)
+        {
+            // pissed
+            popAmtLabel.style.color = new StyleColor(approvalLabelColors[3]);
+
+        }
+        else
+        {
+            // you're fucked
+            popAmtLabel.style.color = new StyleColor(approvalLabelColors[4]);
+
+        }
+    }
     public void InitAll()
     {
         // REGISTERING BUTTONS
@@ -355,6 +439,9 @@ public class TheGameUI : MonoBehaviour
         approvalIcon = doc.rootVisualElement.Q<VisualElement>("approval-icon");
         approvalAmtLabel = doc.rootVisualElement.Q<Label>("approval-perc");
 
+        popAmtLabel = doc.rootVisualElement.Q<Label>("pop-amt");
+        TreasuryAmtLabel = doc.rootVisualElement.Q<Label>("treasury-amt");
+
         // register callbacks
         buttons = doc.rootVisualElement.Query<Button>().ToList();
         foreach (Button b in buttons)
@@ -369,5 +456,7 @@ public class TheGameUI : MonoBehaviour
         UpdateTaxRate(0);
         UpdateDebtFunding(0);
         UpdateApproval();
+        UpdatePopulation();
+        UpdateTreasury();
     }
 }

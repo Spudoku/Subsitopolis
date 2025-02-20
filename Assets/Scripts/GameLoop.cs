@@ -9,7 +9,7 @@ public class GameLoop : MonoBehaviour
 {
     // CONSTANT VALUES
     const float DEFAULT_TICK_RATE = 0.25f;        // 1 tick per 4 seconds
-    const int STARTING_POPULATION = 10000;
+    public const int STARTING_POPULATION = 10000;
     const float STARTING_TREASURY = 10f;
 
     const float STARTING_DEBT = 1f;
@@ -250,15 +250,16 @@ public class GameLoop : MonoBehaviour
 
 
         // losing condition: approval falls below 20% or population is less than 2000
-        if (approval < 0.2f || population < STARTING_POPULATION * 0.2f)
+        if ((approval < 0.1f || population < STARTING_POPULATION * 0.2f) && months > 5)
         {
+            Debug.Log($"You should lose NOW!");
             EndGame();
         }
     }
 
     private void EndGame()
     {
-        timeScale = 0;
+        Time.timeScale = 0f;
         // play losing sequence
 
 
@@ -290,9 +291,6 @@ public class GameLoop : MonoBehaviour
         // each citizen eats foodDemandMult tons of food each month
 
     }
-
-
-
     private void UpdateFinances()
     {
         float taxRevenue = population * citizenIncome * taxRate;
@@ -327,24 +325,6 @@ public class GameLoop : MonoBehaviour
             SpendFromTreasury(debtFunding);
         }
     }
-
-    // void OnGUI()
-    // {
-
-    //     GUI.Label(new Rect(10, 10, 300, 20), $"Month: {months}");
-    //     GUI.Label(new Rect(10, 30, 300, 40), $"Treasury: ${treasury}M");
-    //     GUI.Label(new Rect(10, 50, 300, 70), $"Population: {population}");
-    //     GUI.Label(new Rect(10, 70, 300, 90), $"Approval Rating: {Mathf.Round(approval * 100f)}%");
-    //     GUI.Label(new Rect(10, 90, 300, 110), $"Total Debt: ${Round.RoundToPlaces(totalDebt, 2)}M");
-
-    //     GUI.Label(new Rect(10, 300, 300, 310), $"Food production: {foodProduction}");
-    //     GUI.Label(new Rect(10, 320, 300, 330), $"Food demand: {foodDemand}");
-    //     GUI.Label(new Rect(10, 340, 300, 350), $"Water production: {waterProduction}");
-    //     GUI.Label(new Rect(10, 360, 300, 370), $"Water demand: {waterDemand}");
-    //     GUI.Label(new Rect(10, 380, 300, 390), $"Energy production: {energyProduction}");
-    //     GUI.Label(new Rect(10, 400, 300, 410), $"Energy demand: {energyDemand}");
-    // }
-
 
     // if treasury runs out, increase totalDebt by leftover 'amount'
     private void SpendFromTreasury(float amount)
@@ -385,7 +365,7 @@ public class GameLoop : MonoBehaviour
         float hypoApprov = Mathf.Min(foodProduction / foodDemand, 1) * FOOD_APP_WEIGHT
             + Mathf.Min(waterProduction / waterDemand, 1) * WATER_APP_WEIGHT
             + Mathf.Min(energyProduction / energyDemand, 1) * ENERGY_APP_WEIGHT
-            + Mathf.Min(population * citizenIncome * taxRate / totalDebt, 1) * DEBT_APP_WEIGHT;
+            + Mathf.Min(treasury / totalDebt, 1) * DEBT_APP_WEIGHT;
         hypoApprov = Mathf.Min(hypoApprov, maxApproval);
 
         approval = Mathf.Lerp(prevApproval, hypoApprov, 0.5f);
