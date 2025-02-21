@@ -1,8 +1,5 @@
 
-
-
 using UnityEngine;
-using UnityEngine.UIElements;
 
 [RequireComponent(typeof(TheGameUI))]
 public class GameLoop : MonoBehaviour
@@ -237,11 +234,7 @@ public class GameLoop : MonoBehaviour
 
         // higher approval rate and surpluses of resources increases immigration
 
-        // change population based on births and deaths
-        int births = (int)(population * BIRTHRATE * Random.Range(0.75f, 1.25f));
-        int deaths = (int)(population * DEATHRATE * Random.Range(0.75f, 1.25f));
-        population -= deaths;
-        population += births;
+        UpdatePopulation();
         //Debug.Log("Month " + months + ": births = " + births + ", deaths = " + deaths);
 
 
@@ -348,11 +341,26 @@ public class GameLoop : MonoBehaviour
         waterFunding = 2.0f;
         foodFunding = 1.0f;
     }
-
-    private void CalcNetImmigration()
+    private void UpdatePopulation()
     {
+        // change population based on births and deaths
+        int births = (int)(population * BIRTHRATE * Random.Range(0.75f, 1.25f));
+        int deaths = (int)(population * DEATHRATE * Random.Range(0.75f, 1.25f));
+        population -= deaths;
+        population += births;
 
+        // calcuate how many people immigrate/emmigrate
+        int immigrants = CalcNetImmigration();
+        population += immigrants;
+        Debug.Log($"[GameLoop] {immigrants} people immigrated");
     }
+    private int CalcNetImmigration()
+    {
+        return (int)((0.03885 * Mathf.Log(approval, Mathf.Exp(1)) + DEFAULT_IMMIGRATION_RATE * 5f) * population);
+    }
+
+
+
 
 
     // calculate based on tax rate, debt/tax income ratio and resource production/demand ratio
