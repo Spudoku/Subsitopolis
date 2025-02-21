@@ -105,6 +105,11 @@ public class TheGameUI : MonoBehaviour
         debtAmtLabel.text = $"{Round.RoundToPlaces(gameLoop.totalDebt, 2)}";
         debtFundingLabel.text = $"{Round.RoundToPlaces(gameLoop.debtFunding, 2)}";
 
+        UpdateEnergyFunding(0);
+        UpdateWaterFunding(0);
+        UpdateFoodFunding(0);
+        UpdateTaxRate(0);
+        UpdateDebtFunding(0);
         UpdateApproval();
         UpdatePopulation();
         UpdateTreasury();

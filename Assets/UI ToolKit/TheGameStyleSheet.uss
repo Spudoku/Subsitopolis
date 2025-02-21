@@ -154,3 +154,10 @@ resourceholder {
 
 .root {
 }
+
+.side-button {
+    width: 96px;
+    height: 96px;
+    margin-bottom: 8px;
+    margin-top: 16px;
+}
