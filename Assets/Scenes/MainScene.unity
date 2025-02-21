@@ -335,6 +335,11 @@ MonoBehaviour:
     rgba: 4280822015
   - serializedVersion: 2
     rgba: 4279308678
+  pauseButtonTextures:
+  - {fileID: 2800000, guid: 658a363f8019c7c499f2a52a84b32b31, type: 3}
+  - {fileID: 2800000, guid: 5426ac08ce5875b49a26001cd0faae92, type: 3}
+  speedButtonTextures: []
+  volumeButtonTextures: []
 --- !u!1 &171247627
 GameObject:
   m_ObjectHideFlags: 0

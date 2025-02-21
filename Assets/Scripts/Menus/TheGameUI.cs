@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using UnityEditor.Media;
 using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.InputSystem.Controls;
@@ -75,6 +76,19 @@ public class TheGameUI : MonoBehaviour
     private Label popAmtLabel;
     private Label TreasuryAmtLabel;
 
+    // side menu stuff
+    [SerializeField] private List<Texture2D> pauseButtonTextures = new();
+    [SerializeField] private List<Texture2D> speedButtonTextures = new();
+    [SerializeField] private List<Texture2D> volumeButtonTextures = new();
+    private Button pauseButton;
+
+    private Label pauseMidLabel;
+
+    private Button speedButton;
+
+    private Button volumeButton;
+    private Button helpButton;
+
     void Awake()
     {
         doc = GetComponent<UIDocument>();
@@ -84,7 +98,7 @@ public class TheGameUI : MonoBehaviour
 
 
         InitAll();
-
+        pauseMidLabel.SetEnabled(false);
     }
 
     // Update all production/demand labels
@@ -136,6 +150,8 @@ public class TheGameUI : MonoBehaviour
         debtDecButton.UnregisterCallback<ClickEvent>(OnDebtDecClick);
         debtIncButton.UnregisterCallback<ClickEvent>(OnDebtIncClick);
 
+        pauseButton.UnregisterCallback<ClickEvent>(OnPauseClicked);
+
         foreach (Button b in buttons)
         {
             b.UnregisterCallback<ClickEvent>(OnAllButtonClick);
@@ -147,7 +163,25 @@ public class TheGameUI : MonoBehaviour
         audioSource.Play();
     }
 
+    private void OnPauseClicked(ClickEvent evt)
+    {
+        gameLoop.TogglePause();
+        UpdatePauseButton();
+    }
+    private void UpdatePauseButton()
+    {
 
+        if (gameLoop.isPaused)
+        {
+            pauseButton.style.backgroundImage = pauseButtonTextures[0];
+            pauseMidLabel.style.opacity = 100;
+        }
+        else
+        {
+            pauseButton.style.backgroundImage = pauseButtonTextures[1];
+            pauseMidLabel.style.opacity = 0;
+        }
+    }
     // Increment/decrement buttons
 
     // "Energy Decrement Click"
@@ -422,6 +456,8 @@ public class TheGameUI : MonoBehaviour
         debtDecButton.RegisterCallback<ClickEvent>(OnDebtDecClick);
         debtIncButton.RegisterCallback<ClickEvent>(OnDebtIncClick);
 
+
+
         // registering labels
         energyProdLabel = doc.rootVisualElement.Q<Label>("energy-prod");
         energyDemLabel = doc.rootVisualElement.Q<Label>("energy-dem");
@@ -448,6 +484,17 @@ public class TheGameUI : MonoBehaviour
         popAmtLabel = doc.rootVisualElement.Q<Label>("pop-amt");
         TreasuryAmtLabel = doc.rootVisualElement.Q<Label>("treasury-amt");
 
+
+        // side menu
+        pauseButton = doc.rootVisualElement.Q<Button>("pause-button");
+        speedButton = doc.rootVisualElement.Q<Button>("speed-button");
+        volumeButton = doc.rootVisualElement.Q<Button>("volume-button");
+        helpButton = doc.rootVisualElement.Q<Button>("help-button");
+
+        pauseButton.RegisterCallback<ClickEvent>(OnPauseClicked);
+
+        pauseMidLabel = doc.rootVisualElement.Q<Label>("pause-label");
+
         // register callbacks
         buttons = doc.rootVisualElement.Query<Button>().ToList();
         foreach (Button b in buttons)
@@ -464,5 +511,8 @@ public class TheGameUI : MonoBehaviour
         UpdateApproval();
         UpdatePopulation();
         UpdateTreasury();
+        UpdatePauseButton();
     }
+
+
 }
