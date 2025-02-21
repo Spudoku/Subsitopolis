@@ -1,0 +1,4 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20ToolKit/HelpMenu.uss?fileID=7433441132597879392&amp;guid=5a1ef44d4b161824582579a70ead29b9&amp;type=3#HelpMenu" />
+    <engine:VisualElement name="root" class="center" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.86); width: 80%; height: 80%; max-height: 800px; top: 285px; left: 503px;" />
+</engine:UXML>
