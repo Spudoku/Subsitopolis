@@ -165,7 +165,7 @@ public class GameLoop : MonoBehaviour
             TickNoLose();
         }
 
-        isPaused = false;
+        isPaused = true;
         speed = GameSpeed.Normal;
         InstantApproval();
     }

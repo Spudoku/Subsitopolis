@@ -161,3 +161,14 @@ resourceholder {
     margin-bottom: 8px;
     margin-top: 16px;
 }
+
+.pause-label {
+    position: absolute;
+    width: 50%;
+    height: 25%;
+    font-size: 80px;
+    -unity-font-definition: url("project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&guid=585188cdc4600544eb408bee749e4b3a&type=3#ThaleahFat_TTF");
+    color: rgba(255, 255, 255, 0.9);
+    left: 50%;
+    top: 50%;
+}
