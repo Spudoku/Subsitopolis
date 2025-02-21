@@ -6,8 +6,8 @@ public class GameLoop : MonoBehaviour
 {
     // CONSTANT VALUES
     const float DEFAULT_TICK_RATE = 0.25f;        // 1 tick per 4 seconds
-    public const int STARTING_POPULATION = 10000;
-    const float STARTING_TREASURY = 10f;
+    public const int STARTING_POPULATION = 100000;
+    const float STARTING_TREASURY = 100f;
 
     const float STARTING_DEBT = 1f;
 
@@ -30,7 +30,7 @@ public class GameLoop : MonoBehaviour
 
 
 
-    const float STARTING_FUNDING_AMT = 2.0f;
+    const float STARTING_FUNDING_AMT = 5.0f;
 
     // Time-related
     public float tickrate;     // speed of ticks/second, with a tick being a month in game
@@ -59,8 +59,6 @@ public class GameLoop : MonoBehaviour
     // approval-related
     private float prevApproval;
     public float approval;  // value between 0 and 1
-
-    const float DEFAULT_APPROVAL_DELTA_MULT = 0.01f;
 
     const float TAX_APP_FUNC = 2.15f;
 
@@ -162,7 +160,11 @@ public class GameLoop : MonoBehaviour
 
         CalcInitFunding();
         ui.UpdateAllLabels();
-        Tick();
+        for (int i = 0; i < 5; i++)
+        {
+            TickNoLose();
+        }
+
         isPaused = false;
         speed = GameSpeed.Normal;
         InstantApproval();
@@ -205,19 +207,27 @@ public class GameLoop : MonoBehaviour
     {
         //Debug.Log($"EnergyFinding: {energyFunding}, waterFunding: {waterFunding}, foodFunding: {foodFunding}");
         months++;
+        TickNoLose();
+
+
+        // losing condition: approval falls below 20% or population is less than 2000
+        if ((approval < 0.1f || population < STARTING_POPULATION * 0.2f) && months > 5)
+        {
+            Debug.Log($"You should lose NOW!");
+            EndGame();
+        }
+    }
+
+    private void TickNoLose()
+    {
         // get food, water and energy production from respective handlers
 
         // get demand from energy, water and food
 
         // get production from energy, water and food
-        // fh.Tick();
-        // wh.Tick();
-        // eh.Tick();
         UpdateDemand();
 
         UpdateProduction();
-
-
 
         // calculate demand for each resource
 
@@ -240,16 +250,7 @@ public class GameLoop : MonoBehaviour
 
         // update UI
         ui.Tick();
-
-
-        // losing condition: approval falls below 20% or population is less than 2000
-        if ((approval < 0.1f || population < STARTING_POPULATION * 0.2f) && months > 5)
-        {
-            Debug.Log($"You should lose NOW!");
-            EndGame();
-        }
     }
-
     private void EndGame()
     {
         Time.timeScale = 0f;
@@ -356,7 +357,7 @@ public class GameLoop : MonoBehaviour
     }
     private int CalcNetImmigration()
     {
-        return (int)((0.03885 * Mathf.Log(approval, Mathf.Exp(1)) + DEFAULT_IMMIGRATION_RATE * 5f) * population);
+        return (int)((0.03885 * Mathf.Log(approval, Mathf.Exp(1)) + DEFAULT_IMMIGRATION_RATE * 3f) * population);
     }
 
 
