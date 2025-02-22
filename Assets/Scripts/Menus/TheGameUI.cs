@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using UnityEditor.Media;
 using UnityEditor.Search;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.InputSystem.Controls;
+using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 [RequireComponent(typeof(GameLoop))]
 [RequireComponent(typeof(AudioSource))]
@@ -91,6 +94,9 @@ public class TheGameUI : MonoBehaviour
     private Button volumeButton;
     private Button helpButton;
 
+    private VisualElement gameOver;
+    private Button playAgain;
+
     void Awake()
     {
         doc = GetComponent<UIDocument>();
@@ -101,6 +107,7 @@ public class TheGameUI : MonoBehaviour
 
         InitAll();
         pauseMidLabel.SetEnabled(false);
+
     }
 
     // Update all production/demand labels
@@ -155,11 +162,22 @@ public class TheGameUI : MonoBehaviour
         pauseButton.UnregisterCallback<ClickEvent>(OnPauseClicked);
 
         helpButton.UnregisterCallback<ClickEvent>(OnHelpButtonClick);
+        playAgain.UnregisterCallback<ClickEvent>(OnPlayAgain);
+
 
         foreach (Button b in buttons)
         {
             b.UnregisterCallback<ClickEvent>(OnAllButtonClick);
         }
+    }
+
+    public void OnLose()
+    {
+        gameOver.style.display = DisplayStyle.Flex;
+    }
+    private void OnPlayAgain(ClickEvent evt)
+    {
+        SceneManager.LoadScene(0);
     }
 
     private void OnAllButtonClick(ClickEvent evt)
@@ -502,6 +520,13 @@ public class TheGameUI : MonoBehaviour
         helpButton.RegisterCallback<ClickEvent>(OnHelpButtonClick);
 
         pauseMidLabel = doc.rootVisualElement.Q<Label>("pause-label");
+
+        // game-over stuff
+        gameOver = doc.rootVisualElement.Q<VisualElement>("game-over");
+        gameOver.style.display = DisplayStyle.None;
+
+        playAgain = doc.rootVisualElement.Q<Button>("play-again");
+        playAgain.RegisterCallback<ClickEvent>(OnPlayAgain);
 
         // register callbacks
         buttons = doc.rootVisualElement.Query<Button>().ToList();

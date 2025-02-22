@@ -138,6 +138,11 @@
                 <engine:VisualElement name="news-item" style="flex-grow: 1; color: rgb(245, 245, 245); background-color: rgb(233, 32, 32); margin-top: 5px; margin-right: 5px; margin-bottom: 5px; margin-left: 5px; height: auto; align-items: center;" />
             </engine:ScrollView>
         </engine:VisualElement>
+        <engine:VisualElement name="game-over" class="center" style="flex-grow: 1; width: 100%; height: 100%; justify-content: space-between; align-items: center;">
+            <engine:Label text="Game Over!" name="title" style="height: 20%; font-size: 90px; color: rgb(226, 7, 7); -unity-font-definition: url(&quot;project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&quot;);" />
+            <engine:Label text="You have been terminated from your role as Chief of Funding.&#10;&#10;Subsidopolis is now in a worse place, because of YOU!" name="message" style="max-width: none; flex-grow: 1; -unity-text-align: upper-center; width: 95%; color: rgb(255, 255, 255); font-size: 40px; -unity-font-definition: url(&quot;project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&quot;); flex-wrap: nowrap; white-space: normal;" />
+            <engine:Button text="Play Again" name="play-again" style="width: 256px; height: 64px; -unity-font-definition: url(&quot;project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&quot;); font-size: 50px; background-color: rgb(67, 63, 63); color: rgb(255, 255, 255); margin-top: 2%; margin-bottom: 2%;" />
+        </engine:VisualElement>
     </engine:VisualElement>
     <engine:Label text="Paused" name="pause-label" enabled="false" class="pause-label" style="-unity-text-align: middle-center; font-size: 256px; top: 90px; left: 479px; color: rgb(255, 255, 255); opacity: 0.9;" />
 </engine:UXML>

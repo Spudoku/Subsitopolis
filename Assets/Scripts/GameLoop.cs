@@ -211,12 +211,11 @@ public class GameLoop : MonoBehaviour
         //Debug.Log($"EnergyFinding: {energyFunding}, waterFunding: {waterFunding}, foodFunding: {foodFunding}");
         months++;
         TickNoLose();
-
+        Debug.Log($"Month: {months}, approval: {approval}; population: {population}");
 
         // losing condition: approval falls below 20% or population is less than 2000
-        if ((approval < 0.1f || population < STARTING_POPULATION * 0.2f) && months > 5)
+        if (approval < 0.15f || population < STARTING_POPULATION * 0.2f)
         {
-            Debug.Log($"You should lose NOW!");
             EndGame();
         }
     }
@@ -257,13 +256,11 @@ public class GameLoop : MonoBehaviour
     }
     private void EndGame()
     {
-        Time.timeScale = 0f;
+        Debug.Log("End Game Triggered!");
+        timeScale = 0f;
+
         // play losing sequence
-
-
-        // go to start scene
-
-        //Application.Quit();
+        ui.OnLose();
     }
 
     private void UpdateDemand()

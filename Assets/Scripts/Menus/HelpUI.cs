@@ -93,16 +93,25 @@ public class HelpUI : MonoBehaviour
         helpSlides = doc.rootVisualElement.Query<VisualElement>().Class("help-slide").ToList();
         // sort them by name
         helpSlides.Sort((a, b) => string.Compare(a.name, b.name));
-        foreach (VisualElement slide in helpSlides)
-        {
-            Debug.Log($"{slide.name}");
-        }
+        // foreach (VisualElement slide in helpSlides)
+        // {
+        //     Debug.Log($"{slide.name}");
+        // }
     }
 
     private void ChangeSlide(int amt)
     {
         // amt will always equal 0, 1 or -1
-        selectedSlide += amt / Mathf.Abs(amt);
+        if (amt > 0)
+        {
+            selectedSlide++;
+
+        }
+        else if (amt < 0)
+        {
+            selectedSlide--;
+        }
+
         if (selectedSlide < 0)
         {
             selectedSlide = helpSlides.Count - 1;
@@ -127,11 +136,11 @@ public class HelpUI : MonoBehaviour
         isVisible = !isVisible;
         if (isVisible)
         {
-            doc.rootVisualElement.style.opacity = 1;
+            doc.rootVisualElement.style.display = DisplayStyle.Flex;
         }
         else
         {
-            doc.rootVisualElement.style.opacity = 0f;
+            doc.rootVisualElement.style.display = DisplayStyle.None;
         }
     }
 }
