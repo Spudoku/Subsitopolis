@@ -380,6 +380,7 @@ public class GameLoop : MonoBehaviour
         return (int)((0.03885 * Mathf.Log(approval, Mathf.Exp(1)) + DEFAULT_IMMIGRATION_RATE * 5f) * Random.Range(0.75f, 1.25f) * population);
     }
 
+    // TODO: fix calculations
     private int CalcDeaths()
     {
         // ...natural causes
