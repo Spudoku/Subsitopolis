@@ -366,7 +366,7 @@ public class GameLoop : MonoBehaviour
         {
             population = 0;
         }
-        Debug.Log($"[GameLoop] {immigrants} people immigrated");
+        ui.AddNewsEvent("YOUR MOM SO FUCKING FAT, SHE ATE ALL THE CHEESE ON THE MOON AND ASKED FOR MORE");
     }
     private int CalcNetImmigration()
     {

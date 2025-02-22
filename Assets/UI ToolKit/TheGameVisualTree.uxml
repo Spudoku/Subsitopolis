@@ -134,11 +134,7 @@
             </engine:VisualElement>
         </engine:VisualElement>
         <engine:ScrollView name="news-reel" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Auto" mode="Vertical" style="height: 100%; width: 25%; background-color: rgba(22, 24, 31, 0.35); align-items: stretch; align-self: flex-end;">
-            <engine:VisualElement name="Holder" style="width: 100%; flex-grow: 1; background-color: rgb(130, 3, 3); display: flex; flex-direction: column; justify-content: flex-end; align-items: center;">
-                <engine:VisualElement name="item" style="width: 100%; min-height: 100px; background-color: rgb(232, 71, 172);" />
-                <engine:VisualElement name="item" style="width: 100%; min-height: 100px; background-color: rgb(76, 232, 71);" />
-                <engine:VisualElement name="item" style="width: 100%; min-height: 100px; background-color: rgb(77, 71, 232);" />
-            </engine:VisualElement>
+            <engine:VisualElement name="Holder" style="width: 100%; flex-grow: 1; background-color: rgba(130, 3, 3, 0); display: flex; flex-direction: column; justify-content: flex-end; align-items: center;" />
         </engine:ScrollView>
     </engine:VisualElement>
     <engine:Label text="Paused" name="pause-label" enabled="false" class="pause-label" style="-unity-text-align: middle-center; font-size: 256px; top: 90px; left: 479px; color: rgb(255, 255, 255); opacity: 0.9;" />

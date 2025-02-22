@@ -5,6 +5,7 @@ using UnityEditor.Media;
 using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.InputSystem.Controls;
+using UnityEngine.TerrainUtils;
 using UnityEngine.UIElements;
 [RequireComponent(typeof(GameLoop))]
 [RequireComponent(typeof(AudioSource))]
@@ -93,6 +94,12 @@ public class TheGameUI : MonoBehaviour
 
     private Button volumeButton;
     private Button helpButton;
+
+    // news reel
+    private VisualElement newsReel;
+
+    [SerializeField] private Color newsItemColor;
+
 
     void Awake()
     {
@@ -243,6 +250,7 @@ public class TheGameUI : MonoBehaviour
 
     private void OnDebtIncClick(ClickEvent evt)
     {
+        Debug.Log("DebtIncCLicked");
         UpdateDebtFunding(FUNDING_DELTA_AMOUNT);
     }
 
@@ -529,21 +537,29 @@ public class TheGameUI : MonoBehaviour
 
 
         // force the news reel to work
-        var newsReel = doc.rootVisualElement.Q<ScrollView>("news-reel");
-        var contentContainer = newsReel.contentContainer;
+        var newsReels = doc.rootVisualElement.Q<ScrollView>("news-reel");
+        var contentContainer = newsReels.contentContainer;
         contentContainer.style.flexGrow = 1;
         contentContainer.style.justifyContent = Justify.FlexEnd;
 
-        var holder = newsReel.Q<VisualElement>("Holder");
+        newsReel = newsReels.Q<VisualElement>("Holder");
 
-        holder.style.flexGrow = 0;
-        holder.style.alignSelf = Align.Center;
+        newsReel.style.flexGrow = 0;
+        newsReel.style.alignSelf = Align.Center;
 
     }
 
     public void AddNewsEvent(string text)
     {
-
+        Label newItem = new()
+        {
+            text = text,
+        };
+        newItem.style.flexGrow = 1;
+        newItem.style.width = Length.Percent(95);
+        newItem.style.backgroundColor = newsItemColor;
+        newItem.AddToClassList("news-item");
+        newsReel.Add(newItem);
     }
 
 
