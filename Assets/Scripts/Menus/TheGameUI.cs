@@ -5,7 +5,6 @@ using UnityEditor.Media;
 using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.InputSystem.Controls;
-using UnityEngine.TerrainUtils;
 using UnityEngine.UIElements;
 [RequireComponent(typeof(GameLoop))]
 [RequireComponent(typeof(AudioSource))]
@@ -21,9 +20,6 @@ public class TheGameUI : MonoBehaviour
     private List<Button> buttons = new();
 
     private AudioSource audioSource;
-
-    [SerializeField] private Color32 goodColor;
-    [SerializeField] private Color32 badColor;
 
     [SerializeField] private HelpUI helpUI;
 
@@ -95,12 +91,6 @@ public class TheGameUI : MonoBehaviour
     private Button volumeButton;
     private Button helpButton;
 
-    // news reel
-    private VisualElement newsReel;
-
-    [SerializeField] private Color newsItemColor;
-
-
     void Awake()
     {
         doc = GetComponent<UIDocument>();
@@ -139,8 +129,6 @@ public class TheGameUI : MonoBehaviour
         UpdateApproval();
         UpdatePopulation();
         UpdateTreasury();
-        VisualElement root = doc.rootVisualElement.Q<VisualElement>("root");
-        root.style.backgroundColor = Color.Lerp(goodColor, badColor, gameLoop.approval);
     }
 
     void OnDsable()
@@ -250,7 +238,6 @@ public class TheGameUI : MonoBehaviour
 
     private void OnDebtIncClick(ClickEvent evt)
     {
-        Debug.Log("DebtIncCLicked");
         UpdateDebtFunding(FUNDING_DELTA_AMOUNT);
     }
 
@@ -320,7 +307,7 @@ public class TheGameUI : MonoBehaviour
         {
             gameLoop.taxRate = 1f;
         }
-        taxRateLabel.text = $"{gameLoop.taxRate * 100f}";
+        taxRateLabel.text = $"{gameLoop.taxRate * 100f}%";
     }
 
     private void UpdateDebtFunding(float amount)
@@ -450,7 +437,6 @@ public class TheGameUI : MonoBehaviour
     }
     public void InitAll()
     {
-        Debug.Log("[TheGameUI] InitAll was called!");
         // REGISTERING BUTTONS
         energyDecButton = doc.rootVisualElement.Q<Button>("energy-dec");
         energyIncButton = doc.rootVisualElement.Q<Button>("energy-inc");
@@ -534,32 +520,6 @@ public class TheGameUI : MonoBehaviour
         UpdatePopulation();
         UpdateTreasury();
         UpdatePauseButton();
-
-
-        // force the news reel to work
-        var newsReels = doc.rootVisualElement.Q<ScrollView>("news-reel");
-        var contentContainer = newsReels.contentContainer;
-        contentContainer.style.flexGrow = 1;
-        contentContainer.style.justifyContent = Justify.FlexEnd;
-
-        newsReel = newsReels.Q<VisualElement>("Holder");
-
-        newsReel.style.flexGrow = 0;
-        newsReel.style.alignSelf = Align.Center;
-
-    }
-
-    public void AddNewsEvent(string text)
-    {
-        Label newItem = new()
-        {
-            text = text,
-        };
-        newItem.style.flexGrow = 1;
-        newItem.style.width = Length.Percent(95);
-        newItem.style.backgroundColor = newsItemColor;
-        newItem.AddToClassList("news-item");
-        newsReel.Add(newItem);
     }
 
 

@@ -25,7 +25,7 @@ public class WaterHandler : Handler
     new public void GetProduction()
     {
         base.GetProduction();
-        // /Debug.Log($"[Handler-Production] units with energy: {unitsWithEnergy}, units with water: {unitsWithWater}, units with food: {unitsWithFood}, units with funding: {unitsWithFunding}, production: {production}");
+        Debug.Log($"[Handler-Production] units with energy: {unitsWithEnergy}, units with water: {unitsWithWater}, units with food: {unitsWithFood}, units with funding: {unitsWithFunding}, production: {production}");
     }
 
 
