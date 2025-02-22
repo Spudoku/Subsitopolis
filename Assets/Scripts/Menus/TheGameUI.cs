@@ -21,6 +21,9 @@ public class TheGameUI : MonoBehaviour
 
     private AudioSource audioSource;
 
+    [SerializeField] private Color32 goodColor;
+    [SerializeField] private Color32 badColor;
+
     [SerializeField] private HelpUI helpUI;
 
 
@@ -129,6 +132,8 @@ public class TheGameUI : MonoBehaviour
         UpdateApproval();
         UpdatePopulation();
         UpdateTreasury();
+        VisualElement root = doc.rootVisualElement.Q<VisualElement>("root");
+        root.style.backgroundColor = Color.Lerp(goodColor, badColor, gameLoop.approval);
     }
 
     void OnDsable()

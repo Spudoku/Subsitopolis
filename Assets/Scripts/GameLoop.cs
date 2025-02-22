@@ -29,7 +29,7 @@ public class GameLoop : MonoBehaviour
 
     const float STARVATION_CHANCE = 0.08f;                   // chance that a random citizen will starve if not provided food for the month
     const float DEHYDRATION_CHANCE = 0.114f;                     // chance that a random citizen will die of thirst if not enough water goes around
-    const float EXPOSURE_CHANCE = 0.02f;                    // chance that a random citien will die of exposure if not enough power is supplied
+    const float EXPOSURE_CHANCE = 0.0001f;                    // chance that a random citien will die of exposure if not enough power is supplied
 
 
     const float STARTING_FUNDING_AMT = 5.0f;
