@@ -479,7 +479,11 @@ MonoBehaviour:
   crowds: {fileID: 498734020}
   cityAmbienceLoop: {fileID: 8300000, guid: bec4f36eea9b9fa4fb8bb7ba4944344d, type: 3}
   crowdAmbienceLoop: {fileID: 8300000, guid: 033c69701c1aee843aee24e80c185be0, type: 3}
-  additionList: []
+  additionList:
+  - {fileID: 8300000, guid: fd850ae38542fe744b6fedbcd1c03cb8, type: 3}
+  - {fileID: 8300000, guid: 8d650f85e2fcbfc4781d9986dca730e0, type: 3}
+  - {fileID: 8300000, guid: 3bd323d654a2ff24ca71af04bb8b9205, type: 3}
+  - {fileID: 8300000, guid: cf206b36703f22c42864fbe07163a014, type: 3}
 --- !u!4 &498734019
 Transform:
   m_ObjectHideFlags: 0
