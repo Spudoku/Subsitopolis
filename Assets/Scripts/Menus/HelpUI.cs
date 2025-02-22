@@ -14,6 +14,8 @@ public class HelpUI : MonoBehaviour
 
     private List<Button> buttons = new();
 
+    private Label slideCountLabel;
+
     private int selectedSlide;
 
     private Button backButton;
@@ -52,6 +54,9 @@ public class HelpUI : MonoBehaviour
         {
             b.RegisterCallback<ClickEvent>(OnAllButtonClick);
         }
+
+        slideCountLabel = root.Q<Label>("slide-counter");
+        ChangeSlide(0);
         isVisible = true;
         ToggleVisibility();
     }
@@ -114,7 +119,7 @@ public class HelpUI : MonoBehaviour
         }
         // display new slide
         helpSlides[selectedSlide].style.opacity = 1;
-
+        slideCountLabel.text = $"{selectedSlide + 1}/{helpSlides.Count()}";
     }
 
     public void ToggleVisibility()

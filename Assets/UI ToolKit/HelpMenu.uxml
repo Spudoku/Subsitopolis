@@ -9,6 +9,20 @@
                     <engine:VisualElement name="image" class="help-image" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Graphics/Textures/Icons/Tax_icon.png?fileID=2800000&amp;guid=6616bc44da26725439cba9a6a867b9c3&amp;type=3#Tax_icon&quot;);" />
                 </engine:VisualElement>
             </engine:VisualElement>
+            <engine:VisualElement name="slide-1" class="center help-slide" style="flex-grow: 1; width: 95%; height: 95%; align-items: center;">
+                <engine:Label text="Funding" name="header" class="slide-heading" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                <engine:VisualElement name="content" class="slide-content" style="flex-grow: 1; align-items: center;">
+                    <engine:Label text="Fund Energy, Water and Food to provide for your people. Energy is needed for water and food production, and water is necessary to create food.&#10;&#10;You&apos;re given complete control over how much each industry is funded. &#10;&#10;Try to ensure a surplus of each resource is produced in case of any adverse incidents." name="paragraph" class="help-paragraph" style="white-space: normal;" />
+                    <engine:VisualElement name="image" class="help-image" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Graphics/Textures/Icons/bread.png?fileID=2800000&amp;guid=862db48d5410b144b904f1480f90888d&amp;type=3#bread&quot;);" />
+                </engine:VisualElement>
+            </engine:VisualElement>
+            <engine:VisualElement name="slide-2" class="center help-slide" style="flex-grow: 1; width: 95%; height: 95%; align-items: center;">
+                <engine:Label text="Approval" name="header" class="slide-heading" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                <engine:VisualElement name="content" class="slide-content" style="flex-grow: 1; align-items: center;">
+                    <engine:Label text="Approval is a measure of how well your citizens think you&apos;re doing in your job. It&apos;s affected by many things, including:&#10;&#10;How well basic needs (Energy, Food, Water) are met,&#10;The Tax Rate,&#10;And how much debt you&apos;re in&#10;&#10;You can see your approval rating in the bottom right corner.&#10;If you&apos;re approval falls below 20%, we&apos;ll have to terminate you from your position." name="paragraph" class="help-paragraph" style="white-space: normal;" />
+                    <engine:VisualElement name="image" class="help-image" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Graphics/Textures/Icons/Approval_4.png?fileID=2800000&amp;guid=6aedf5f40ae4811488216648f0650f20&amp;type=3#Approval_4&quot;); width: 500px; height: 500px; max-width: 500px; max-height: 500px;" />
+                </engine:VisualElement>
+            </engine:VisualElement>
         </engine:VisualElement>
         <engine:Label text="Press &apos;esc&apos; to exit" style="width: 100%; -unity-text-align: middle-center; margin-top: 0; margin-bottom: 8px; color: rgb(255, 255, 255); font-size: 20px; -unity-font-definition: url(&quot;project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&quot;);" />
         <engine:VisualElement name="button-holder" style="flex-grow: 1; width: 100%; height: 20%; flex-direction: row; justify-content: center; align-items: center;">

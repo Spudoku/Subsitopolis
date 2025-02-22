@@ -1,4 +1,5 @@
 
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 [RequireComponent(typeof(TheGameUI))]
@@ -26,8 +27,9 @@ public class GameLoop : MonoBehaviour
     const float BIRTHRATE = 0.01f;                        // increase in population based on births
     const float DEATHRATE = 0.009f;                         // decrease in population based on deaths
 
-
-
+    const float STARVATION_CHANCE = 0.08f;                   // chance that a random citizen will starve if not provided food for the month
+    const float DEHYDRATION_CHANCE = 0.114f;                     // chance that a random citizen will die of thirst if not enough water goes around
+    const float EXPOSURE_CHANCE = 0.02f;                    // chance that a random citien will die of exposure if not enough power is supplied
 
 
     const float STARTING_FUNDING_AMT = 5.0f;
@@ -348,7 +350,7 @@ public class GameLoop : MonoBehaviour
     {
         // change population based on births and deaths
         int births = (int)(population * BIRTHRATE * Random.Range(0.75f, 1.25f));
-        int deaths = (int)(population * DEATHRATE * Random.Range(0.75f, 1.25f));
+        int deaths = CalcDeaths();
         population -= deaths;
         population += births;
 
@@ -359,10 +361,35 @@ public class GameLoop : MonoBehaviour
     }
     private int CalcNetImmigration()
     {
-        return (int)((0.03885 * Mathf.Log(approval, Mathf.Exp(1)) + DEFAULT_IMMIGRATION_RATE * 3f) * population);
+        return (int)((0.03885 * Mathf.Log(approval, Mathf.Exp(1)) + DEFAULT_IMMIGRATION_RATE * 5f) * population);
     }
 
+    private int CalcDeaths()
+    {
+        int deathCount = 0;
+        // ...natural causes
+        deathCount += (int)(population * DEATHRATE * Random.Range(0.75f, 1.25f));
 
+        // ...based on starvation
+        if (foodDemand > foodProduction)
+        {
+            // calculate deficit
+        }
+        // ...based on thirst
+        if (waterDemand > waterProduction)
+        {
+            // calculate deficit
+        }
+        // ...based on exposure
+        if (energyDemand > energyProduction)
+        {
+
+        }
+        // ...crime
+
+        // ...random events
+        return deathCount;
+    }
 
 
 
