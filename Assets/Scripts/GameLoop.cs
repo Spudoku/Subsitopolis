@@ -1,5 +1,3 @@
-
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 [RequireComponent(typeof(TheGameUI))]
@@ -217,6 +215,11 @@ public class GameLoop : MonoBehaviour
         months++;
         TickNoLose();
         UpdatePopulation();
+        // update revenue and debt
+        UpdateFinances();
+
+        // update approval
+        CalcApproval();
 
         // losing condition: approval falls below 20% or population is less than 2000
         if ((approval < 0.1f || population < STARTING_POPULATION * 0.2f) && months > 5)
@@ -240,21 +243,6 @@ public class GameLoop : MonoBehaviour
 
         // calculate demand for each resource
 
-        // update revenue and debt
-        UpdateFinances();
-        // if there isn't enough water or food, people die off and/or emmigrate
-
-
-        // if there isn't enough energy, people emmigrate
-
-
-        // update approval
-        CalcApproval();
-
-        // higher approval rate and surpluses of resources increases immigration
-
-
-        //Debug.Log("Month " + months + ": births = " + births + ", deaths = " + deaths);
 
 
         // update UI
@@ -296,15 +284,17 @@ public class GameLoop : MonoBehaviour
     }
     private void UpdateFinances()
     {
-        float taxRevenue = population * citizenIncome * taxRate;
+        string financialReport = $"===FINANCIAL REPORT===\n";
 
+        float taxRevenue = population * citizenIncome * taxRate;
+        financialReport += $"Taxes collected: ${taxRevenue}M;\n";
         //Debug.Log("Taxes collected: " + taxRevenue);
         treasury += taxRevenue;
 
 
-
-        totalDebt += totalDebt * debtInterestRate;
-
+        float debtIncrease = totalDebt * debtInterestRate;
+        totalDebt += debtIncrease;
+        financialReport += $"Debt incrased by ${debtIncrease}M this month;\n";
 
         // update funding
         eh.funding = energyFunding;
@@ -315,6 +305,7 @@ public class GameLoop : MonoBehaviour
         SpendFromTreasury(waterFunding);
         SpendFromTreasury(foodFunding);
 
+        financialReport += $"Total spent on funding: ${energyFunding + waterFunding + foodFunding}M;\n";
         // pay off debt
         if (debtFunding > totalDebt)
         {
@@ -327,6 +318,9 @@ public class GameLoop : MonoBehaviour
             totalDebt -= debtFunding;
             SpendFromTreasury(debtFunding);
         }
+
+        financialReport += "===END REPORT===";
+        ui.AddNewsEvent(financialReport);
     }
 
     // if treasury runs out, increase totalDebt by leftover 'amount'
@@ -353,24 +347,37 @@ public class GameLoop : MonoBehaviour
     }
     private void UpdatePopulation()
     {
+        string populationReport = "===POPULATION REPORT===\n";
         // change population based on births and deaths
         int births = (int)(population * BIRTHRATE * Random.Range(0.75f, 1.25f));
         int deaths = CalcDeaths();
+
+        populationReport += $"Births: {births};\nTotal deaths: {deaths};\n";
         population -= deaths;
         population += births;
 
         // calcuate how many people immigrate/emmigrate
         int immigrants = CalcNetImmigration();
+        if (immigrants >= 0)
+        {
+            populationReport += $"Net immigration: {immigrants};\n";
+        }
+        else
+        {
+            populationReport += $"Net emmigration: {Mathf.Abs(immigrants)};\n";
+        }
         population += immigrants;
         if (population < 0)
         {
             population = 0;
         }
-        ui.AddNewsEvent("YOUR MOM SO FUCKING FAT, SHE ATE ALL THE CHEESE ON THE MOON AND ASKED FOR MORE");
+
+        populationReport += "===END REPORT===";
+        ui.AddNewsEvent(populationReport);
     }
     private int CalcNetImmigration()
     {
-        return (int)((0.03885 * Mathf.Log(approval, Mathf.Exp(1)) + DEFAULT_IMMIGRATION_RATE * 5f) * population);
+        return (int)((0.03885 * Mathf.Log(approval, Mathf.Exp(1)) + DEFAULT_IMMIGRATION_RATE * 5f) * Random.Range(0.75f, 1.25f) * population);
     }
 
     private int CalcDeaths()
@@ -381,7 +388,7 @@ public class GameLoop : MonoBehaviour
         int foodDeaths = 0;
         int thirstDeaths = 0;
         int exposureDeaths = 0;
-
+        string deathReport = $"===Death Toll===\nNatural Causes: {deathCount};\n";
         // ...based on thirst
         if (waterDemand > waterProduction)
         {
@@ -390,7 +397,16 @@ public class GameLoop : MonoBehaviour
             float deficit = waterDemand - waterProduction;
             // number of people affected
             float affected = deficit / DEFAULT_WATER_MULTIPLIER;
-            thirstDeaths += (int)(affected * STARVATION_CHANCE);
+            thirstDeaths = (int)(affected * DEHYDRATION_CHANCE);
+            if (thirstDeaths > population)
+            {
+                thirstDeaths = population;
+            }
+
+            if (thirstDeaths > 0)
+            {
+                deathReport += $"Deaths from thirst: {thirstDeaths};\n";
+            }
         }
         // ...based on starvation
         if (foodDemand > foodProduction)
@@ -401,7 +417,15 @@ public class GameLoop : MonoBehaviour
             // number of people affected
             float affected = deficit / DEFAULT_FOOD_MULTIPLIER;
             foodDeaths += (int)(affected * STARVATION_CHANCE);
+            if (foodDeaths > population - thirstDeaths)
+            {
+                foodDeaths = population - thirstDeaths;
+            }
 
+            if (foodDeaths > 0)
+            {
+                deathReport += $"Deaths from hunger: {foodDeaths};\n";
+            }
         }
 
         // ...based on exposure
@@ -413,10 +437,24 @@ public class GameLoop : MonoBehaviour
             // number of people affected
             float affected = deficit / DEFAULT_ENERGY_MULTIPLIER;
             exposureDeaths += (int)(affected * STARVATION_CHANCE);
+            if (exposureDeaths > population - thirstDeaths - foodDeaths)
+            {
+                exposureDeaths = population - thirstDeaths - foodDeaths;
+            }
+
+            if (exposureDeaths > 0)
+            {
+                deathReport += $"Deaths from exposure: {exposureDeaths};\n";
+            }
         }
 
         deathCount += foodDeaths + thirstDeaths + exposureDeaths;
-        Debug.Log($"deaths from starvation: {foodDeaths}, from thirst: {thirstDeaths}, from exposure: {exposureDeaths}");
+        if (deathCount > population)
+        {
+            deathCount = population;
+        }
+        deathReport += "===END REPORT===";
+        ui.AddNewsEvent(deathReport);
         return deathCount;
     }
 

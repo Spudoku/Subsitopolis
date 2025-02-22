@@ -320,7 +320,7 @@ public class TheGameUI : MonoBehaviour
         {
             gameLoop.taxRate = 1f;
         }
-        taxRateLabel.text = $"{gameLoop.taxRate * 100f}%";
+        taxRateLabel.text = $"{gameLoop.taxRate * 100f}";
     }
 
     private void UpdateDebtFunding(float amount)
