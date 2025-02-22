@@ -1,8 +1,14 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20ToolKit/HelpMenu.uss?fileID=7433441132597879392&amp;guid=5a1ef44d4b161824582579a70ead29b9&amp;type=3#HelpMenu" />
-    <engine:VisualElement name="root" class="center" style="flex-grow: 1; width: 80%; height: 80%; background-color: rgba(0, 0, 0, 0.9); align-items: center; justify-content: center;">
+    <engine:VisualElement name="root" class="center" style="width: 90%; height: 90%; background-color: rgba(0, 0, 0, 0.98);">
         <engine:VisualElement name="slide-holder" style="flex-grow: 1; height: 80%; width: 100%; align-items: center;">
-            <engine:VisualElement name="slide-0" class="center help-slide" style="flex-grow: 1; width: 95%; height: 95%;" />
+            <engine:VisualElement name="slide-0" class="center help-slide" style="flex-grow: 1; width: 95%; height: 95%; align-items: center;">
+                <engine:Label text="Welcome to Subsidopolis!" name="Heading" class="slide-heading" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                <engine:VisualElement name="content" class="slide-content" style="flex-grow: 1; align-items: center;">
+                    <engine:Label text="You&apos;ve been chosen to become the new Chief of Funding! Your job is very simple: keep everything funded and the people happy!" name="paragraph" class="help-paragraph" style="white-space: normal;" />
+                    <engine:VisualElement name="image" class="help-image" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Graphics/Textures/Icons/Tax_icon.png?fileID=2800000&amp;guid=6616bc44da26725439cba9a6a867b9c3&amp;type=3#Tax_icon&quot;);" />
+                </engine:VisualElement>
+            </engine:VisualElement>
         </engine:VisualElement>
         <engine:Label text="Press &apos;esc&apos; to exit" style="width: 100%; -unity-text-align: middle-center; margin-top: 0; margin-bottom: 8px; color: rgb(255, 255, 255); font-size: 20px; -unity-font-definition: url(&quot;project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&quot;);" />
         <engine:VisualElement name="button-holder" style="flex-grow: 1; width: 100%; height: 20%; flex-direction: row; justify-content: center; align-items: center;">

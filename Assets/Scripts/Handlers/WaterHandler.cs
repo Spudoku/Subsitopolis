@@ -17,9 +17,9 @@ public class WaterHandler : Handler
 
     new public void GetDemand()
     {
-        Debug.Log("[Water handler]");
+        //Debug.Log("[Water handler]");
         base.GetDemand();
-        Debug.Log($"[water-Demand] I'm contributing {endEnergyDem}mwh, {endWaterDem} millions of gallons of water, and {endFoodDem} tons of food to overall demand!");
+        //Debug.Log($"[water-Demand] I'm contributing {endEnergyDem}mwh, {endWaterDem} millions of gallons of water, and {endFoodDem} tons of food to overall demand!");
     }
 
     new public void GetProduction()

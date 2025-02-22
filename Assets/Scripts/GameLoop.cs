@@ -160,12 +160,13 @@ public class GameLoop : MonoBehaviour
 
         CalcInitFunding();
         ui.UpdateAllLabels();
+        isPaused = true;
         for (int i = 0; i < 5; i++)
         {
             TickNoLose();
         }
 
-        isPaused = true;
+
         speed = GameSpeed.Normal;
         InstantApproval();
     }
@@ -220,6 +221,7 @@ public class GameLoop : MonoBehaviour
 
     private void TickNoLose()
     {
+        ui.UpdatePauseButton();
         // get food, water and energy production from respective handlers
 
         // get demand from energy, water and food

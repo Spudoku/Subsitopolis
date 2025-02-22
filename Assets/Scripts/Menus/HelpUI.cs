@@ -30,6 +30,14 @@ public class HelpUI : MonoBehaviour
         GetSlides();
         InitAll();
     }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && isVisible)
+        {
+            ToggleVisibility();
+            audioSource.Play();
+        }
+    }
 
     void InitAll()
     {
@@ -44,7 +52,8 @@ public class HelpUI : MonoBehaviour
         {
             b.RegisterCallback<ClickEvent>(OnAllButtonClick);
         }
-        isVisible = false;
+        isVisible = true;
+        ToggleVisibility();
     }
 
     void Onsable()

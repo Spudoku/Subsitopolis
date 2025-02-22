@@ -21,6 +21,8 @@ public class TheGameUI : MonoBehaviour
 
     private AudioSource audioSource;
 
+    [SerializeField] private HelpUI helpUI;
+
 
     // INCREMENT/DECREMENT BUTTONS
     private Button energyDecButton;
@@ -152,6 +154,8 @@ public class TheGameUI : MonoBehaviour
 
         pauseButton.UnregisterCallback<ClickEvent>(OnPauseClicked);
 
+        helpButton.UnregisterCallback<ClickEvent>(OnHelpButtonClick);
+
         foreach (Button b in buttons)
         {
             b.UnregisterCallback<ClickEvent>(OnAllButtonClick);
@@ -168,7 +172,7 @@ public class TheGameUI : MonoBehaviour
         gameLoop.TogglePause();
         UpdatePauseButton();
     }
-    private void UpdatePauseButton()
+    public void UpdatePauseButton()
     {
 
         if (gameLoop.isPaused)
@@ -237,7 +241,10 @@ public class TheGameUI : MonoBehaviour
         UpdateDebtFunding(FUNDING_DELTA_AMOUNT);
     }
 
-
+    private void OnHelpButtonClick(ClickEvent evt)
+    {
+        helpUI.ToggleVisibility();
+    }
 
     public void UpdateAllLabels()
     {
@@ -492,6 +499,7 @@ public class TheGameUI : MonoBehaviour
         helpButton = doc.rootVisualElement.Q<Button>("help-button");
 
         pauseButton.RegisterCallback<ClickEvent>(OnPauseClicked);
+        helpButton.RegisterCallback<ClickEvent>(OnHelpButtonClick);
 
         pauseMidLabel = doc.rootVisualElement.Q<Label>("pause-label");
 
