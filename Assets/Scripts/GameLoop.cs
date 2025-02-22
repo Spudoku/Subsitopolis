@@ -211,7 +211,7 @@ public class GameLoop : MonoBehaviour
         //Debug.Log($"EnergyFinding: {energyFunding}, waterFunding: {waterFunding}, foodFunding: {foodFunding}");
         months++;
         TickNoLose();
-
+        UpdatePopulation();
 
         // losing condition: approval falls below 20% or population is less than 2000
         if ((approval < 0.1f || population < STARTING_POPULATION * 0.2f) && months > 5)
@@ -248,7 +248,7 @@ public class GameLoop : MonoBehaviour
 
         // higher approval rate and surpluses of resources increases immigration
 
-        UpdatePopulation();
+
         //Debug.Log("Month " + months + ": births = " + births + ", deaths = " + deaths);
 
 
@@ -366,28 +366,47 @@ public class GameLoop : MonoBehaviour
 
     private int CalcDeaths()
     {
-        int deathCount = 0;
         // ...natural causes
-        deathCount += (int)(population * DEATHRATE * Random.Range(0.75f, 1.25f));
+        int deathCount = (int)(population * DEATHRATE * Random.Range(0.75f, 1.25f));
 
-        // ...based on starvation
-        if (foodDemand > foodProduction)
-        {
-            // calculate deficit
-        }
+        int foodDeaths = 0;
+        int thirstDeaths = 0;
+        int exposureDeaths = 0;
+
         // ...based on thirst
         if (waterDemand > waterProduction)
         {
-            // calculate deficit
+            // estimate how many people die from starvation
+            // units of food that are behind
+            float deficit = waterDemand - waterProduction;
+            // number of people affected
+            float affected = deficit / DEFAULT_WATER_MULTIPLIER;
+            thirstDeaths += (int)(affected * STARVATION_CHANCE);
         }
+        // ...based on starvation
+        if (foodDemand > foodProduction)
+        {
+            // estimate how many people die from starvation
+            // units of food that are behind
+            float deficit = foodDemand - foodProduction;
+            // number of people affected
+            float affected = deficit / DEFAULT_FOOD_MULTIPLIER;
+            foodDeaths += (int)(affected * STARVATION_CHANCE);
+
+        }
+
         // ...based on exposure
         if (energyDemand > energyProduction)
         {
-
+            // estimate how many people die from starvation
+            // units of food that are behind
+            float deficit = energyDemand - energyProduction;
+            // number of people affected
+            float affected = deficit / DEFAULT_ENERGY_MULTIPLIER;
+            exposureDeaths += (int)(affected * STARVATION_CHANCE);
         }
-        // ...crime
 
-        // ...random events
+        deathCount += foodDeaths + thirstDeaths + exposureDeaths;
         return deathCount;
     }
 

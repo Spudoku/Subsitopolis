@@ -522,5 +522,10 @@ public class TheGameUI : MonoBehaviour
         UpdatePauseButton();
     }
 
+    public void AddNewsEvent(string text)
+    {
+
+    }
+
 
 }

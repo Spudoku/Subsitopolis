@@ -133,11 +133,6 @@
                 </engine:VisualElement>
             </engine:VisualElement>
         </engine:VisualElement>
-        <engine:VisualElement name="news-tab" tabindex="0" class="container news-tab" style="flex-grow: 1; height: 50px; background-color: rgba(0, 0, 0, 0.73); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; flex-direction: row; justify-content: center;">
-            <engine:ScrollView name="newsreel" style="height: 95%; background-color: rgba(113, 97, 97, 0.29); width: 90%; flex-direction: column; align-items: stretch; justify-content: center;">
-                <engine:VisualElement name="news-item" style="flex-grow: 1; color: rgb(245, 245, 245); background-color: rgb(233, 32, 32); margin-top: 5px; margin-right: 5px; margin-bottom: 5px; margin-left: 5px; height: auto; align-items: center;" />
-            </engine:ScrollView>
-        </engine:VisualElement>
     </engine:VisualElement>
     <engine:Label text="Paused" name="pause-label" enabled="false" class="pause-label" style="-unity-text-align: middle-center; font-size: 256px; top: 90px; left: 479px; color: rgb(255, 255, 255); opacity: 0.9;" />
 </engine:UXML>
