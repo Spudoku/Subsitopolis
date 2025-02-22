@@ -175,6 +175,7 @@ MonoBehaviour:
   waterFunding: 0
   energyFunding: 0
   debtFunding: 0
+  helpUI: {fileID: 906175402}
 --- !u!4 &112811894
 Transform:
   m_ObjectHideFlags: 0
@@ -716,6 +717,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameLoop: {fileID: 0}
   gui: {fileID: 0}
+  isVisible: 0
 --- !u!82 &906175403
 AudioSource:
   m_ObjectHideFlags: 0

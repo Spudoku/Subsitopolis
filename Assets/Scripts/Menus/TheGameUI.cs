@@ -437,6 +437,7 @@ public class TheGameUI : MonoBehaviour
     }
     public void InitAll()
     {
+        Debug.Log("[TheGameUI] InitAll was called!");
         // REGISTERING BUTTONS
         energyDecButton = doc.rootVisualElement.Q<Button>("energy-dec");
         energyIncButton = doc.rootVisualElement.Q<Button>("energy-inc");
@@ -520,6 +521,19 @@ public class TheGameUI : MonoBehaviour
         UpdatePopulation();
         UpdateTreasury();
         UpdatePauseButton();
+
+
+        // force the news reel to work
+        var newsReel = doc.rootVisualElement.Q<ScrollView>("news-reel");
+        var contentContainer = newsReel.contentContainer;
+        contentContainer.style.flexGrow = 1;
+        contentContainer.style.justifyContent = Justify.FlexEnd;
+
+        var holder = newsReel.Q<VisualElement>("Holder");
+
+        holder.style.flexGrow = 0;
+        holder.style.alignSelf = Align.Center;
+
     }
 
     public void AddNewsEvent(string text)

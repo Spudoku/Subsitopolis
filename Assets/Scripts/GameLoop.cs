@@ -118,6 +118,8 @@ public class GameLoop : MonoBehaviour
     // UI communication
     TheGameUI ui;
 
+    [SerializeField] HelpUI helpUI;
+
     void Start()
     {
         // time initialization
@@ -144,6 +146,8 @@ public class GameLoop : MonoBehaviour
         energyFunding = STARTING_FUNDING_AMT;
         foodFunding = STARTING_FUNDING_AMT;
 
+
+
         // initialize handlers
         Handler.gl = this;
 
@@ -168,6 +172,7 @@ public class GameLoop : MonoBehaviour
             TickNoLose();
         }
 
+        //helpUI.ChangeSlide(0);
 
         speed = GameSpeed.Normal;
         InstantApproval();
@@ -194,7 +199,7 @@ public class GameLoop : MonoBehaviour
             };
         }
         Time.timeScale = Mathf.Clamp(timeScale, 0.5f, 2f);
-        if (Time.time > prevTickTime + (1 / tickrate / Time.timeScale))
+        if (Time.time > prevTickTime + (1 / tickrate))
         {
             Tick();
             prevTickTime = Time.time;
@@ -357,6 +362,10 @@ public class GameLoop : MonoBehaviour
         // calcuate how many people immigrate/emmigrate
         int immigrants = CalcNetImmigration();
         population += immigrants;
+        if (population < 0)
+        {
+            population = 0;
+        }
         Debug.Log($"[GameLoop] {immigrants} people immigrated");
     }
     private int CalcNetImmigration()
@@ -407,6 +416,7 @@ public class GameLoop : MonoBehaviour
         }
 
         deathCount += foodDeaths + thirstDeaths + exposureDeaths;
+        Debug.Log($"deaths from starvation: {foodDeaths}, from thirst: {thirstDeaths}, from exposure: {exposureDeaths}");
         return deathCount;
     }
 
