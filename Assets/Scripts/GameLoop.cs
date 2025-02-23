@@ -7,10 +7,10 @@ public class GameLoop : MonoBehaviour
 {
     // CONSTANT VALUES
     const float DEFAULT_TICK_RATE = 0.25f;        // 1 tick per 4 seconds
-    public const int STARTING_POPULATION = 100000;
-    const float STARTING_TREASURY = 20f;
+    public const int STARTING_POPULATION = 25000;
+    const float STARTING_TREASURY = 5f;
 
-    const float STARTING_DEBT = 10f;
+    const float STARTING_DEBT = 2f;
 
     const float DEFAULT_TAX_RATE = 0.1f;              // percent of income that goes to taxes
     const float DEFAULT_CITZ_INCOME = 0.0042f;                 // how many millions of dollars a citizen earns per month ($4200)
@@ -408,12 +408,12 @@ public class GameLoop : MonoBehaviour
             // units of food that are behind
             float deficit = waterDemand - waterProduction;
             // number of people affected
-            float thirstaffected = deficit / DEFAULT_WATER_MULTIPLIER;
+            float thirstaffected = ((population * waterDemandMult) / waterDemand) * deficit / waterDemandMult;
             if (thirstaffected > population)
             {
                 thirstaffected = population;
             }
-            thirstDeaths = (int)(thirstaffected * DEHYDRATION_CHANCE);
+            thirstDeaths = (int)(thirstaffected * DEHYDRATION_CHANCE * Random.Range(0.75f, 1.25f));
             Debug.Log($"[Thirst deaths] {thirstaffected} people were affected, {thirstDeaths} people died");
             if (thirstDeaths > population)
             {
@@ -433,12 +433,13 @@ public class GameLoop : MonoBehaviour
             float deficit = foodDemand - foodProduction;
             // number of people affected
             // TODO: change this logic to be hungerAffected = decfict * (demand_from_population / total_demand)
-            float hungerAffected = deficit / DEFAULT_FOOD_MULTIPLIER;
+            float hungerAffected = ((population * foodDemandMult) / foodDemand) * deficit / foodDemandMult;
+            // population * foodDemandMult / foodDemand * deficit / foodDemandMult;
             if (hungerAffected > population - thirstDeaths)
             {
                 hungerAffected = population - thirstDeaths;
             }
-            foodDeaths += (int)(hungerAffected * STARVATION_CHANCE);
+            foodDeaths += (int)(hungerAffected * STARVATION_CHANCE * Random.Range(0.75f, 1.25f));
             Debug.Log($"[Hunger deaths] {hungerAffected} people were affected, {foodDeaths} people died");
 
             if (foodDeaths > population - thirstDeaths)
@@ -459,12 +460,12 @@ public class GameLoop : MonoBehaviour
             // units of food that are behind
             float deficit = energyDemand - energyProduction;
             // number of people affected
-            float energyAffected = deficit / DEFAULT_ENERGY_MULTIPLIER;
+            float energyAffected = ((population * energyDemandMult) / energyDemand) * deficit / energyDemandMult;
             if (energyAffected > population - thirstDeaths - foodDeaths)
             {
                 energyAffected = population - thirstDeaths - foodDeaths;
             }
-            exposureDeaths += (int)(energyAffected * EXPOSURE_CHANCE);
+            exposureDeaths += (int)(energyAffected * EXPOSURE_CHANCE * Random.Range(0.75f, 1.25f));
             Debug.Log($"[Exposure deaths] {energyAffected} people were affected, {exposureDeaths} people died");
             if (exposureDeaths > population - thirstDeaths - foodDeaths)
             {

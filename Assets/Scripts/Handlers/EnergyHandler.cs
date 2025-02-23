@@ -17,7 +17,7 @@ public class EnergyHandler : Handler
         waterFactor = 0f;
         energyFactor = 0f;
 
-        maxFunding = 0.05f;
+        maxFunding = 0.005f;
 
 
     }
