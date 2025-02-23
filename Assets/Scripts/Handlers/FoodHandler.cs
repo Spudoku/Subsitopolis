@@ -19,6 +19,7 @@ public class FoodHandler : Handler
     new public void GetDemand()
     {
         //Debug.Log("[Food handler]");
+
         base.GetDemand();
         //Debug.Log($"[Food-Demand] I'm contributing {endEnergyDem}mwh, {endWaterDem} millions of gallons of water, and {endFoodDem} tons of food to overall demand!");
     }
@@ -29,20 +30,4 @@ public class FoodHandler : Handler
         //Debug.Log($"[Food-Production] units with energy: {unitsWithEnergy}, units with water: {unitsWithWater}, units with food: {unitsWithFood}, units with funding: {unitsWithFunding}, production: {production}");
     }
 
-    // public override void Tick()
-    // {
-    //     float units = funding / maxFunding;
-    //     HypotheticalUnits();
-
-    //     float finalUnits = Mathf.Min(unitsWithFood, unitsWithEnergy, unitsWithWater, units);
-    //     //Debug.Log($"[FoodHandler] food units: {unitsWithFood}, units with Energy: {unitsWithEnergy}, units with Water: {unitsWithWater}, funding units: {units}, finalUnits: {finalUnits}");
-
-    //     // spend resouces!
-    //     endEnergyDem = finalUnits * energyFactor;
-    //     endWaterDem = finalUnits * waterFactor;
-    //     endFoodDem = finalUnits * foodFactor;
-
-    //     production = finalUnits;
-
-    // }
 }

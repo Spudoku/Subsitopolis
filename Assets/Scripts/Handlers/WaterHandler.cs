@@ -25,25 +25,8 @@ public class WaterHandler : Handler
     new public void GetProduction()
     {
         base.GetProduction();
-        Debug.Log($"[Handler-Production] units with energy: {unitsWithEnergy}, units with water: {unitsWithWater}, units with food: {unitsWithFood}, units with funding: {unitsWithFunding}, production: {production}");
+        //Debug.Log($"[Water-Production] units with energy: {unitsWithEnergy}, units with water: {unitsWithWater}, units with food: {unitsWithFood}, units with funding: {unitsWithFunding}, production: {production}");
     }
 
 
-
-    // public override void Tick()
-    // {
-    //     float units = funding / maxFunding;
-    //     HypotheticalUnits();
-
-    //     float finalUnits = Mathf.Min(unitsWithFood, unitsWithEnergy, unitsWithWater, units);
-    //     //Debug.Log($"[WaterHandler] food units: {unitsWithFood}, units with Energy: {unitsWithEnergy}, units with Water: {unitsWithWater}, funding units: {units}, finalUnits: {finalUnits}");
-
-    //     // spend resouces!
-    //     endEnergyDem = finalUnits * energyFactor;
-    //     endWaterDem = finalUnits * waterFactor;
-    //     endFoodDem = finalUnits * foodFactor;
-
-    //     production = finalUnits;
-
-    // }
 }

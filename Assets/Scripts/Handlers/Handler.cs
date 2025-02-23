@@ -39,6 +39,10 @@ public abstract class Handler
 
     public void GetDemand()
     {
+        if (gl == null)
+        {
+            Debug.Log("GL is NULL!");
+        }
         // calculate demand:
         // get maximum number of units possible given current funding
         // update demand accordingly
@@ -51,6 +55,10 @@ public abstract class Handler
 
     public void GetProduction()
     {
+        if (gl == null)
+        {
+            Debug.Log("GL is NULL!");
+        }
         // calculate units with food, water, energy
         // units with energy
         if (gl.energyProduction > gl.energyDemand)
@@ -62,7 +70,7 @@ public abstract class Handler
             // calculate ratio of energy production to get
             //
             //unitsWithEnergy = energyFactor == 0f ? Mathf.Infinity : gl.energyProduction * energyRatio / energyFactor;
-            if (gl.energyDemand == 0f || energyFactor == 0f)
+            if (gl.energyDemand == 0f || energyFactor == 0f || endEnergyDem == 0)
             {
                 unitsWithEnergy = Mathf.Infinity;
             }
