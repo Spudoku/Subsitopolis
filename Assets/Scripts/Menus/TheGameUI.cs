@@ -1,12 +1,8 @@
-using System;
+
 using System.Collections.Generic;
-using System.Globalization;
-using UnityEditor.Media;
-using UnityEditor.Search;
-using UnityEditor.SearchService;
+
 using UnityEngine;
-using UnityEngine.InputSystem.Controls;
-using UnityEngine.Playables;
+
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 [RequireComponent(typeof(GameLoop))]
@@ -203,7 +199,7 @@ public class TheGameUI : MonoBehaviour
     private void OnQuitPopup(ClickEvent evt)
     {
         quitPopup.style.display = DisplayStyle.Flex;
-        gameLoop.isPaused = true;
+        gameLoop.isPaused = false;
         OnPauseClicked(evt);
     }
 

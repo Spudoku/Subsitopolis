@@ -10,6 +10,24 @@ Button Click 1.wav by Mellau -- https://freesound.org/s/506054/ -- License: Attr
 calm city ambience 01 200316_0124.wav by klankbeeld -- https://freesound.org/s/514470/ -- License: Attribution 4.0
 (renamed to "city_ambient_1")
 
+crowd int large busy echo church2.flac by kyles -- https://freesound.org/s/453902/ -- License: Creative Commons 0
+(renamed to "crowd_ambience")
+
+Car Alarm MUS 152.mp3 by ja20208 -- https://freesound.org/s/570218/ -- License: Creative Commons 0
+(renamed to "car_alarm")
+
+Ambulance.wav by marcolo91 -- https://freesound.org/s/156086/ -- License: Creative Commons 0
+(renamed to "ambulance")
+
+Crows at Dawn 2 by silentseason -- https://freesound.org/s/335871/ -- License: Creative Commons 0
+(renamed to "crows")
+
+Chrysler LHS tire squeal 02 (04-25-2009).wav by audible-edge -- https://freesound.org/s/71737/ -- License: Creative Commons 0
+(renamed to "tires")
+
+Dogs Barking in Distance_Rural.wav by rvandemark -- https://freesound.org/s/581478/ -- License: Creative Commons 0
+(renamed to "dog_barks")
+
 
 # Tutorials that helped me make this
 "Get started with UI Toolkit in Unity": https://www.youtube.com/watch?v=_jtj73lu2Ko

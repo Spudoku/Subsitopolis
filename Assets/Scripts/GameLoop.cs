@@ -32,7 +32,7 @@ public class GameLoop : MonoBehaviour
     const float EXPOSURE_CHANCE = 0.02f;                    // chance that a random citien will die of exposure if not enough power is supplied
 
 
-    const float STARTING_FUNDING_AMT = 5.0f;
+    const float STARTING_FUNDING_AMT = 2.0f;
 
     // Time-related
     public float tickrate;     // speed of ticks/second, with a tick being a month in game
@@ -45,6 +45,8 @@ public class GameLoop : MonoBehaviour
     public int population;
 
     public float immigrationRate;
+
+    public AmbientSound ambientSound;
 
     public enum GameSpeed
     {
@@ -256,7 +258,7 @@ public class GameLoop : MonoBehaviour
 
         UpdateProduction();
 
-
+        //ambientSound.Tick();
 
         // update UI
         ui.Tick();
@@ -299,14 +301,14 @@ public class GameLoop : MonoBehaviour
         string financialReport = $"===FINANCIAL REPORT===\n";
 
         float taxRevenue = population * citizenIncome * taxRate;
-        financialReport += $"Taxes collected: ${taxRevenue}M;\n";
+        financialReport += $"Taxes collected: ${Round.RoundToPlaces(taxRevenue, 2)}M;\n";
         //Debug.Log("Taxes collected: " + taxRevenue);
         treasury += taxRevenue;
 
 
         float debtIncrease = totalDebt * debtInterestRate;
         totalDebt += debtIncrease;
-        financialReport += $"Debt incrased by ${debtIncrease}M this month;\n";
+        financialReport += $"Debt incrased by ${Round.RoundToPlaces(debtIncrease, 2)}M this month;\n";
 
         // update funding
         eh.funding = energyFunding;
@@ -317,7 +319,7 @@ public class GameLoop : MonoBehaviour
         SpendFromTreasury(waterFunding);
         SpendFromTreasury(foodFunding);
 
-        financialReport += $"Total spent on funding: ${energyFunding + waterFunding + foodFunding}M;\n";
+        financialReport += $"Total spent on funding: ${Round.RoundToPlaces(energyFunding + foodFunding + waterFunding, 2)}M;\n";
         // pay off debt
         if (debtFunding > totalDebt)
         {
