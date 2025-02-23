@@ -36,7 +36,7 @@ public class AmbientSound : MonoBehaviour
         masterVolume = 1f;
         quietAmbience.Play();
         ambient.Play();
-
+        addition_pop_factor = GameLoop.STARTING_POPULATION;
         nextAddition += Random.Range(0, addition_frequency);
     }
 
@@ -56,14 +56,16 @@ public class AmbientSound : MonoBehaviour
         quietAmbience.volume = masterVolume;
         float ambientVolTest = Mathf.Log(gameLoop.population, 500000);
         Debug.Log($"[AmbientNoise] ambientVolTest = {ambientVolTest}");
-        ambient.volume = masterVolume * Mathf.Clamp(ambientVolTest, 0, 1f) * 0.8f;
+        ambient.volume = masterVolume * Mathf.Clamp(ambientVolTest, 0, 1f) * 0.5f;
         //additions.volume = masterVolume;
         // insert some log function
         if (Time.time > nextAddition)
         {
             // play random sound
-            additions.volume = masterVolume * Random.Range(0.1f, 1.25f);
-            additions.PlayOneShot(additionList[Random.Range(0, additionList.Count)]);
+            additions.volume = masterVolume * Random.Range(0.1f, 1.25f) * 0.5f;
+            int choice = Random.Range(0, additionList.Count);
+            Debug.Log($"playing choice {choice}");
+            additions.PlayOneShot(additionList[choice]);
 
             nextAddition = Time.time + CalcAdditionInterval();
         }
@@ -71,8 +73,9 @@ public class AmbientSound : MonoBehaviour
 
     private float CalcAdditionInterval()
     {
-
-        return ((addition_frequency * Mathf.Log(addition_pop_factor)) / Mathf.Log(gameLoop.population)) * Random.Range(0.75f, 1.25f);
+        float newFrequency = ((addition_frequency * Mathf.Log(addition_pop_factor)) / Mathf.Log(gameLoop.population)) * Random.Range(0.75f, 1.25f);
+        Debug.Log($"Adding new addition in {newFrequency} seconds");
+        return newFrequency;
     }
 
 

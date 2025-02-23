@@ -1051,6 +1051,7 @@ MonoBehaviour:
   quietAmbience: {fileID: 991095305}
   additions: {fileID: 991095304}
   addition_frequency: 20
+  addition_pop_factor: 25000
   additionList:
   - {fileID: 8300000, guid: fd850ae38542fe744b6fedbcd1c03cb8, type: 3}
   - {fileID: 8300000, guid: 8d650f85e2fcbfc4781d9986dca730e0, type: 3}
