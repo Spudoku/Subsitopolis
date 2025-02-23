@@ -177,9 +177,9 @@ resourceholder {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform-origin: -50% -50%;
+    transform-origin: left top;
     translate: -50% -50%;
-    background-color: rgb(0, 0, 0);
+    
 }
 
 .news-item {
@@ -188,4 +188,38 @@ resourceholder {
     color: rgb(255, 255, 255);
     white-space: normal;
     -unity-text-align: middle-left;
+}
+
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: -50% -50%;
+    translate: -50% -50%;
+    background-color: rgb(67, 63, 63);
+}
+
+.quit-buttons {
+    margin-top: 4px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    margin-left: 4px;
+    -unity-font-definition: url("project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&guid=585188cdc4600544eb408bee749e4b3a&type=3#ThaleahFat_TTF");
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+    width: 128px;
+    height: 48px;
+    background-color: rgb(67, 63, 63);
+}
+
+.quit-buttons {
+    margin-top: 4px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    margin-left: 4px;
+    -unity-font-definition: url("project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&guid=585188cdc4600544eb408bee749e4b3a&type=3#ThaleahFat_TTF");
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+    width: 128px;
+    height: 48px;
 }

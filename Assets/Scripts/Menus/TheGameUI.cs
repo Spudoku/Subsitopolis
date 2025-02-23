@@ -96,7 +96,14 @@ public class TheGameUI : MonoBehaviour
 
     private VisualElement gameOver;
     private Button playAgain;
+    private Button quitGame;
 
+    // quit popup
+
+    private Button quitSideButton;
+    private VisualElement quitPopup;
+    private Button quitForReals;
+    private Button cancel;
     // news reel
     private VisualElement newsReel;
 
@@ -170,6 +177,11 @@ public class TheGameUI : MonoBehaviour
         playAgain.UnregisterCallback<ClickEvent>(OnPlayAgain);
 
 
+        quitSideButton.UnregisterCallback<ClickEvent>(OnQuitPopup);
+
+        quitForReals.UnregisterCallback<ClickEvent>(OnQuitGame);
+        cancel.UnregisterCallback<ClickEvent>(OnQuitCancel);
+
         foreach (Button b in buttons)
         {
             b.UnregisterCallback<ClickEvent>(OnAllButtonClick);
@@ -181,6 +193,23 @@ public class TheGameUI : MonoBehaviour
     public void OnLose()
     {
         gameOver.style.display = DisplayStyle.Flex;
+    }
+
+    private void OnQuitGame(ClickEvent evt)
+    {
+        Application.Quit();
+    }
+
+    private void OnQuitPopup(ClickEvent evt)
+    {
+        quitPopup.style.display = DisplayStyle.Flex;
+        gameLoop.isPaused = true;
+        OnPauseClicked(evt);
+    }
+
+    private void OnQuitCancel(ClickEvent evt)
+    {
+        quitPopup.style.display = DisplayStyle.None;
     }
     private void OnPlayAgain(ClickEvent evt)
     {
@@ -547,6 +576,21 @@ public class TheGameUI : MonoBehaviour
         playAgain = doc.rootVisualElement.Q<Button>("play-again");
         playAgain.RegisterCallback<ClickEvent>(OnPlayAgain);
 
+        quitGame = doc.rootVisualElement.Q<Button>("quit");
+        quitGame.RegisterCallback<ClickEvent>(OnQuitGame);
+
+        quitSideButton = doc.rootVisualElement.Q<Button>("quit-button");
+        quitSideButton.RegisterCallback<ClickEvent>(OnQuitPopup);
+
+        quitPopup = doc.rootVisualElement.Q<VisualElement>("quit-popup");
+        quitForReals = doc.rootVisualElement.Q<Button>("quit-for-reals");
+
+
+        cancel = doc.rootVisualElement.Q<Button>("cancel");
+        quitForReals.RegisterCallback<ClickEvent>(OnQuitGame);
+        cancel.RegisterCallback<ClickEvent>(OnQuitCancel);
+
+
         // register callbacks
         buttons = doc.rootVisualElement.Query<Button>().ToList();
         foreach (Button b in buttons)
@@ -575,6 +619,8 @@ public class TheGameUI : MonoBehaviour
 
         newsReel.style.flexGrow = 0;
         newsReel.style.alignSelf = Align.Center;
+
+        quitPopup.style.display = DisplayStyle.None;
     }
 
 

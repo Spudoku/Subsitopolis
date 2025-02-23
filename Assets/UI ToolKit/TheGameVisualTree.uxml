@@ -4,8 +4,8 @@
         <engine:VisualElement name="side-menu" class="container side-menu" style="flex-grow: 1; width: 104px; height: 100%; max-width: 104px; max-height: 100%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; background-color: rgb(63, 60, 60); align-items: center;">
             <engine:Button name="pause-button" class="side-button" style="background-image: url(&quot;project://database/Assets/Graphics/Textures/menu/pause-button.png?fileID=2800000&amp;guid=5426ac08ce5875b49a26001cd0faae92&amp;type=3#pause-button&quot;);" />
             <engine:Button name="help-button" enabled="true" class="side-button" style="background-image: url(&quot;project://database/Assets/Graphics/Textures/menu/help-button.png?fileID=2800000&amp;guid=5bb9952a073698e489c7c8ee2fc1f413&amp;type=3#help-button&quot;); opacity: 1;" />
-            <engine:Button name="speed-button" enabled="false" class="side-button" style="background-image: url(&quot;project://database/Assets/Graphics/Textures/menu/pause-button.png?fileID=2800000&amp;guid=5426ac08ce5875b49a26001cd0faae92&amp;type=3#pause-button&quot;); opacity: 0;" />
-            <engine:Button name="volume-button" enabled="false" class="side-button" style="background-image: url(&quot;project://database/Assets/Graphics/Textures/menu/pause-button.png?fileID=2800000&amp;guid=5426ac08ce5875b49a26001cd0faae92&amp;type=3#pause-button&quot;); opacity: 0;" />
+            <engine:VisualElement style="flex-grow: 1;" />
+            <engine:Button name="quit-button" enabled="true" class="side-button" style="background-image: url(&quot;project://database/Assets/Graphics/Textures/menu/quit-button.png?fileID=2800000&amp;guid=cd6b368aaf884c54bbcfad09d4c887ff&amp;type=3#quit-button&quot;); opacity: 1;" />
         </engine:VisualElement>
         <engine:VisualElement name="Resource-Manager" class="container" style="flex-grow: 1; align-items: center; justify-content: space-around; flex-direction: column; height: 100%; align-self: center; max-width: 75%;">
             <engine:VisualElement name="Basic-Resources" class="container" style="flex-grow: 1; width: 100%; flex-direction: row; margin-left: 0; margin-right: 0; height: 50%;">
@@ -133,14 +133,20 @@
                 </engine:VisualElement>
             </engine:VisualElement>
         </engine:VisualElement>
-        <engine:VisualElement name="game-over" class="center" style="z-index: 2;flex-grow: 1; width: 100%; height: 100%; justify-content: space-between; align-items: center; opacity: 1; top: 50%; left: 50%; transform-origin: left top;">
+        <engine:VisualElement name="game-over" class="center" style="z-index: 6; flex-grow: 1; width: 100%; height: 100%; justify-content: space-between; align-items: center; opacity: 1; top: 50%; left: 50%; transform-origin: left top;">
             <engine:Label text="Game Over!" name="title" style="height: 20%; font-size: 90px; color: rgb(226, 7, 7); -unity-font-definition: url(&quot;project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&quot;);" />
             <engine:Label text="You have been terminated from your role as Chief of Funding.&#10;&#10;Subsidopolis is now in a worse place, because of YOU!" name="message" style="max-width: none; flex-grow: 1; -unity-text-align: upper-center; width: 95%; color: rgb(255, 255, 255); font-size: 40px; -unity-font-definition: url(&quot;project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&quot;); flex-wrap: nowrap; white-space: normal;" />
-            <engine:Button text="Play Again" name="play-again" style="width: 256px; height: 64px; -unity-font-definition: url(&quot;project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&quot;); font-size: 50px; background-color: rgb(67, 63, 63); color: rgb(255, 255, 255); margin-top: 2%; margin-bottom: 2%;" />
+            <engine:Button text="Play Again" name="play-again" style="width: 256px; height: 64px; -unity-font-definition: url(&quot;project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&quot;); font-size: 50px; background-color: rgb(67, 63, 63); color: rgb(255, 255, 255); margin-top: 4px; margin-bottom: 4px; margin-right: 4px; margin-left: 4px;" />
+            <engine:Button text="Quit" name="quit" style="width: 256px; height: 64px; margin-top: 4px; margin-bottom: 4px; margin-right: 4px; margin-left: 4px; font-size: 50px; -unity-font-definition: url(&quot;project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&quot;); color: rgb(255, 255, 255); background-color: rgb(67, 63, 63);" />
         </engine:VisualElement>
         <engine:ScrollView name="newsreel" style="height: 100%; background-color: rgba(0, 0, 0, 0.4); width: 20%; flex-direction: column-reverse; align-items: stretch; justify-content: center;">
             <engine:VisualElement name="Holder" style="flex-grow: 1; flex-direction: column-reverse; height: 100%;" />
         </engine:ScrollView>
+        <engine:VisualElement name="quit-popup" class="center" style="flex-grow: 1; background-color: rgb(0, 0, 0); width: 50%; height: 50%; justify-content: center; top: 50%; left: 50%; align-items: center;">
+            <engine:Label text="Are You sure you want to quit?" name="Description" style="background-color: rgba(255, 255, 255, 0); -unity-font-definition: url(&quot;project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&quot;); font-size: 32px; -unity-text-align: upper-center; white-space: normal; color: rgb(255, 255, 255);" />
+            <engine:Button text="Quit" name="quit-for-reals" class="quit-buttons" />
+            <engine:Button text="Cancel&#10;" name="cancel" class="quit-buttons" />
+        </engine:VisualElement>
     </engine:VisualElement>
     <engine:Label text="Paused" name="pause-label" enabled="false" class="pause-label" style="-unity-text-align: middle-center; font-size: 256px; top: 90px; left: 479px; color: rgb(255, 255, 255); opacity: 0.9;" />
 </engine:UXML>
