@@ -211,10 +211,29 @@ public class GameLoop : MonoBehaviour
         //Debug.Log($"EnergyFinding: {energyFunding}, waterFunding: {waterFunding}, foodFunding: {foodFunding}");
         months++;
         TickNoLose();
+
+
+        UpdatePopulation();
+        // calculate demand for each resource
+
+        // update revenue and debt
+        UpdateFinances();
+        // if there isn't enough water or food, people die off and/or emmigrate
+
+
+        // if there isn't enough energy, people emmigrate
+
+
+        // update approval
+        CalcApproval();
+
+        // higher approval rate and surpluses of resources increases immigration
+
+        //Debug.Log("Month " + months + ": births = " + births + ", deaths = " + deaths);
         Debug.Log($"Month: {months}, approval: {approval}; population: {population}");
 
         // losing condition: approval falls below 20% or population is less than 2000
-        if (approval < 0.15f || population < STARTING_POPULATION * 0.2f)
+        if ((approval < 0.2f || population < STARTING_POPULATION * 0.2f) && months > 5)
         {
             EndGame();
         }
@@ -232,23 +251,6 @@ public class GameLoop : MonoBehaviour
 
         UpdateProduction();
 
-        // calculate demand for each resource
-
-        // update revenue and debt
-        UpdateFinances();
-        // if there isn't enough water or food, people die off and/or emmigrate
-
-
-        // if there isn't enough energy, people emmigrate
-
-
-        // update approval
-        CalcApproval();
-
-        // higher approval rate and surpluses of resources increases immigration
-
-        UpdatePopulation();
-        //Debug.Log("Month " + months + ": births = " + births + ", deaths = " + deaths);
 
 
         // update UI
@@ -288,15 +290,17 @@ public class GameLoop : MonoBehaviour
     }
     private void UpdateFinances()
     {
-        float taxRevenue = population * citizenIncome * taxRate;
+        string financialReport = $"===FINANCIAL REPORT===\n";
 
+        float taxRevenue = population * citizenIncome * taxRate;
+        financialReport += $"Taxes collected: ${taxRevenue}M;\n";
         //Debug.Log("Taxes collected: " + taxRevenue);
         treasury += taxRevenue;
 
 
-
-        totalDebt += totalDebt * debtInterestRate;
-
+        float debtIncrease = totalDebt * debtInterestRate;
+        totalDebt += debtIncrease;
+        financialReport += $"Debt incrased by ${debtIncrease}M this month;\n";
 
         // update funding
         eh.funding = energyFunding;
@@ -307,6 +311,7 @@ public class GameLoop : MonoBehaviour
         SpendFromTreasury(waterFunding);
         SpendFromTreasury(foodFunding);
 
+        financialReport += $"Total spent on funding: ${energyFunding + waterFunding + foodFunding}M;\n";
         // pay off debt
         if (debtFunding > totalDebt)
         {
@@ -319,6 +324,9 @@ public class GameLoop : MonoBehaviour
             totalDebt -= debtFunding;
             SpendFromTreasury(debtFunding);
         }
+
+        financialReport += "===END REPORT===";
+        ui.AddNewsEvent(financialReport);
     }
 
     // if treasury runs out, increase totalDebt by leftover 'amount'
@@ -345,16 +353,33 @@ public class GameLoop : MonoBehaviour
     }
     private void UpdatePopulation()
     {
+        string populationReport = "===POPULATION REPORT===\n";
         // change population based on births and deaths
         int births = (int)(population * BIRTHRATE * Random.Range(0.75f, 1.25f));
         int deaths = CalcDeaths();
+
+        populationReport += $"Births: {births};\nTotal deaths: {deaths};\n";
         population -= deaths;
         population += births;
 
         // calcuate how many people immigrate/emmigrate
         int immigrants = CalcNetImmigration();
+        if (immigrants >= 0)
+        {
+            populationReport += $"Net immigration: {immigrants};\n";
+        }
+        else
+        {
+            populationReport += $"Net emmigration: {Mathf.Abs(immigrants)};\n";
+        }
         population += immigrants;
-        Debug.Log($"[GameLoop] {immigrants} people immigrated");
+        if (population < 0)
+        {
+            population = 0;
+        }
+
+        populationReport += "===END REPORT===";
+        ui.AddNewsEvent(populationReport);
     }
     private int CalcNetImmigration()
     {
@@ -363,28 +388,79 @@ public class GameLoop : MonoBehaviour
 
     private int CalcDeaths()
     {
-        int deathCount = 0;
         // ...natural causes
-        deathCount += (int)(population * DEATHRATE * Random.Range(0.75f, 1.25f));
+        int deathCount = (int)(population * DEATHRATE * Random.Range(0.75f, 1.25f));
 
-        // ...based on starvation
-        if (foodDemand > foodProduction)
-        {
-            // calculate deficit
-        }
+        int foodDeaths = 0;
+        int thirstDeaths = 0;
+        int exposureDeaths = 0;
+        string deathReport = $"===Death Toll===\nNatural Causes: {deathCount};\n";
         // ...based on thirst
         if (waterDemand > waterProduction)
         {
-            // calculate deficit
+            // estimate how many people die from starvation
+            // units of food that are behind
+            float deficit = waterDemand - waterProduction;
+            // number of people affected
+            float affected = deficit / DEFAULT_WATER_MULTIPLIER;
+            thirstDeaths = (int)(affected * DEHYDRATION_CHANCE);
+            if (thirstDeaths > population)
+            {
+                thirstDeaths = population;
+            }
+
+            if (thirstDeaths > 0)
+            {
+                deathReport += $"Deaths from thirst: {thirstDeaths};\n";
+            }
         }
+        // ...based on starvation
+        if (foodDemand > foodProduction)
+        {
+            // estimate how many people die from starvation
+            // units of food that are behind
+            float deficit = foodDemand - foodProduction;
+            // number of people affected
+            float affected = deficit / DEFAULT_FOOD_MULTIPLIER;
+            foodDeaths += (int)(affected * STARVATION_CHANCE);
+            if (foodDeaths > population - thirstDeaths)
+            {
+                foodDeaths = population - thirstDeaths;
+            }
+
+            if (foodDeaths > 0)
+            {
+                deathReport += $"Deaths from hunger: {foodDeaths};\n";
+            }
+        }
+
         // ...based on exposure
         if (energyDemand > energyProduction)
         {
+            // estimate how many people die from starvation
+            // units of food that are behind
+            float deficit = energyDemand - energyProduction;
+            // number of people affected
+            float affected = deficit / DEFAULT_ENERGY_MULTIPLIER;
+            exposureDeaths += (int)(affected * EXPOSURE_CHANCE);
+            if (exposureDeaths > population - thirstDeaths - foodDeaths)
+            {
+                exposureDeaths = population - thirstDeaths - foodDeaths;
+            }
 
+            if (exposureDeaths > 0)
+            {
+                deathReport += $"Deaths from exposure: {exposureDeaths};\n";
+            }
         }
-        // ...crime
 
-        // ...random events
+        deathCount += foodDeaths + thirstDeaths + exposureDeaths;
+        if (deathCount > population)
+        {
+            deathCount = population;
+        }
+        deathReport += "===END REPORT===";
+        ui.AddNewsEvent(deathReport);
         return deathCount;
     }
 

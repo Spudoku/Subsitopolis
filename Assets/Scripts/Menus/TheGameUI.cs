@@ -97,6 +97,11 @@ public class TheGameUI : MonoBehaviour
     private VisualElement gameOver;
     private Button playAgain;
 
+    // news reel
+    private VisualElement newsReel;
+
+    [SerializeField] private Color newsItemColor;
+
     void Awake()
     {
         doc = GetComponent<UIDocument>();
@@ -169,6 +174,8 @@ public class TheGameUI : MonoBehaviour
         {
             b.UnregisterCallback<ClickEvent>(OnAllButtonClick);
         }
+
+
     }
 
     public void OnLose()
@@ -179,10 +186,17 @@ public class TheGameUI : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
-
-    public void AddNewsEvent(string news)
+    public void AddNewsEvent(string text)
     {
-
+        Label newItem = new()
+        {
+            text = text,
+        };
+        newItem.style.flexGrow = 1;
+        newItem.style.width = Length.Percent(95);
+        newItem.style.backgroundColor = newsItemColor;
+        newItem.AddToClassList("news-item");
+        newsReel.Add(newItem);
     }
 
     private void OnAllButtonClick(ClickEvent evt)
@@ -550,6 +564,17 @@ public class TheGameUI : MonoBehaviour
         UpdatePopulation();
         UpdateTreasury();
         UpdatePauseButton();
+
+        // force the news reel to work
+        var newsReels = doc.rootVisualElement.Q<ScrollView>("newsreel");
+        var contentContainer = newsReels.contentContainer;
+        contentContainer.style.flexGrow = 1;
+        contentContainer.style.justifyContent = Justify.FlexEnd;
+
+        newsReel = newsReels.Q<VisualElement>("Holder");
+
+        newsReel.style.flexGrow = 0;
+        newsReel.style.alignSelf = Align.Center;
     }
 
 
