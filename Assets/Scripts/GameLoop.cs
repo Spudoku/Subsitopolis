@@ -8,9 +8,9 @@ public class GameLoop : MonoBehaviour
     // CONSTANT VALUES
     const float DEFAULT_TICK_RATE = 0.25f;        // 1 tick per 4 seconds
     public const int STARTING_POPULATION = 100000;
-    const float STARTING_TREASURY = 100f;
+    const float STARTING_TREASURY = 20f;
 
-    const float STARTING_DEBT = 1f;
+    const float STARTING_DEBT = 10f;
 
     const float DEFAULT_TAX_RATE = 0.1f;              // percent of income that goes to taxes
     const float DEFAULT_CITZ_INCOME = 0.0042f;                 // how many millions of dollars a citizen earns per month ($4200)
@@ -22,7 +22,7 @@ public class GameLoop : MonoBehaviour
 
     const float DEFAULT_IMMIGRATION_RATE = 0.005f;          // population will grow by 0.5% per month due to immigration
 
-    const float DEFAULT_INTEREST_RATE = 0.0042f;            // ~5% interest annually
+    const float DEFAULT_INTEREST_RATE = 0.01f;            // ~5% interest annually
 
     const float BIRTHRATE = 0.01f;                        // increase in population based on births
     const float DEATHRATE = 0.009f;                         // decrease in population based on deaths

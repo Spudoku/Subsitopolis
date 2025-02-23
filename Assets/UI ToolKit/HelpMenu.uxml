@@ -23,6 +23,20 @@
                     <engine:VisualElement name="image" class="help-image" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Graphics/Textures/Icons/Approval_4.png?fileID=2800000&amp;guid=6aedf5f40ae4811488216648f0650f20&amp;type=3#Approval_4&quot;); width: 500px; height: 500px; max-width: 500px; max-height: 500px;" />
                 </engine:VisualElement>
             </engine:VisualElement>
+            <engine:VisualElement name="slide-3" class="center help-slide" style="flex-grow: 1; width: 95%; height: 95%; align-items: center;">
+                <engine:Label text="Over-funding" name="header" class="slide-heading" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                <engine:VisualElement name="content" class="slide-content" style="flex-grow: 1; align-items: center;">
+                    <engine:Label text="Take care not to over-fund anything.&#10;&#10;Funding resources increases demand for others, possibly leading to a shortage.&#10;&#10;" name="paragraph" class="help-paragraph" style="white-space: normal;" />
+                    <engine:VisualElement name="image" class="help-image" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Graphics/Textures/Icons/debt_icon.png?fileID=2800000&amp;guid=d51508d6bf4ba3e4abedaf0d118fb61f&amp;type=3#debt_icon&quot;); width: 500px; height: 500px; max-width: 500px; max-height: 500px;" />
+                </engine:VisualElement>
+            </engine:VisualElement>
+            <engine:VisualElement name="slide-4" class="center help-slide" style="flex-grow: 1; width: 95%; height: 95%; align-items: center;">
+                <engine:Label text="Good Luck!" name="header" class="slide-heading" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                <engine:VisualElement name="content" class="slide-content" style="flex-grow: 1; align-items: center;">
+                    <engine:Label text="Remember, It&apos;s your civic duty to serve the Subsidopolis public!" name="paragraph" class="help-paragraph" style="white-space: normal;" />
+                    <engine:VisualElement name="image" class="help-image" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Graphics/Textures/Icons/Approval_1.png?fileID=2800000&amp;guid=9c1347520ec8f7e4a8369a3084a11272&amp;type=3#Approval_1&quot;); width: 500px; height: 500px; max-width: 500px; max-height: 500px;" />
+                </engine:VisualElement>
+            </engine:VisualElement>
         </engine:VisualElement>
         <engine:Label text="Press &apos;esc&apos; to exit" style="width: 100%; -unity-text-align: middle-center; margin-top: 0; margin-bottom: 8px; color: rgb(255, 255, 255); font-size: 20px; -unity-font-definition: url(&quot;project://database/Assets/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&quot;);" />
         <engine:VisualElement name="button-holder" style="flex-grow: 1; width: 100%; height: 20%; flex-direction: row; justify-content: center; align-items: center;">

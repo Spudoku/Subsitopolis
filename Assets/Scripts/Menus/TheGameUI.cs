@@ -180,6 +180,11 @@ public class TheGameUI : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public void AddNewsEvent(string news)
+    {
+
+    }
+
     private void OnAllButtonClick(ClickEvent evt)
     {
         audioSource.Play();
